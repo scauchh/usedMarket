@@ -19,9 +19,12 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(interceptor).excludePathPatterns("/user/login", "/user/register", "/pics/**", "/removeImg");
     }
 
+    public static String path = System.getProperty("user.dir") + "/../pics/";
+
     // 映射static路径的请求到其他目录下
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/pics/**").addResourceLocations("file:D:/pics/");
+        // 获取运行时路径
+        registry.addResourceHandler("/pics/**").addResourceLocations("file:" + path);
     }
 }
