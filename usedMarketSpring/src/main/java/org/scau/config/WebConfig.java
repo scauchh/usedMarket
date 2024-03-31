@@ -19,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(interceptor).excludePathPatterns("/user/login", "/user/register", "/pics/**", "/removeImg");
     }
 
+    // 图片保存路径
     public static String path = System.getProperty("user.dir") + "/../pics/";
 
     // 映射static路径的请求到其他目录下

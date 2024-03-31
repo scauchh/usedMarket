@@ -83,7 +83,7 @@ public class ImageUtil {
     // 清除无用图片
     @PostMapping("/removeImg")
     public Result removeImg() {
-        File directory = new File("D:/pics/");
+        File directory = new File(WebConfig.path);
         String url = "http://localhost:8080/pics/";
 
         File[] files = directory.listFiles();
