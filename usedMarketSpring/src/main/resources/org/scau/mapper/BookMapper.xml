@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scau.mapper.BookMapper">
+    <select id="getPageBook" resultType="org.scau.pojo.Book">
+        select * from Book
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="getPageBookByID" resultType="org.scau.pojo.Book">
+        select * from Book
+        <where>
+            user_id = #{userID}
+        </where>
+        limit #{offset}, #{pageSize}
+    </select>
+</mapper>
