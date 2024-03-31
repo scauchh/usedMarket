@@ -49,7 +49,7 @@ const userDataRules = {
     { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
   ],
   phone: [
-  { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur' }
+    { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur' }
   ]
 }
 

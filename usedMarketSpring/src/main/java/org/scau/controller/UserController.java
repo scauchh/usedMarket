@@ -92,6 +92,27 @@ public class UserController {
     // 更新用户数据
     @RequestMapping("/updateUser")
     public Result updateUser(@RequestBody User user) {
+        String nickName = user.getNickName();
+        String email = user.getEmail();
+        String phone = user.getPhone();
+
+        if(nickName == null || nickName.isEmpty()){
+            return Result.error("昵称不能为空");
+        }
+        if(nickName.length() < 3 || nickName.length() > 16){
+            return Result.error("昵称的长度必须为2~16位");
+        }
+
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        if(email != null && !email.isEmpty() && !email.matches(emailRegex)){
+            return Result.error("请输入正确的邮箱");
+        }
+
+        String phoneRegex = "^1[3-9]\\d{9}$";
+        if(phone != null && !phone.isEmpty() && !phone.matches(phoneRegex)){
+            return Result.error("请输入正确的手机号码");
+        }
+
         try {
             userService.updateUser(user);
             return Result.success(user);
