@@ -88,7 +88,6 @@ public class BookController {
     @RequestMapping("/updateBook")
     public Result updateBookByID(Book b) {
         try {
-            System.out.println("b: " + b);
             bookService.updateBookByID(b);
             return Result.success();
         } catch (Exception e) {

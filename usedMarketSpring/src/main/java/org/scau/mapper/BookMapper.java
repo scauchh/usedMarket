@@ -19,7 +19,7 @@ public interface BookMapper {
 
     // 根据书籍ID更新书籍
     @Update("UPDATE book SET title = #{title}, picture = #{picture}, price = #{price}, " +
-            "notes = #{notes} WHERE book_id = #{bookID}")
+            "type = #{type}, notes = #{notes} WHERE book_id = #{bookID}")
     void updateBookByID(Book b);
 
     // 获取所有的书籍

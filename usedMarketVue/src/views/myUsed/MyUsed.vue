@@ -123,6 +123,7 @@ const editBook = (row) => {
   bookModel.value.title = row.title
   bookModel.value.picture = row.picture
   bookModel.value.price = row.price
+  bookModel.value.type = row.type
   bookModel.value.notes = row.notes
   visibleDrawer.value = true
 }

@@ -87,7 +87,7 @@ const showPreview = (picture) => {
     <template #header>
       <!-- 搜索表单 -->
       <el-form inline>
-        <el-form-item label="书籍名称：" class="head">
+        <el-form-item label="书籍名称：">
           <el-input v-model="searchData.title" placeholder="请输入书籍名称" />
         </el-form-item>
         <el-form-item label="书籍类型：">
@@ -162,11 +162,6 @@ const showPreview = (picture) => {
 .page-container {
   min-height: 100%;
   box-sizing: border-box;
-
-  .header {
-    display: flex;
-    align-items: center;
-  }
 }
 
 .button-container {
