@@ -4,6 +4,7 @@ import { Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import { getAllPageBookService } from '@/api/book.js'
 import { getUserInfoByIDService } from '@/api/user.js'
+import { getAllTypeService } from '@/api/type.js'
 import avatar from '@/assets/default.png'
 
 // 控制预览图是否显示
@@ -13,22 +14,16 @@ const visibleSeller = ref(false)
 // 控制预览图的图片
 const prePicture = ref("")
 
-// 上架状态
-const state = ref('')
-
-// 数据模型
+// 数据信息数据模型
 const bookData = ref([])
-const sellerData = ref({
-  userID: '',
-  userName: '',
-  nickName: '',
-  avatar: '',
-  gender: '',
-  email: '',
-  phone: ''
-})
+// 卖家信息数据模型
+const sellerData = ref({})
+// 书籍类型数据模型
+const bookType = ref([])
+// 搜索数据模型
 const searchData = ref({
-  title: ''
+  title: '',
+  type: ''
 })
 
 //分页条数据模型
@@ -41,6 +36,8 @@ const refresh = async () => {
   let result = await getAllPageBookService(pageNum.value, pageSize.value, searchData.value)
   total.value = result.data.total
   bookData.value = result.data.items
+  result = await getAllTypeService()
+  bookType.value = result.data
 }
 
 // 初始化页面
@@ -61,7 +58,8 @@ const chat = async (row) => {
 // 重置搜索条件
 const reset = () =>{
   searchData.value = {
-    title: ''
+    title: '',
+    type: ''
   }
 }
 
@@ -91,12 +89,11 @@ const showPreview = (picture) => {
       <el-form-item label="书籍名称：">
         <el-input v-model="searchData.title" placeholder="请输入书籍名称" />
       </el-form-item>
-      <!-- <el-form-item label="上架状态：">
-        <el-select placeholder="请选择" v-model="state">
-          <el-option label="已上架" value="已发布"></el-option>
-          <el-option label="未上架" value="未上架"></el-option>
+      <el-form-item label="书籍类型：">
+        <el-select placeholder="请选择书籍类型" v-model="searchData.type" style="width: 200px">
+          <el-option v-for="item in bookType" :key="item.typeID" :label="item.typeName" :value="item.typeName" />
         </el-select>
-      </el-form-item> -->
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" :icon="Search" @click="refresh">搜索</el-button>
         <el-button type="default" :icon="Refresh" @click="reset">重置</el-button>
@@ -113,6 +110,7 @@ const showPreview = (picture) => {
         </template>
       </el-table-column>
       <el-table-column label="价格" prop="price"> </el-table-column>
+      <el-table-column label="类型" prop="type"> </el-table-column>
       <el-table-column label="备注" prop="notes"></el-table-column>
       <el-table-column label="卖家信息" width="80">
         <template #default="{ row }">
@@ -129,7 +127,7 @@ const showPreview = (picture) => {
     <el-dialog v-model="visibleSeller" title="卖家信息" width="30%">
       <el-form :model="sellerData" label-width="100px" style="padding-right: 30px">
         <el-form-item label="昵称">
-          <td class="text">{{ sellerData.nickName }}</td>
+          <el-text size="large">{{ sellerData.nickName }}</el-text>
         </el-form-item>
         <el-form-item label="头像">
           <img v-if="sellerData.avatar" :src="sellerData.avatar" class="avatar"
@@ -137,13 +135,13 @@ const showPreview = (picture) => {
           <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)" />
         </el-form-item>
         <el-form-item label="性别">
-          <td class="text">{{ sellerData.gender }}</td>
+          <el-text size="large">{{ sellerData.gender }}</el-text>
         </el-form-item>
         <el-form-item label="邮箱">
-          <td class="text">{{ sellerData.email ? sellerData.email : '暂无' }}</td>
+          <el-text size="large">{{ sellerData.email ? sellerData.email : '暂无' }}</el-text>
         </el-form-item>
         <el-form-item label="手机">
-          <td class="text">{{ sellerData.phone ? sellerData.phone : '暂无' }}</td>
+          <el-text size="large">{{ sellerData.phone ? sellerData.phone : '暂无' }}</el-text>
         </el-form-item>
       </el-form>
     </el-dialog>

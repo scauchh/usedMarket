@@ -26,7 +26,7 @@ public interface BookService {
     Book getBookByImage(String image);
 
     // 分页获得所有的书籍
-    PageBean<Book> getPageBook(Integer pageNum, Integer pageSize, String title);
+    PageBean<Book> getPageBook(Integer pageNum, Integer pageSize, String title, String type);
 
     // 根据用户ID分页获得所有的书籍
     PageBean<Book> getPageBookByID(Integer pageNum, Integer pageSize);

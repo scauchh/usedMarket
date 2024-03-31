@@ -15,5 +15,6 @@ public class Book {
     private String title;    // 书籍标题
     private String picture;  // 书籍图片
     private Double price;    // 书籍价格
+    private String type;     // 书籍类型
     private String notes;    // 备注
 }

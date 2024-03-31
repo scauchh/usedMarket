@@ -26,6 +26,7 @@ public class BookController {
     @RequestMapping("/addBook")
     public Result addBook(Book b) {
         try {
+
             Map<String, Object> claim = ThreadLocalUtil.get();
             b.setUserID(Integer.valueOf(claim.get("id").toString()));
 
@@ -64,9 +65,11 @@ public class BookController {
 
     // 分页获得所有的书籍
     @RequestMapping("/getPageBook")
-    public Result getPageBook(String pageNum, String pageSize, String title) {
+    public Result getPageBook(String pageNum, String pageSize, String title, String type) {
+        System.out.println("title:"+title);
+        System.out.println("type:"+type);
         try {
-            PageBean<Book> pb = bookService.getPageBook(Integer.parseInt(pageNum), Integer.parseInt(pageSize), title);
+            PageBean<Book> pb = bookService.getPageBook(Integer.parseInt(pageNum), Integer.parseInt(pageSize), title, type);
             return Result.success(pb);
         } catch (Exception e) {
             logger.error(e.toString());

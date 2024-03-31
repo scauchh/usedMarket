@@ -9,8 +9,8 @@ import java.util.List;
 public interface BookMapper {
 
     // 添加新书籍
-    @Insert("INSERT INTO book (user_id, title, picture, price, notes) " +
-            "VALUES (#{userID}, #{title}, #{picture}, #{price}, #{notes})")
+    @Insert("INSERT INTO book (user_id, title, picture, price, type, notes) " +
+            "VALUES (#{userID}, #{title}, #{picture}, #{price}, #{type}, #{notes})")
     void addBook(Book b);
 
     // 根据ID删除书籍
@@ -27,7 +27,7 @@ public interface BookMapper {
     List<Book> getAllBook();
 
     // 获取所有书籍的总数
-    Integer getAllBookNum(String title);
+    Integer getAllBookNum(String title, String type);
 
     // 获取当前用户所有书籍的数量
     @Select("SELECT COUNT(*) FROM book WHERE user_id = #{userID}")
@@ -42,7 +42,7 @@ public interface BookMapper {
     Book getBookByImage(String image);
 
     // 分页获得所有的书籍
-    List<Book> getPageBook(Integer offset, Integer pageSize, String title);
+    List<Book> getPageBook(Integer offset, Integer pageSize, String title, String type);
 
     // 根据用户ID分页获得所有的书籍
     List<Book> getPageBookByID(Integer userID, Integer offset, Integer pageSize);

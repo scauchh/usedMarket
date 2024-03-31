@@ -8,6 +8,7 @@ import {
   updateBookService,
   getCurrentPageBookService
 } from '@/api/book.js'
+import { getAllTypeService } from '@/api/type.js'
 import { Plus } from '@element-plus/icons-vue'
 import { useTokenStore } from '@/store/token'
 
@@ -24,14 +25,9 @@ const prePicture = ref("")
 
 // 数据模型
 const bookData = ref([])
-const bookModel = ref({
-  bookID: '',
-  userID: '',
-  title: '',
-  picture: '',
-  price: '',
-  notes: ''
-})
+const bookModel = ref({})
+// 书籍类型数据模型
+const bookType = ref([])
 
 //分页条数据模型
 const pageNum = ref(1)
@@ -42,13 +38,16 @@ const pageSize = ref(3)
 const bookDataRules = ref({
   title: [
     { required: true, message: '请输入书籍标题', trigger: 'blur' },
-    { min: 5, max: 25, message: '书籍标题的长度必须为5~25位', trigger: 'blur' }
+    { min: 3, max: 25, message: '书籍标题的长度必须为3~25位', trigger: 'blur' }
   ],
   picture: [
     { required: true, message: '图片必须上传', trigger: 'blur' },
   ],
   price: [
     { required: true, message: '请输入书籍价格', trigger: 'blur' }
+  ],
+  type: [
+    { required: true, message: '请选择书籍类型', trigger: 'blur' }
   ],
   notes: [
     { min: 0, max: 100, message: '备注的长度不能超过100位', trigger: 'blur' }
@@ -60,6 +59,8 @@ const refresh = async () => {
   let result = await getCurrentPageBookService(pageNum.value, pageSize.value)
   total.value = result.data.total
   bookData.value = result.data.items
+  result = await getAllTypeService()
+  bookType.value = result.data
 }
 
 // 初始化页面
@@ -83,12 +84,7 @@ const onCurrentChange = (num) => {
 const openDrawer = () => {
   drawerTitle.value = "添加书籍"
   visibleDrawer.value = true
-  bookModel.value = ({
-    title: '',
-    picture: '',
-    price: '',
-    notes: ''
-  })
+  bookModel.value = ({})
 }
 
 // 更新书籍
@@ -173,6 +169,7 @@ const showPreview = (picture) => {
         </template>
       </el-table-column>
       <el-table-column label="价格" prop="price"> </el-table-column>
+      <el-table-column label="类型" prop="type"> </el-table-column>
       <el-table-column label="备注" prop="notes"></el-table-column>
       <el-table-column label="编辑书籍" width="100">
         <template #default="{ row }">
@@ -202,6 +199,11 @@ const showPreview = (picture) => {
         </el-form-item>
         <el-form-item label="价格" prop="price">
           <el-input-number v-model="bookModel.price" :precision="2" :step="1" :max="1000" :min="0"/>
+        </el-form-item>
+        <el-form-item label="类型" prop="type">
+          <el-select placeholder="请选择书籍类型" v-model="bookModel.type" style="width: 200px">
+            <el-option v-for="item in bookType" :key="item.typeID" :label="item.typeName" :value="item.typeName" />
+          </el-select>
         </el-form-item>
         <el-form-item label="备注" prop="notes">
           <el-input v-model="bookModel.notes" placeholder="请输入备注"></el-input>
