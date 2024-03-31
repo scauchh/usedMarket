@@ -113,6 +113,7 @@ const showPreview = (picture) => {
       </el-table-column>
       <el-table-column label="价格" prop="price"> </el-table-column>
       <el-table-column label="类型" prop="type"> </el-table-column>
+      <el-table-column label="更新时间" prop="datetime"> </el-table-column>
       <el-table-column label="备注" prop="notes"></el-table-column>
       <el-table-column label="卖家信息" width="80">
         <template #default="{ row }">
