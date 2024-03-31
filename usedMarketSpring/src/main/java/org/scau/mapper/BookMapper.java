@@ -27,8 +27,7 @@ public interface BookMapper {
     List<Book> getAllBook();
 
     // 获取所有书籍的总数
-    @Select("SELECT COUNT(*) FROM book;")
-    Integer getAllBookNum();
+    Integer getAllBookNum(String title);
 
     // 获取当前用户所有书籍的数量
     @Select("SELECT COUNT(*) FROM book WHERE user_id = #{userID}")
@@ -43,7 +42,7 @@ public interface BookMapper {
     Book getBookByImage(String image);
 
     // 分页获得所有的书籍
-    List<Book> getPageBook(Integer offset, Integer pageSize);
+    List<Book> getPageBook(Integer offset, Integer pageSize, String title);
 
     // 根据用户ID分页获得所有的书籍
     List<Book> getPageBookByID(Integer userID, Integer offset, Integer pageSize);

@@ -26,10 +26,13 @@ export const updateBookService = (bookModel) => {
 }
 
 // 分页获取所有书籍服务
-export const getAllPageBookService = (pageNum, pageSize) => {
+export const getAllPageBookService = (pageNum, pageSize, searchData) => {
     const params = new URLSearchParams();
     params.append("pageNum", pageNum)
     params.append("pageSize", pageSize)
+    for(let key in searchData) {
+        params.append(key, searchData[key])
+    }
     return instance.post('/book/getPageBook', params)
 }
 

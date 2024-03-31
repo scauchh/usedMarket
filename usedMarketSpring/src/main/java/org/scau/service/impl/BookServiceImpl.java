@@ -55,12 +55,12 @@ public class BookServiceImpl implements BookService {
 
     // 分页获得所有的书籍
     @Override
-    public PageBean<Book> getPageBook(Integer pageNum, Integer pageSize) {
+    public PageBean<Book> getPageBook(Integer pageNum, Integer pageSize, String title) {
         PageBean<Book> pb = new PageBean<>();
 
         // 查询分页结果
-        int total = bookMapper.getAllBookNum();
-        List<Book> books = bookMapper.getPageBook(pageSize*(pageNum-1), pageSize);
+        int total = bookMapper.getAllBookNum(title);
+        List<Book> books = bookMapper.getPageBook(pageSize*(pageNum-1), pageSize, title);
 
         // 返回分页查询结果
         pb.setTotal(total);

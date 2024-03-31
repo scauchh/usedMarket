@@ -1,5 +1,6 @@
 <script setup>
 import { Avatar } from '@element-plus/icons-vue'
+import { Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import { getAllPageBookService } from '@/api/book.js'
 import { getUserInfoByIDService } from '@/api/user.js'
@@ -11,7 +12,8 @@ const visibleImg = ref(false)
 const visibleSeller = ref(false)
 // 控制预览图的图片
 const prePicture = ref("")
-//用户搜索时选中的上架状态
+
+// 上架状态
 const state = ref('')
 
 // 数据模型
@@ -25,6 +27,9 @@ const sellerData = ref({
   email: '',
   phone: ''
 })
+const searchData = ref({
+  title: ''
+})
 
 //分页条数据模型
 const pageNum = ref(1)
@@ -33,7 +38,7 @@ const pageSize = ref(3)
 
 // 刷新数据
 const refresh = async () => {
-  let result = await getAllPageBookService(pageNum.value, pageSize.value)
+  let result = await getAllPageBookService(pageNum.value, pageSize.value, searchData.value)
   total.value = result.data.total
   bookData.value = result.data.items
 }
@@ -44,13 +49,20 @@ onMounted(async () => {
 })
 
 // 联系卖家
-const chat = async(row) => {
+const chat = async (row) => {
   visibleSeller.value = true
   let result = await getUserInfoByIDService(row.userID)
   sellerData.value = result.data
-  if(sellerData.value.gender === '0') sellerData.value.gender = '未知'
-  else if(sellerData.value.gender === '1') sellerData.value.gender = '男'
-  else if(sellerData.value.gender === '2') sellerData.value.gender = '女';
+  if (sellerData.value.gender === '0') sellerData.value.gender = '未知'
+  else if (sellerData.value.gender === '1') sellerData.value.gender = '男'
+  else if (sellerData.value.gender === '2') sellerData.value.gender = '女';
+}
+
+// 重置搜索条件
+const reset = () =>{
+  searchData.value = {
+    title: ''
+  }
 }
 
 //当每页条数发生了变化，调用此函数
@@ -76,15 +88,18 @@ const showPreview = (picture) => {
   <el-card class="page-container">
     <!-- 搜索表单 -->
     <el-form inline>
-      <el-form-item label="上架状态：">
+      <el-form-item label="书籍名称：">
+        <el-input v-model="searchData.title" placeholder="请输入书籍名称" />
+      </el-form-item>
+      <!-- <el-form-item label="上架状态：">
         <el-select placeholder="请选择" v-model="state">
           <el-option label="已上架" value="已发布"></el-option>
           <el-option label="未上架" value="未上架"></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
-        <el-button type="primary">搜索</el-button>
-        <el-button>重置</el-button>
+        <el-button type="primary" :icon="Search" @click="refresh">搜索</el-button>
+        <el-button type="default" :icon="Refresh" @click="reset">重置</el-button>
       </el-form-item>
     </el-form>
     <!-- 书籍列表 -->
@@ -114,26 +129,27 @@ const showPreview = (picture) => {
     <el-dialog v-model="visibleSeller" title="卖家信息" width="30%">
       <el-form :model="sellerData" label-width="100px" style="padding-right: 30px">
         <el-form-item label="昵称">
-          <td class="text">{{sellerData.nickName}}</td>
+          <td class="text">{{ sellerData.nickName }}</td>
         </el-form-item>
         <el-form-item label="头像">
-          <img v-if="sellerData.avatar" :src="sellerData.avatar" class="avatar" @click="showPreview(sellerData.avatar)"/>
-          <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)"/>
+          <img v-if="sellerData.avatar" :src="sellerData.avatar" class="avatar"
+            @click="showPreview(sellerData.avatar)" />
+          <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)" />
         </el-form-item>
         <el-form-item label="性别">
-          <td class="text">{{sellerData.gender}}</td>
+          <td class="text">{{ sellerData.gender }}</td>
         </el-form-item>
         <el-form-item label="邮箱">
-          <td class="text">{{sellerData.email?sellerData.email:'暂无'}}</td>
+          <td class="text">{{ sellerData.email ? sellerData.email : '暂无' }}</td>
         </el-form-item>
         <el-form-item label="手机">
-          <td class="text">{{sellerData.phone?sellerData.phone:'暂无'}}</td>
+          <td class="text">{{ sellerData.phone ? sellerData.phone : '暂无' }}</td>
         </el-form-item>
       </el-form>
     </el-dialog>
     <!-- 预览图 -->
     <el-dialog v-model="visibleImg" width="50%">
-      <img :src="prePicture" style="width: 100%; height: auto;" class="prePicture"/>
+      <img :src="prePicture" style="width: 100%; height: auto;" class="prePicture" />
     </el-dialog>
     <!-- 分页条 -->
     <el-pagination v-model:current-page="pageNum" v-model:page-size="pageSize" :page-sizes="[3, 5, 10, 15]"

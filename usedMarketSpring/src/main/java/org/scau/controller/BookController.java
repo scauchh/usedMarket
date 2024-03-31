@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -65,9 +64,9 @@ public class BookController {
 
     // 分页获得所有的书籍
     @RequestMapping("/getPageBook")
-    public Result getPageBook(String pageNum, String pageSize) {
+    public Result getPageBook(String pageNum, String pageSize, String title) {
         try {
-            PageBean<Book> pb = bookService.getPageBook(Integer.parseInt(pageNum), Integer.parseInt(pageSize));
+            PageBean<Book> pb = bookService.getPageBook(Integer.parseInt(pageNum), Integer.parseInt(pageSize), title);
             return Result.success(pb);
         } catch (Exception e) {
             logger.error(e.toString());
