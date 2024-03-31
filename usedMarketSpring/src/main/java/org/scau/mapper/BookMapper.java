@@ -9,8 +9,8 @@ import java.util.List;
 public interface BookMapper {
 
     // 添加新书籍
-    @Insert("INSERT INTO book (user_id, title, picture, price, type, notes) " +
-            "VALUES (#{userID}, #{title}, #{picture}, #{price}, #{type}, #{notes})")
+    @Insert("INSERT INTO book (user_id, title, picture, price, type, datetime, notes) " +
+            "VALUES (#{userID}, #{title}, #{picture}, #{price}, #{type}, #{datetime}, #{notes})")
     void addBook(Book b);
 
     // 根据ID删除书籍
@@ -19,7 +19,7 @@ public interface BookMapper {
 
     // 根据书籍ID更新书籍
     @Update("UPDATE book SET title = #{title}, picture = #{picture}, price = #{price}, " +
-            "type = #{type}, notes = #{notes} WHERE book_id = #{bookID}")
+            "type = #{type}, datetime = #{datetime}, notes = #{notes} WHERE book_id = #{bookID}")
     void updateBookByID(Book b);
 
     // 获取所有的书籍

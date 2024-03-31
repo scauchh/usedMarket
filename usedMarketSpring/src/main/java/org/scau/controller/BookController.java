@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
@@ -22,49 +23,60 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    // 添加书籍
-    @RequestMapping("/addBook")
-    public Result addBook(Book b) {
-        String title = b.getTitle();
-        String picture = b.getPicture();
-        Double price = b.getPrice();
-        String type = b.getType();
-        String notes = b.getNotes();
+    // 检验数据
+    private String verifyData(Book book){
+        String title = book.getTitle();
+        String picture = book.getPicture();
+        Double price = book.getPrice();
+        String type = book.getType();
+        String notes = book.getNotes();
 
         // 检验标题
         if (title == null || title.isEmpty()) {
-            return Result.error("标题不能为空");
+            return "标题不能为空";
         }
         if (title.length() < 3 || title.length() > 25) {
-            return Result.error("书籍标题的长度必须为3~25位");
+            return "书籍标题的长度必须为3~25位";
         }
 
         // 检验图片
         if (picture == null || picture.isEmpty()) {
-            return Result.error("图片不能为空");
+            return "图片不能为空";
         }
 
         // 检验价格
         if (price == null || price.isNaN()) {
-            return Result.error("价格不能为空");
+            return "价格不能为空";
         }
 
         // 检验类型
         if (type == null || type.isEmpty()) {
-            return Result.error("类型不能为空");
+            return "类型不能为空";
         }
 
         // 检验备注
-        if (notes == null) b.setNotes("");
+        if (notes == null) book.setNotes("");
         if (notes != null && notes.length() > 200) {
-            return Result.error("备注的长度不能超过100位");
+            return "备注的长度不能超过100位";
         }
+
+        // 获取当前时间
+        book.setDatetime(LocalDateTime.now());
+
+        return "success";
+    }
+
+    // 添加书籍
+    @RequestMapping("/addBook")
+    public Result addBook(Book book) {
+        String result = verifyData(book);
+        if(!result.equals("success")) return Result.error(result);
 
         try {
             Map<String, Object> claim = ThreadLocalUtil.get();
-            b.setUserID(Integer.valueOf(claim.get("id").toString()));
+            book.setUserID(Integer.valueOf(claim.get("id").toString()));
 
-            bookService.addBook(b);
+            bookService.addBook(book);
             return Result.success();
         } catch (Exception e) {
             logger.error(e.toString());
@@ -86,9 +98,12 @@ public class BookController {
 
     // 更新书籍
     @RequestMapping("/updateBook")
-    public Result updateBookByID(Book b) {
+    public Result updateBookByID(Book book) {
+        String result = verifyData(book);
+        if(!result.equals("success")) return Result.error(result);
+
         try {
-            bookService.updateBookByID(b);
+            bookService.updateBookByID(book);
             return Result.success();
         } catch (Exception e) {
             logger.error(e.toString());

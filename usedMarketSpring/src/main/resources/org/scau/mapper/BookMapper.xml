@@ -25,6 +25,7 @@
                 and type = #{type}
             </if>
         </where>
+        order by datetime desc
         limit #{offset}, #{pageSize}
     </select>
 
@@ -33,6 +34,7 @@
         <where>
             user_id = #{userID}
         </where>
+        order by datetime desc
         limit #{offset}, #{pageSize}
     </select>
 </mapper>
