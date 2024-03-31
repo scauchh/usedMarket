@@ -5,7 +5,8 @@ import LayoutVue from '@/views/Layout.vue'
 import UsedMarket from '@/views/usedMarket/UsedMarket.vue'
 import MyUsed from '@/views/myUsed/MyUsed.vue'
 import UserInfoVue from '@/views/user/UserInfo.vue'
-import UserResetPasswordVue from '@/views/user/UserResetPassword.vue'
+import UserPasswordVue from '@/views/user/UserPassword.vue'
+import CategoryVue from '@/views/manage/Category.vue'
 
 // 配置路由
 const routes = [
@@ -18,7 +19,8 @@ const routes = [
             { path: '/usedMarket', component: UsedMarket },
             { path: '/myUsed', component: MyUsed },
             { path: '/user/info', component: UserInfoVue },
-            { path: '/user/resetPassword', component: UserResetPasswordVue }
+            { path: '/user/password', component: UserPasswordVue },
+            { path: '/manage/category', component: CategoryVue }
         ]
     }
 ]

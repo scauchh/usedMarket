@@ -171,7 +171,7 @@ const showPreview = (picture) => {
       <el-table-column label="类型" prop="type"> </el-table-column>
       <el-table-column label="更新时间" prop="datetime"> </el-table-column>
       <el-table-column label="备注" prop="notes"></el-table-column>
-      <el-table-column label="编辑书籍" width="100">
+      <el-table-column label="" width="100">
         <template #default="{ row }">
           <el-button :icon="Edit" circle plain type="primary" @click="editBook(row)"></el-button>
           <el-button :icon="Delete" circle plain type="danger" @click="deleteBook(row)"></el-button>

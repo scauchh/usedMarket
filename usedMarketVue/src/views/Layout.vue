@@ -3,10 +3,12 @@ import {
   Management,
   UserFilled,
   GoodsFilled,
+  List,
   User,
-  EditPen,
+  Notebook,
   SwitchButton,
-  CaretBottom
+  CaretBottom,
+  Document
 } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import avatar from '@/assets/default.png'
@@ -79,11 +81,25 @@ const showPreview = (picture) => {
         </el-menu-item>
         <el-menu-item index="/myUsed">
           <el-icon>
-            <Management />
+            <List />
           </el-icon>
           <span>我的物品</span>
         </el-menu-item>
-        <el-sub-menu index="">
+        <el-sub-menu index="/manage">
+          <template #title>
+            <el-icon>
+              <Management />
+            </el-icon>
+            <span>管理中心</span>
+          </template>
+          <el-menu-item index="/manage/category">
+            <el-icon>
+              <Document />
+            </el-icon>
+            <span>类别管理</span>
+          </el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu index="/user">
           <template #title>
             <el-icon>
               <UserFilled />
@@ -96,11 +112,11 @@ const showPreview = (picture) => {
             </el-icon>
             <span>基本资料</span>
           </el-menu-item>
-          <el-menu-item index="/user/resetPassword">
+          <el-menu-item index="/user/password">
             <el-icon>
-              <EditPen />
+              <Notebook />
             </el-icon>
-            <span>重置密码</span>
+            <span>密码中心</span>
           </el-menu-item>
         </el-sub-menu>
       </el-menu>
@@ -120,7 +136,7 @@ const showPreview = (picture) => {
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="info" :icon="User">基本资料</el-dropdown-item>
-              <el-dropdown-item command="resetPassword" :icon="EditPen">重置密码</el-dropdown-item>
+              <el-dropdown-item command="resetPassword" :icon="Notebook">密码中心</el-dropdown-item>
               <el-dropdown-item command="logout" :icon="SwitchButton">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
