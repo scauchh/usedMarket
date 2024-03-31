@@ -1,5 +1,6 @@
 package org.scau.utils;
 
+import org.scau.config.WebConfig;
 import org.scau.pojo.Book;
 import org.scau.pojo.Result;
 import org.scau.pojo.User;
@@ -58,7 +59,8 @@ public class ImageUtil {
 
         // 设置文件路径
         String fileName = genFileName(Objects.requireNonNull(file.getOriginalFilename()));
-        String filePath = "D:/pics/";
+
+        String filePath = WebConfig.path;
         String realPath = "http://localhost:8080/pics/";
 
         File directory = new File(filePath);
