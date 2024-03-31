@@ -154,9 +154,7 @@ const showPreview = (picture) => {
     <template #header>
       <div class="header">
         <span>我的发布</span>
-        <div class="extra">
-          <el-button type="primary" @click="openDrawer">添加书籍</el-button>
-        </div>
+        <el-button type="primary" @click="openDrawer">添加书籍</el-button>
       </div>
     </template>
     <!-- 书籍列表 -->

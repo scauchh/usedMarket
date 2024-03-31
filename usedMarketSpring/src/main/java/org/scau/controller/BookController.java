@@ -25,8 +25,42 @@ public class BookController {
     // 添加书籍
     @RequestMapping("/addBook")
     public Result addBook(Book b) {
-        try {
+        String title = b.getTitle();
+        String picture = b.getPicture();
+        Double price = b.getPrice();
+        String type = b.getType();
+        String notes = b.getNotes();
 
+        // 检验标题
+        if (title == null || title.isEmpty()) {
+            return Result.error("标题不能为空");
+        }
+        if (title.length() < 3 || title.length() > 25) {
+            return Result.error("书籍标题的长度必须为3~25位");
+        }
+
+        // 检验图片
+        if (picture == null || picture.isEmpty()) {
+            return Result.error("图片不能为空");
+        }
+
+        // 检验价格
+        if (price == null || price.isNaN()) {
+            return Result.error("价格不能为空");
+        }
+
+        // 检验类型
+        if (type == null || type.isEmpty()) {
+            return Result.error("类型不能为空");
+        }
+
+        // 检验备注
+        if (notes == null) b.setNotes("");
+        if (notes != null && notes.length() > 200) {
+            return Result.error("备注的长度不能超过100位");
+        }
+
+        try {
             Map<String, Object> claim = ThreadLocalUtil.get();
             b.setUserID(Integer.valueOf(claim.get("id").toString()));
 
@@ -66,8 +100,8 @@ public class BookController {
     // 分页获得所有的书籍
     @RequestMapping("/getPageBook")
     public Result getPageBook(String pageNum, String pageSize, String title, String type) {
-        System.out.println("title:"+title);
-        System.out.println("type:"+type);
+        System.out.println("title:" + title);
+        System.out.println("type:" + type);
         try {
             PageBean<Book> pb = bookService.getPageBook(Integer.parseInt(pageNum), Integer.parseInt(pageSize), title, type);
             return Result.success(pb);

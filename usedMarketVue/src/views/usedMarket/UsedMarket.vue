@@ -56,7 +56,7 @@ const chat = async (row) => {
 }
 
 // 重置搜索条件
-const reset = () =>{
+const reset = () => {
   searchData.value = {
     title: '',
     type: ''
@@ -84,21 +84,23 @@ const showPreview = (picture) => {
 
 <template>
   <el-card class="page-container">
-    <!-- 搜索表单 -->
-    <el-form inline>
-      <el-form-item label="书籍名称：">
-        <el-input v-model="searchData.title" placeholder="请输入书籍名称" />
-      </el-form-item>
-      <el-form-item label="书籍类型：">
-        <el-select placeholder="请选择书籍类型" v-model="searchData.type" style="width: 200px">
-          <el-option v-for="item in bookType" :key="item.typeID" :label="item.typeName" :value="item.typeName" />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" :icon="Search" @click="refresh">搜索</el-button>
-        <el-button type="default" :icon="Refresh" @click="reset">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <template #header>
+      <!-- 搜索表单 -->
+      <el-form inline>
+        <el-form-item label="书籍名称：" class="head">
+          <el-input v-model="searchData.title" placeholder="请输入书籍名称" />
+        </el-form-item>
+        <el-form-item label="书籍类型：">
+          <el-select placeholder="请选择书籍类型" v-model="searchData.type" style="width: 200px">
+            <el-option v-for="item in bookType" :key="item.typeID" :label="item.typeName" :value="item.typeName" />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" :icon="Search" @click="refresh">搜索</el-button>
+          <el-button type="default" :icon="Refresh" @click="reset">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </template>
     <!-- 书籍列表 -->
     <el-table :data="bookData" style="width: 100%">
       <el-table-column v-if="false" prop="bookID"></el-table-column>
@@ -160,6 +162,11 @@ const showPreview = (picture) => {
 .page-container {
   min-height: 100%;
   box-sizing: border-box;
+
+  .header {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .button-container {
