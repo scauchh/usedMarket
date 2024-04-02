@@ -80,7 +80,6 @@ public class UserController {
     @RequestMapping("/getUserInfoByID")
     public Result getUserInfoByID(Integer userID) {
         try {
-            System.out.println("id: "+userID);
             User u = userService.searchUserByID(userID);
             return Result.success(u);
         } catch (Exception e) {

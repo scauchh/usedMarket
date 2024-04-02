@@ -1,6 +1,5 @@
 package org.scau.service;
 
-import org.apache.ibatis.annotations.Select;
 import org.scau.pojo.Type;
 
 import java.util.List;
@@ -11,6 +10,9 @@ public interface TypeService {
 
     // 删除书籍类型
     void deleteType(String typeName);
+
+    // 修改书籍类别
+    void updateType(Integer oldTypeID, Integer typeID, String typeName);
 
     // 获取所有书籍类型
     List<Type> getAllType();

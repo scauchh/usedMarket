@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/book")
@@ -25,6 +26,7 @@ public class BookController {
 
     // 检验数据
     private String verifyData(Book book){
+        System.out.println("book: " + book);
         String title = book.getTitle();
         String picture = book.getPicture();
         Double price = book.getPrice();
@@ -32,7 +34,7 @@ public class BookController {
         String notes = book.getNotes();
 
         // 检验标题
-        if (title == null || title.isEmpty()) {
+        if (Objects.equals(title, "null") || title.isEmpty()) {
             return "标题不能为空";
         }
         if (title.length() < 3 || title.length() > 25) {
@@ -40,7 +42,7 @@ public class BookController {
         }
 
         // 检验图片
-        if (picture == null || picture.isEmpty()) {
+        if (Objects.equals(picture, "null") || picture.isEmpty()) {
             return "图片不能为空";
         }
 
@@ -50,7 +52,7 @@ public class BookController {
         }
 
         // 检验类型
-        if (type == null || type.isEmpty()) {
+        if (Objects.equals(type, "null") || type.isEmpty()) {
             return "类型不能为空";
         }
 
@@ -114,8 +116,6 @@ public class BookController {
     // 分页获得所有的书籍
     @RequestMapping("/getPageBook")
     public Result getPageBook(String pageNum, String pageSize, String title, String type) {
-        System.out.println("title:" + title);
-        System.out.println("type:" + type);
         try {
             PageBean<Book> pb = bookService.getPageBook(Integer.parseInt(pageNum), Integer.parseInt(pageSize), title, type);
             return Result.success(pb);

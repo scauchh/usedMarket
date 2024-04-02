@@ -1,14 +1,19 @@
 <script setup>
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import { addTypeService, 
   deleteTypeService, 
+  changeTypeService,
   getAllTypeService 
 } from '@/api/type.js'
 
-// 控制分类弹出是否显示
+// 控制类别弹窗是否显示
 const dialogVisible = ref(false)
+// 控制弹窗标题
+const title = ref("添加书籍类别")
+
+
 
 // 书籍类别数据模型
 const bookType = ref([])
@@ -17,6 +22,12 @@ const typeModel = ref({
   typeID: '',
   typeName: ''
 })
+// 保存旧类别的信息
+const oldTypeModel = ref({
+  oldTypeID: '',
+  oldTypeName: ''
+})
+
 
 // 刷新数据
 const refresh = async () => {
@@ -31,6 +42,7 @@ onMounted(async () => {
 
 // 弹出添加类别弹窗
 const preAddType = () => {
+  title.value = "添加书籍类别"
   typeModel.value = {
     typeID: '',
     typeName: ''
@@ -38,23 +50,42 @@ const preAddType = () => {
   dialogVisible.value = true;
 }
 
-// 添加类别
+// 添加/修改类别
 const addType = async () => {
-  await addTypeService(typeModel.value)
-  ElMessage.success("添加成功")
+  if(title.value==="添加书籍类别"){
+    await addTypeService(typeModel.value)
+    ElMessage.success("添加成功")
+  }else if(title.value==="修改书籍类别") {
+    await changeTypeService(oldTypeModel.value, typeModel.value)
+    ElMessage.success("修改成功")
+  }
   dialogVisible.value = false;
   refresh()
 }
 
 // 删除类别
 const deleteType = async (row) => {
-  let result = await deleteTypeService(row.typeName)
-  if(result.code === 0) {
-    ElMessage.success("删除成功")
-  } else{
-    ElMessage.error(result.message?result.message:"服务异常")
-  }
-  refresh()
+  ElMessageBox.confirm("您确定要删除该类别吗?", "温馨提示", {
+      confirmButtonClass: "确定",
+      cancelButtonClass: "取消",
+      type: "warning"
+    }).then(async() => {
+      await deleteTypeService(row.typeName)
+      ElMessage.success("删除成功")
+      refresh()
+    })
+}
+
+// 修改类别
+const changeType = async (row) => {
+  title.value = "修改书籍类别"
+
+  oldTypeModel.value.oldTypeID = row.typeID
+  oldTypeModel.value.oldTypeName = row.typeName
+
+  typeModel.value.typeID = row.typeID
+  typeModel.value.typeName = row.typeName
+  dialogVisible.value = true;
 }
 </script>
 
@@ -71,7 +102,7 @@ const deleteType = async (row) => {
       <el-table-column label="类别名称" prop="typeName"></el-table-column>
       <el-table-column label="操作" width="100">
         <template #default="{ row }">
-          <el-button :icon="Edit" circle plain type="primary" ></el-button>
+          <el-button :icon="Edit" circle plain type="primary" @click="changeType(row)"></el-button>
           <el-button :icon="Delete" circle plain type="danger" @click="deleteType(row)"></el-button>
         </template>
       </el-table-column>
@@ -80,14 +111,13 @@ const deleteType = async (row) => {
       </template>
     </el-table>
   </el-card>
-  <!-- 添加书籍类别弹窗 -->
-  <el-dialog v-model="dialogVisible" title="添加书籍类别" width="30%">
+  <!-- 添加/修改书籍类别弹窗 -->
+  <el-dialog v-model="dialogVisible" :title="title" width="30%">
     <el-form :model="typeModel" :rules="rules" label-width="100px" style="padding-right: 30px">
       <br/>
       <br/>
       <el-form-item label="类别编号" prop="categoryName">
         <el-input-number v-model="typeModel.typeID" :precision="0" :step="1" :max="1000" :min="0"/>
-        <!-- <el-input v-model="typeModel.typeID" minlength="1" maxlength="10"></el-input> -->
       </el-form-item>
       <br/>
       <el-form-item label="类别名称" prop="categoryAlias">

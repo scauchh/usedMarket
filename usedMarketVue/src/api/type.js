@@ -16,6 +16,18 @@ export const deleteTypeService = (typeName) =>{
     return instance.post('/type/deleteType', params)
 }
 
+// 修改书籍类别服务
+export const changeTypeService = (oldTypeModel, typeModel) => {
+    const params = new URLSearchParams();
+    for (let key in oldTypeModel) {
+        params.append(key, oldTypeModel[key])
+    }
+    for (let key in typeModel) {
+        params.append(key, typeModel[key])
+    }
+    return instance.post('/type/changeType', params)
+}
+
 // 获取所有类别服务
 export const getAllTypeService = () => {
     return instance.post('/type/getAllType')

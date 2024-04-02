@@ -1,5 +1,6 @@
 package org.scau.service.impl;
 
+import org.apache.ibatis.annotations.Update;
 import org.scau.mapper.TypeMapper;
 import org.scau.pojo.Type;
 import org.scau.service.TypeService;
@@ -24,6 +25,12 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public void deleteType(String typeName) {
         typeMapper.deleteType(typeName);
+    }
+
+    // 修改书籍类别
+    @Override
+    public void updateType(Integer oldTypeID, Integer typeID, String typeName){
+        typeMapper.updateType(oldTypeID, typeID, typeName);
     }
 
     // 获取所有书籍类型

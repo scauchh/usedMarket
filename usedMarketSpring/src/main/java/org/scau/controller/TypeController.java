@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/type")
@@ -44,16 +45,31 @@ public class TypeController {
     // 删除书籍类型
     @RequestMapping("/deleteType")
     public Result deleteType(String typeName){
-        System.out.println("a: "+typeName);
-        Integer count = bookService.getBookNumByType(typeName);
-        if(count != 0) return Result.error("不能删除正在被使用的类别");
-
         try{
             typeService.deleteType(typeName);
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());
             return Result.error("删除书籍类型失败");
+        }
+    }
+
+    // 修改书籍类型
+    @RequestMapping("/changeType")
+    public Result changeType(Integer oldTypeID, String oldTypeName, Integer typeID, String typeName){
+        System.out.println(oldTypeID + " a "+ oldTypeName+ " b " +typeID + " c " + typeName);
+        Type t = typeService.getTypeByID(typeID);
+        if(t != null && !Objects.equals(t.getTypeID(), oldTypeID)) return Result.error("类别编号已存在");
+
+        t = typeService.getTypeByName(typeName);
+        if(t != null && !Objects.equals(t.getTypeName(), oldTypeName)) return Result.error("类别名称已存在");
+
+        try{
+            typeService.updateType(oldTypeID, typeID, typeName);
+            return Result.success();
+        }catch (Exception e){
+            logger.error(e.toString());
+            return Result.error("修改书籍类型失败");
         }
     }
 
