@@ -41,6 +41,10 @@ public interface BookMapper {
     @Select("SELECT * FROM book WHERE picture = #{image}")
     Book getBookByImage(String image);
 
+    // 根据类型查询书籍，用于判断类型是否可以删除
+    @Select("SELECT COUNT(*) FROM book WHERE type = #{typeName}")
+    Integer getBookNumByType(String typeName);
+
     // 分页获得所有的书籍
     List<Book> getPageBook(Integer offset, Integer pageSize, String title, String type);
 

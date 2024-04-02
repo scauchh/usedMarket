@@ -53,6 +53,12 @@ public class BookServiceImpl implements BookService {
         return bookMapper.getBookByImage(image);
     }
 
+    // 根据类型查询书籍，用于判断类型是否可以删除
+    @Override
+    public Integer getBookNumByType(String typeName) {
+        return bookMapper.getBookNumByType(typeName);
+    }
+
     // 分页获得所有的书籍
     @Override
     public PageBean<Book> getPageBook(Integer pageNum, Integer pageSize, String title, String type) {

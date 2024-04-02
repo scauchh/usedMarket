@@ -1,5 +1,6 @@
 package org.scau.service;
 
+import org.apache.ibatis.annotations.Select;
 import org.scau.pojo.Book;
 import org.scau.pojo.PageBean;
 
@@ -24,6 +25,9 @@ public interface BookService {
 
     // 根据图片查询书籍，用于判断图片是否有效
     Book getBookByImage(String image);
+
+    // 根据类型查询书籍，用于判断类型是否可以删除
+    Integer getBookNumByType(String typeName);
 
     // 分页获得所有的书籍
     PageBean<Book> getPageBook(Integer pageNum, Integer pageSize, String title, String type);
