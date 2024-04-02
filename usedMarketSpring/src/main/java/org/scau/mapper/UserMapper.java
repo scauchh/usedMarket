@@ -3,17 +3,25 @@ package org.scau.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.scau.pojo.User;
+
+import java.time.LocalDateTime;
 
 @Mapper
 public interface UserMapper {
 
     // 添加新用户
-    @Insert("INSERT INTO user (user_name, nick_name, password) VALUES (#{userName}, #{userName}, #{password})")
-    void addUser(String userName, String password);
+    @Insert("INSERT INTO user (user_name, nick_name, password, register_time, login_time) " +
+            "VALUES (#{userName}, #{userName}, #{password}, #{registerTime}, #{registerTime})")
+    void addUser(String userName, String password, LocalDateTime registerTime);
 
     // 更新用户信息
     void updateUser(User u);
+
+    // 更新用户登录时间
+    @Update("UPDATE user SET login_time = #{loginTime} WHERE user_id = #{userID}")
+    void updateLoginTime(Integer userID, LocalDateTime loginTime);
 
     // 根据ID查找用户
     @Select("SELECT * FROM user WHERE user_id = #{userID}")

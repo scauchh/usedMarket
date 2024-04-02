@@ -1,6 +1,5 @@
 package org.scau.service;
 
-import org.apache.ibatis.annotations.Select;
 import org.scau.pojo.Book;
 import org.scau.pojo.PageBean;
 

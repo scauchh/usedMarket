@@ -12,8 +12,8 @@ import { getAllTypeService } from '@/api/type.js'
 import { Plus } from '@element-plus/icons-vue'
 import { useTokenStore } from '@/store/token'
 
+// 使用token存储服务
 const tokenStore = useTokenStore()
-
 // 控制抽屉是否显示
 const visibleDrawer = ref(false)
 // 控制抽屉的标题

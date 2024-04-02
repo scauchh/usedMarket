@@ -7,6 +7,7 @@ import MyUsed from '@/views/myUsed/MyUsed.vue'
 import UserInfoVue from '@/views/user/UserInfo.vue'
 import UserPasswordVue from '@/views/user/UserPassword.vue'
 import CategoryVue from '@/views/manage/Category.vue'
+import UserManageVue from '@/views/manage/UserManage.vue'
 
 // 配置路由
 const routes = [
@@ -20,7 +21,8 @@ const routes = [
             { path: '/myUsed', component: MyUsed },
             { path: '/user/info', component: UserInfoVue },
             { path: '/user/password', component: UserPasswordVue },
-            { path: '/manage/category', component: CategoryVue }
+            { path: '/manage/category', component: CategoryVue },
+            { path: '/manage/UserManage', component: UserManageVue },
         ]
     }
 ]

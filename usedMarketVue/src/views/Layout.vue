@@ -8,7 +8,8 @@ import {
   Notebook,
   SwitchButton,
   CaretBottom,
-  Document
+  Document,
+  Tickets
 } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import avatar from '@/assets/default.png'
@@ -24,15 +25,18 @@ const userInfoStore = useUserInfoStore()
 const tokenStore = useTokenStore()
 // 控制预览图是否显示
 const visibleDialog = ref(false)
+// 判断是否是管理员
+const isManager = ref(true)
 
 // 用户数据模型
 const userData = ref({})
-
+// 预览图的url
 const prePicture = ref()
 
 // 刷新数据
 const refresh = ()=>{
   userData.value = userInfoStore.info
+  if(userInfoStore.info.roleID === 0) isManager.value = false;
 }
 
 // 初始化界面
@@ -85,7 +89,7 @@ const showPreview = (picture) => {
           </el-icon>
           <span>我的物品</span>
         </el-menu-item>
-        <el-sub-menu index="/manage">
+        <el-sub-menu v-if="isManager" index="/manage">
           <template #title>
             <el-icon>
               <Management />
@@ -97,6 +101,12 @@ const showPreview = (picture) => {
               <Document />
             </el-icon>
             <span>类别管理</span>
+          </el-menu-item>
+          <el-menu-item index="/manage/UserManage">
+            <el-icon>
+              <Tickets />
+            </el-icon>
+            <span>用户管理</span>
           </el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="/user">

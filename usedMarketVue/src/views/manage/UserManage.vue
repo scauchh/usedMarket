@@ -107,8 +107,7 @@ const changeType = async (row) => {
   <el-card v-if="isManager" class="page-container">
     <template #header>
       <div class="header">
-        <span>书籍类别</span>
-        <el-button type="primary" @click="preAddType">添加类别</el-button>
+        <span>用户列表</span>
       </div>
     </template>
     <el-table :data="bookType" style="width: 100%">

@@ -2,13 +2,18 @@ package org.scau.service;
 
 import org.scau.pojo.User;
 
+import java.time.LocalDateTime;
+
 public interface UserService {
 
     // 添加新用户
-    void addUser(String userName, String password);
+    void addUser(String userName, String password, LocalDateTime registerTime);
 
     // 更新用户数据
     void updateUser(User u);
+
+    // 更新用户登录时间
+    void updateLoginTime(Integer userID, LocalDateTime loginTime);
 
     // 通过ID查找用户
     User searchUserByID(Integer userID);

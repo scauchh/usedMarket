@@ -6,6 +6,8 @@ import org.scau.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -14,14 +16,20 @@ public class UserServiceImpl implements UserService {
 
     // 添加新用户
     @Override
-    public void addUser(String userName, String password) {
-        userMapper.addUser(userName, password);
+    public void addUser(String userName, String password, LocalDateTime registerTime) {
+        userMapper.addUser(userName, password, registerTime);
     }
 
     // 更新用户信息
     @Override
     public void updateUser(User u) {
         userMapper.updateUser(u);
+    }
+
+    // 更新用户登录时间
+    @Override
+    public void updateLoginTime(Integer userID, LocalDateTime loginTime) {
+        userMapper.updateLoginTime(userID, loginTime);
     }
 
     // 根据ID查找用户

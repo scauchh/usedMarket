@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +34,9 @@ public class UserController {
             return Result.error("密码错误");
         }
 
+        // 更新用户登录时间
+        userService.updateLoginTime(u.getUserID(), LocalDateTime.now());
+
         Map<String, Object> claim = new HashMap<>();
         claim.put("id", u.getUserID());
         claim.put("userName", u.getUserName());
@@ -52,7 +56,8 @@ public class UserController {
                 return Result.error("请输入合法的密码");
             if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
             try {
-                userService.addUser(userName, password);
+                LocalDateTime registerTime = LocalDateTime.now();
+                userService.addUser(userName, password, registerTime);
                 return Result.success();
             } catch (Exception e) {
                 logger.error(e.toString());

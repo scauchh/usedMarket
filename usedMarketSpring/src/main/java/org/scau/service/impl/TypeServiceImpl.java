@@ -1,6 +1,5 @@
 package org.scau.service.impl;
 
-import org.apache.ibatis.annotations.Update;
 import org.scau.mapper.TypeMapper;
 import org.scau.pojo.Type;
 import org.scau.service.TypeService;
