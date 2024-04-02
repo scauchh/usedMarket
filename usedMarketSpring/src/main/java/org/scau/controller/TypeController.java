@@ -1,6 +1,5 @@
 package org.scau.controller;
 
-import org.scau.pojo.Book;
 import org.scau.pojo.Result;
 import org.scau.pojo.Type;
 import org.scau.service.BookService;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 

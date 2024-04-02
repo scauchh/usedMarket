@@ -4,9 +4,11 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.scau.pojo.PageBean;
 import org.scau.pojo.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -34,6 +36,14 @@ public interface UserMapper {
     // 获取当前用户信息
     @Select("SELECT * FROM user WHERE user_id = #{userID}")
     User getCurrentUser(Integer userID);
+
+    // 获取用户总数量
+    @Select("SELECT COUNT(*) FROM user")
+    Integer getUserNum();
+
+    // 分页获取所有用户信息
+    @Select("SELECT * FROM user limit #{offset}, #{pageSize}")
+    List<User> getAllUserInfo(Integer offset, Integer pageSize);
 
     // 根据图片查询用户，用于判断图片是否有效
     @Select("SELECT * FROM user WHERE avatar = #{image}")

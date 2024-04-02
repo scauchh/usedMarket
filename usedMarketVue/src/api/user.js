@@ -2,7 +2,7 @@ import instance from '@/utils/request.js'
 
 // 用户注册服务
 export const userRegisterService = (userData) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams()
     for (let key in userData) {
         params.append(key, userData[key])
     }
@@ -11,7 +11,7 @@ export const userRegisterService = (userData) => {
 
 // 用户登录服务
 export const userLoginService = (userData) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams()
     for (let key in userData) {
         params.append(key, userData[key])
     }
@@ -28,9 +28,17 @@ export const getUserInfoService = () => {
     return instance.post('/user/getUserInfo')
 }
 
+// 获取所有用户信息
+export const getAllUserInfoService = (pageNum, pageSize) => {
+    const params = new URLSearchParams()
+    params.append("pageNum", pageNum)
+    params.append("pageSize", pageSize)
+    return instance.post('/user/getAllUserInfo', params)
+}
+
 // 根据用户名获取用户信息服务
 export const getUserInfoByIDService = (userID) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams()
     params.append("userID", userID)
     return instance.post('/user/getUserInfoByID', params)
 }

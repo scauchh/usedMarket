@@ -1,12 +1,17 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.UserMapper;
+import org.scau.pojo.Book;
+import org.scau.pojo.PageBean;
 import org.scau.pojo.User;
 import org.scau.service.UserService;
+import org.scau.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,6 +53,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser(Integer userID) {
         return userMapper.getCurrentUser(userID);
+    }
+
+    // 获取所有用户信息
+    @Override
+    public PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize) {
+        PageBean<User> pb = new PageBean<>();
+
+        // 查询分页结果
+        int total = userMapper.getUserNum();
+        List<User> users = userMapper.getAllUserInfo(pageSize*(pageNum-1), pageSize);
+
+        // 返回分页查询结果
+        pb.setTotal(total);
+        pb.setItems(users);
+        return pb;
     }
 
     // 根据图片查询用户，用于判断图片是否有效

@@ -1,5 +1,6 @@
 package org.scau.controller;
 
+import org.scau.pojo.PageBean;
 import org.scau.pojo.Result;
 import org.scau.pojo.User;
 import org.scau.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -90,6 +92,18 @@ public class UserController {
         } catch (Exception e) {
             logger.error(e.toString());
             return Result.error("获取用户信息失败");
+        }
+    }
+
+    // 获取所有用户信息
+    @RequestMapping("/getAllUserInfo")
+    public Result getAllUserInfo(Integer pageNum, Integer pageSize) {
+        try{
+            PageBean<User> users = userService.getAllUserInfo(pageNum, pageSize);
+            return Result.success(users);
+        }catch (Exception e){
+            logger.error(e.toString());
+            return Result.error("获取所有用户信息失败");
         }
     }
 
