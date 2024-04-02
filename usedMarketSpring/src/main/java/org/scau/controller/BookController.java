@@ -26,7 +26,6 @@ public class BookController {
 
     // 检验数据
     private String verifyData(Book book){
-        System.out.println("book: " + book);
         String title = book.getTitle();
         String picture = book.getPicture();
         Double price = book.getPrice();
@@ -34,7 +33,7 @@ public class BookController {
         String notes = book.getNotes();
 
         // 检验标题
-        if (Objects.equals(title, "null") || title.isEmpty()) {
+        if (title == null || title.isEmpty()) {
             return "标题不能为空";
         }
         if (title.length() < 3 || title.length() > 25) {
@@ -42,17 +41,17 @@ public class BookController {
         }
 
         // 检验图片
-        if (Objects.equals(picture, "null") || picture.isEmpty()) {
+        if (picture == null || picture.isEmpty()) {
             return "图片不能为空";
         }
 
         // 检验价格
-        if (price == null || price.isNaN()) {
+        if (price == null) {
             return "价格不能为空";
         }
 
         // 检验类型
-        if (Objects.equals(type, "null") || type.isEmpty()) {
+        if (type == null || type.isEmpty()) {
             return "类型不能为空";
         }
 

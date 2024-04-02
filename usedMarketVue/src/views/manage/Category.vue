@@ -13,8 +13,6 @@ const dialogVisible = ref(false)
 // 控制弹窗标题
 const title = ref("添加书籍类别")
 
-
-
 // 书籍类别数据模型
 const bookType = ref([])
 // 添加类别数据模型
@@ -28,6 +26,16 @@ const oldTypeModel = ref({
   oldTypeName: ''
 })
 
+// 类别数据验证
+const typeModelRules = ref({
+  typeID: [
+    { required: true, message: '请输入类别编号', trigger: 'blur' }
+  ],
+  typeName: [
+    { required: true, message: '请输入类别名称', trigger: 'blur' },
+    { min: 1, max: 10, message: '类别名称的长度不能超过10位', trigger: 'blur' }
+  ]
+})
 
 // 刷新数据
 const refresh = async () => {
@@ -113,14 +121,14 @@ const changeType = async (row) => {
   </el-card>
   <!-- 添加/修改书籍类别弹窗 -->
   <el-dialog v-model="dialogVisible" :title="title" width="30%">
-    <el-form :model="typeModel" :rules="rules" label-width="100px" style="padding-right: 30px">
+    <el-form :model="typeModel" :rules="typeModelRules" label-width="100px" style="padding-right: 30px">
       <br/>
       <br/>
-      <el-form-item label="类别编号" prop="categoryName">
+      <el-form-item label="类别编号" prop="typeID">
         <el-input-number v-model="typeModel.typeID" :precision="0" :step="1" :max="1000" :min="0"/>
       </el-form-item>
       <br/>
-      <el-form-item label="类别名称" prop="categoryAlias">
+      <el-form-item label="类别名称" prop="typeName">
         <el-input v-model="typeModel.typeName" minlength="1" maxlength="15"></el-input>
       </el-form-item>
     </el-form>

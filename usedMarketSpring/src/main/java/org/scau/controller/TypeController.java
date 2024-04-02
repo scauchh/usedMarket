@@ -1,5 +1,6 @@
 package org.scau.controller;
 
+import org.scau.pojo.Book;
 import org.scau.pojo.Result;
 import org.scau.pojo.Type;
 import org.scau.service.BookService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,9 +26,29 @@ public class TypeController {
     @Autowired
     BookService bookService;
 
+    // 检验数据
+    private String verifyData(Integer typeID, String typeName){
+        // 检验类别编号
+        if(typeID == null){
+            return "类别编号不能为空";
+        }
+
+        // 检验类别名称
+        if (Objects.equals(typeName, "null") || typeName.isEmpty()) {
+            return "类别名称不能为空";
+        } else if(typeName.length()>10){
+            return "类别名称的长度不能超过10位";
+        }
+
+        return "success";
+    }
+
     // 添加书籍类型
     @RequestMapping("/addType")
     public Result addType(Integer typeID, String typeName){
+        String result = verifyData(typeID, typeName);
+        if(!result.equals("success")) return Result.error(result);
+
         Type t = typeService.getTypeByID(typeID);
         if(t != null) return Result.error("类别编号已存在");
 
@@ -57,7 +79,9 @@ public class TypeController {
     // 修改书籍类型
     @RequestMapping("/changeType")
     public Result changeType(Integer oldTypeID, String oldTypeName, Integer typeID, String typeName){
-        System.out.println(oldTypeID + " a "+ oldTypeName+ " b " +typeID + " c " + typeName);
+        String result = verifyData(typeID, typeName);
+        if(!result.equals("success")) return Result.error(result);
+
         Type t = typeService.getTypeByID(typeID);
         if(t != null && !Objects.equals(t.getTypeID(), oldTypeID)) return Result.error("类别编号已存在");
 
