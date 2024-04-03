@@ -4,12 +4,14 @@ import org.scau.pojo.PageBean;
 import org.scau.pojo.User;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface UserService {
 
     // 添加新用户
     void addUser(String userName, String password, LocalDateTime registerTime);
+
+    // 删除用户
+    void deleteUser(Integer userID);
 
     // 更新用户数据
     void updateUser(User u);

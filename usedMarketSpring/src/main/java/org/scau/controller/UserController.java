@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -67,6 +66,18 @@ public class UserController {
             }
         } else {
             return Result.error("用户名已存在");
+        }
+    }
+
+    // 删除用户
+    @RequestMapping("/deleteUser")
+    public Result deleteUser(Integer userID){
+        try {
+            userService.deleteUser(userID);
+            return Result.success();
+        }catch (Exception e){
+            logger.error(e.toString());
+            return Result.error("删除用户失败");
         }
     }
 

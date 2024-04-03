@@ -1,10 +1,6 @@
 package org.scau.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.scau.pojo.PageBean;
+import org.apache.ibatis.annotations.*;
 import org.scau.pojo.User;
 
 import java.time.LocalDateTime;
@@ -17,6 +13,10 @@ public interface UserMapper {
     @Insert("INSERT INTO user (user_name, nick_name, password, register_time, login_time) " +
             "VALUES (#{userName}, #{userName}, #{password}, #{registerTime}, #{registerTime})")
     void addUser(String userName, String password, LocalDateTime registerTime);
+
+    // 删除用户
+    @Delete("DELETE FROM user WHERE user_id = #{userID}")
+    void deleteUser(Integer userID);
 
     // 更新用户信息
     void updateUser(User u);

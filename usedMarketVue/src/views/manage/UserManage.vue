@@ -2,7 +2,7 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Edit, Delete, Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
-import { updateUserRoleService, getAllUserInfoService } from '@/api/user.js'
+import { deleteUserService, updateUserRoleService, getAllUserInfoService } from '@/api/user.js'
 import { useUserInfoStore } from '@/store/userinfo.js'
 import avatar from '@/assets/default.png'
 
@@ -54,6 +54,19 @@ const preChange = (row) => {
   changeModel.value.nickName = row.nickName
   changeModel.value.userRole = row.roleID==0?"普通用户":"管理员"
   dialogVisible.value = true
+}
+
+// 删除用户
+const deleteUser = (row) => {
+  ElMessageBox.confirm("您确定要删除该用户吗?用户的所有信息会被一并删除！", "温馨提示", {
+      confirmButtonClass: "确定",
+      cancelButtonClass: "取消",
+      type: "warning"
+    }).then(async() => {
+      await deleteUserService(row.userID)
+      ElMessage.success("删除成功")
+      refresh()
+    })
 }
 
 // 修改用户权限
@@ -141,7 +154,7 @@ const showPreview = (picture) => {
       <el-table-column label="操作" width="100">
         <template #default="{ row }">
           <el-button :icon="Edit" circle plain type="primary" @click="preChange(row)"></el-button>
-          <el-button :icon="Delete" circle plain type="danger" ></el-button>
+          <el-button :icon="Delete" circle plain type="danger" @click="deleteUser(row)"></el-button>
         </template>
       </el-table-column>
       <template #empty>

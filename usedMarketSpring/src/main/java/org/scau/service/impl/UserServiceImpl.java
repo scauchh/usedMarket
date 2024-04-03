@@ -25,6 +25,12 @@ public class UserServiceImpl implements UserService {
         userMapper.addUser(userName, password, registerTime);
     }
 
+    // 删除用户
+    @Override
+    public void deleteUser(Integer userID) {
+        userMapper.deleteUser(userID);
+    }
+
     // 更新用户信息
     @Override
     public void updateUser(User u) {

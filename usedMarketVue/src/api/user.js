@@ -18,6 +18,13 @@ export const userLoginService = (userData) => {
     return instance.post('/user/login', params)
 }
 
+// 删除用户服务
+export const deleteUserService = (userID) => {
+    const params = new URLSearchParams()
+    params.append("userID", userID)
+    return instance.post('/user/deleteUser', params)
+}
+
 // 更新用户信息服务
 export const updateUserInfoService = (userData) => {
     return instance.post('/user/updateUser', userData)

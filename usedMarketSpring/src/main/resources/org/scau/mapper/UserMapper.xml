@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.scau.mapper.UserMapper">
-    <select id="updateUser" resultType="org.scau.pojo.User">
+    <update id="updateUser">
         update user
         <set>
             nick_name = #{nickName},
@@ -21,8 +21,8 @@
             </if>
         </set>
         where
-            user_id = #{userID}
-    </select>
+        user_id = #{userID}
+    </update>
     <select id="getAllUserInfo" resultType="org.scau.pojo.User">
         select * from user
         <where>

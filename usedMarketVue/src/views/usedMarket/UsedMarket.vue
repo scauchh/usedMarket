@@ -1,10 +1,12 @@
 <script setup>
-import { Avatar } from '@element-plus/icons-vue'
-import { Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
+import { Avatar } from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Search, Refresh } from '@element-plus/icons-vue'
 import { getAllPageBookService } from '@/api/book.js'
 import { getUserInfoByIDService } from '@/api/user.js'
 import { getAllTypeService } from '@/api/type.js'
+import { addTradeService } from '@/api/trade.js'
 import avatar from '@/assets/default.png'
 
 // 控制预览图是否显示
@@ -45,14 +47,26 @@ onMounted(async () => {
   refresh()
 })
 
-// 联系卖家
-const chat = async (row) => {
+// 展示卖家信息
+const showSeller = async (row) => {
   visibleSeller.value = true
   let result = await getUserInfoByIDService(row.userID)
   sellerData.value = result.data
   if (sellerData.value.gender === '0') sellerData.value.gender = '未知'
   else if (sellerData.value.gender === '1') sellerData.value.gender = '男'
   else if (sellerData.value.gender === '2') sellerData.value.gender = '女';
+}
+
+// 发起交易
+const trade = async (row) => {
+  ElMessageBox.confirm("您确定要发起交易吗?", "交易提示", {
+      confirmButtonClass: "确定",
+      cancelButtonClass: "取消",
+      type: "info"
+    }).then(async() => {
+      await addTradeService(row.userID, row.bookID)
+      ElMessage.success("交易发起成功")
+    }) 
 }
 
 // 重置搜索条件
@@ -117,7 +131,8 @@ const showPreview = (picture) => {
       <el-table-column label="" width="80">
         <template #default="{ row }">
           <div class="button-container">
-            <el-button :icon="Avatar" circle plain type="primary" @click="chat(row)"></el-button>
+            <el-button :icon="Avatar" circle plain type="primary" @click="showSeller(row)"></el-button>
+            <el-button :icon="Avatar" circle plain type="primary" @click="trade(row)"></el-button>
           </div>
         </template>
       </el-table-column>
