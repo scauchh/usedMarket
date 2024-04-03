@@ -97,11 +97,11 @@ public class UserController {
 
     // 获取所有用户信息
     @RequestMapping("/getAllUserInfo")
-    public Result getAllUserInfo(Integer pageNum, Integer pageSize) {
-        try{
-            PageBean<User> users = userService.getAllUserInfo(pageNum, pageSize);
+    public Result getAllUserInfo(Integer pageNum, Integer pageSize, String userName, String userRole) {
+        try {
+            PageBean<User> users = userService.getAllUserInfo(pageNum, pageSize, userName, userRole);
             return Result.success(users);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.toString());
             return Result.error("获取所有用户信息失败");
         }
@@ -114,20 +114,20 @@ public class UserController {
         String email = user.getEmail();
         String phone = user.getPhone();
 
-        if(nickName == null || nickName.isEmpty()){
+        if (nickName == null || nickName.isEmpty()) {
             return Result.error("昵称不能为空");
         }
-        if(nickName.length() < 3 || nickName.length() > 16){
+        if (nickName.length() < 3 || nickName.length() > 16) {
             return Result.error("昵称的长度必须为2~16位");
         }
 
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        if(email != null && !email.isEmpty() && !email.matches(emailRegex)){
+        if (email != null && !email.isEmpty() && !email.matches(emailRegex)) {
             return Result.error("请输入正确的邮箱");
         }
 
         String phoneRegex = "^1[3-9]\\d{9}$";
-        if(phone != null && !phone.isEmpty() && !phone.matches(phoneRegex)){
+        if (phone != null && !phone.isEmpty() && !phone.matches(phoneRegex)) {
             return Result.error("请输入正确的手机号码");
         }
 
@@ -137,6 +137,18 @@ public class UserController {
         } catch (Exception e) {
             logger.error(e.toString());
             return Result.error("更新用户信息失败");
+        }
+    }
+
+    // 修改用户权限
+    @RequestMapping("/updateUserRole")
+    public Result updateUserRole(String userName, String userRole) {
+        try {
+            userService.updateRoleID(userName, Objects.equals(userRole, "管理员") ? 1 : 0);
+            return Result.success();
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return Result.error("修改用户权限失败");
         }
     }
 }

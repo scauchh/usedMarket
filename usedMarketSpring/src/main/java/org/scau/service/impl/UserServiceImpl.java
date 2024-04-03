@@ -37,6 +37,12 @@ public class UserServiceImpl implements UserService {
         userMapper.updateLoginTime(userID, loginTime);
     }
 
+    // 修改用户权限
+    @Override
+    public void updateRoleID(String userName, Integer roleID) {
+        userMapper.updateRoleID(userName, roleID);
+    }
+
     // 根据ID查找用户
     @Override
     public User searchUserByID(Integer userID) {
@@ -57,12 +63,15 @@ public class UserServiceImpl implements UserService {
 
     // 获取所有用户信息
     @Override
-    public PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize) {
+    public PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize, String userName, String userRole) {
         PageBean<User> pb = new PageBean<>();
 
+        Map<String, Object> claim = ThreadLocalUtil.get();
+        Integer userID = Integer.valueOf(claim.get("id").toString());
+
         // 查询分页结果
-        int total = userMapper.getUserNum();
-        List<User> users = userMapper.getAllUserInfo(pageSize*(pageNum-1), pageSize);
+        int total = userMapper.getUserNum(userID);
+        List<User> users = userMapper.getAllUserInfo(pageSize*(pageNum-1), pageSize, userID, userName, userRole);
 
         // 返回分页查询结果
         pb.setTotal(total);

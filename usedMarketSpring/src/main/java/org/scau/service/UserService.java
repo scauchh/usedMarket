@@ -17,6 +17,9 @@ public interface UserService {
     // 更新用户登录时间
     void updateLoginTime(Integer userID, LocalDateTime loginTime);
 
+    // 修改用户权限
+    void updateRoleID(String userName, Integer roleID);
+
     // 通过ID查找用户
     User searchUserByID(Integer userID);
 
@@ -27,7 +30,7 @@ public interface UserService {
     User getCurrentUser(Integer userID);
 
     // 获取所有用户信息
-    PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize);
+    PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize, String userName, String userRole);
 
     // 根据图片查询用户，用于判断图片是否有效
     User getUserByImage(String image);

@@ -23,16 +23,28 @@ export const updateUserInfoService = (userData) => {
     return instance.post('/user/updateUser', userData)
 }
 
+// 更新用户角色服务
+export const updateUserRoleService = (changeModel) => {
+    const params = new URLSearchParams()
+    for(let key in changeModel) {
+        params.append(key, changeModel[key])
+    }
+    return instance.post('/user/updateUserRole', params)
+}
+
 // 获取用户信息服务
 export const getUserInfoService = () => {
     return instance.post('/user/getUserInfo')
 }
 
 // 获取所有用户信息
-export const getAllUserInfoService = (pageNum, pageSize) => {
+export const getAllUserInfoService = (pageNum, pageSize, searchData) => {
     const params = new URLSearchParams()
     params.append("pageNum", pageNum)
     params.append("pageSize", pageSize)
+    for(let key in searchData) {
+        params.append(key, searchData[key])
+    }
     return instance.post('/user/getAllUserInfo', params)
 }
 

@@ -25,6 +25,10 @@ public interface UserMapper {
     @Update("UPDATE user SET login_time = #{loginTime} WHERE user_id = #{userID}")
     void updateLoginTime(Integer userID, LocalDateTime loginTime);
 
+    // 修改用户权限
+    @Update("UPDATE user SET role_id = #{roleID} WHERE user_name = #{userName}")
+    void updateRoleID(String userName, Integer roleID);
+
     // 根据ID查找用户
     @Select("SELECT * FROM user WHERE user_id = #{userID}")
     User selectUserByID(Integer userID);
@@ -37,13 +41,12 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE user_id = #{userID}")
     User getCurrentUser(Integer userID);
 
-    // 获取用户总数量
-    @Select("SELECT COUNT(*) FROM user")
-    Integer getUserNum();
+    // 获取用户总数量(除了当前用户)
+    @Select("SELECT COUNT(*) FROM user WHERE user_id != #{userID}")
+    Integer getUserNum(Integer userID);
 
-    // 分页获取所有用户信息
-    @Select("SELECT * FROM user limit #{offset}, #{pageSize}")
-    List<User> getAllUserInfo(Integer offset, Integer pageSize);
+    // 分页获取所有用户信息（除了当前用户）
+    List<User> getAllUserInfo(Integer offset, Integer pageSize,Integer userID, String userName, String userRole);
 
     // 根据图片查询用户，用于判断图片是否有效
     @Select("SELECT * FROM user WHERE avatar = #{image}")

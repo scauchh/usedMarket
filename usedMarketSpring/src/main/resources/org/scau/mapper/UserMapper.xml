@@ -23,4 +23,20 @@
         where
             user_id = #{userID}
     </select>
+    <select id="getAllUserInfo" resultType="org.scau.pojo.User">
+        select * from user
+        <where>
+                user_id != #{userID}
+            <if test="userName != null and userName != ''">
+                and user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="userRole == '普通用户'">
+                and role_id = 0
+            </if>
+            <if test="userRole == '管理员'">
+                and role_id = 1
+            </if>
+        </where>
+        limit #{offset}, #{pageSize}
+    </select>
 </mapper>

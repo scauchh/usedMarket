@@ -20,13 +20,13 @@ const bookData = ref([])
 const sellerData = ref({})
 // 书籍类型数据模型
 const bookType = ref([])
-// 搜索数据模型
+// 搜索书籍数据模型
 const searchData = ref({
   title: '',
   type: ''
 })
 
-//分页条数据模型
+// 分页条数据模型
 const pageNum = ref(1)
 const total = ref(10)
 const pageSize = ref(3)
@@ -63,13 +63,13 @@ const reset = () => {
   }
 }
 
-//当每页条数发生了变化，调用此函数
+// 当每页条数发生了变化，调用此函数
 const onSizeChange = (size) => {
   pageSize.value = size
   refresh()
 }
 
-//当前页码发生变化，调用此函数
+// 当前页码发生变化，调用此函数
 const onCurrentChange = (num) => {
   pageNum.value = num
   refresh()
@@ -93,6 +93,7 @@ const showPreview = (picture) => {
         <el-form-item label="书籍类型：">
           <el-select placeholder="请选择书籍类型" v-model="searchData.type" style="width: 200px">
             <el-option v-for="item in bookType" :key="item.typeID" :label="item.typeName" :value="item.typeName" />
+            <el-option label="所有类型" value="" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -103,8 +104,6 @@ const showPreview = (picture) => {
     </template>
     <!-- 书籍列表 -->
     <el-table :data="bookData" style="width: 100%">
-      <el-table-column v-if="false" prop="bookID"></el-table-column>
-      <el-table-column v-if="false" prop="userID"></el-table-column>
       <el-table-column label="书籍名称" prop="title"></el-table-column>
       <el-table-column label="书籍图片" prop="picture">
         <template #default="{ row }">

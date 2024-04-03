@@ -141,10 +141,8 @@ const changeType = async (row) => {
     </el-form>
     <br/>
     <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="addType"> 确认 </el-button>
-      </span>
+      <el-button @click="dialogVisible = false">取消</el-button>
+      <el-button type="primary" @click="addType"> 确认 </el-button>
     </template>
   </el-dialog>
 </template>
