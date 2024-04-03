@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scau.mapper.TradeMapper">
+    <update id="updateTrade">
+        update trade
+        <set>
+                state = #{state},
+            <if test="notes != null and notes != ''">
+                notes = #{notes}
+            </if>
+        </set>
+        where trade_id = #{tradeID}
+    </update>
+    <select id="getAllTrade" resultType="org.scau.pojo.Trade">
+        select * from trade
+        <where>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+        </where>
+        order by trade_id desc
+        limit #{offset}, #{pageSize}
+    </select>
+    <select id="getTradeFromMe" resultType="org.scau.pojo.Trade">
+        select * from trade
+        <where>
+                buyer_id = #{userID}
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+        </where>
+        order by trade_id desc
+        limit #{offset}, #{pageSize}
+    </select>
+    <select id="getTradeToMe" resultType="org.scau.pojo.Trade">
+        select * from trade
+        <where>
+            seller_id = #{userID}
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+        </where>
+        order by trade_id desc
+        limit #{offset}, #{pageSize}
+    </select>
+</mapper>

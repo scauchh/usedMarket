@@ -2,14 +2,18 @@
 import {
   Management,
   UserFilled,
-  GoodsFilled,
+  Shop,
   List,
   User,
   Notebook,
   SwitchButton,
   CaretBottom,
   Document,
-  Tickets
+  Tickets,
+  HomeFilled,
+  CoffeeCup,
+  HotWater,
+  Memo
 } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import avatar from '@/assets/default.png'
@@ -79,9 +83,9 @@ const showPreview = (picture) => {
       <el-menu active-text-color="#99ccff" background-color="#00354d" text-color="#fff" router>
         <el-menu-item index="/usedMarket">
           <el-icon>
-            <GoodsFilled />
+            <Shop />
           </el-icon>
-          <span>二手闲置</span>
+          <span>交易市场</span>
         </el-menu-item>
         <el-menu-item index="/myUsed">
           <el-icon>
@@ -89,6 +93,26 @@ const showPreview = (picture) => {
           </el-icon>
           <span>我的物品</span>
         </el-menu-item>
+        <el-sub-menu index="/trade">
+          <template #title>
+            <el-icon>
+              <HomeFilled />
+            </el-icon>
+            <span>交易信息</span>
+          </template>
+          <el-menu-item index="/trade/TradeFromMe">
+            <el-icon>
+              <CoffeeCup />
+            </el-icon>
+            <span>我的发起</span>
+          </el-menu-item>
+          <el-menu-item index="/trade/TradeToMe">
+            <el-icon>
+              <HotWater />
+            </el-icon>
+            <span>我的接收</span>
+          </el-menu-item>
+        </el-sub-menu>
         <el-sub-menu v-if="isManager" index="/manage">
           <template #title>
             <el-icon>
@@ -107,6 +131,12 @@ const showPreview = (picture) => {
               <Tickets />
             </el-icon>
             <span>用户管理</span>
+          </el-menu-item>
+          <el-menu-item index="/manage/Trade">
+            <el-icon>
+              <Memo />
+            </el-icon>
+            <span>历史交易</span>
           </el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="/user">

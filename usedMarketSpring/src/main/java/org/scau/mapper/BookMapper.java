@@ -22,6 +22,10 @@ public interface BookMapper {
             "type = #{type}, datetime = #{datetime}, notes = #{notes} WHERE book_id = #{bookID}")
     void updateBookByID(Book b);
 
+    // 根据ID查找书籍
+    @Select("SELECT * FROM book WHERE book_id = #{bookID}")
+    Book getBookByID(Integer bookID);
+
     // 获取所有的书籍
     @Select("SELECT * FROM book;")
     List<Book> getAllBook();

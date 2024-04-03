@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { Avatar } from '@element-plus/icons-vue'
+import { Avatar, Promotion } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Search, Refresh } from '@element-plus/icons-vue'
 import { getAllPageBookService } from '@/api/book.js'
@@ -61,8 +61,7 @@ const showSeller = async (row) => {
 const trade = async (row) => {
   ElMessageBox.confirm("您确定要发起交易吗?", "交易提示", {
       confirmButtonClass: "确定",
-      cancelButtonClass: "取消",
-      type: "info"
+      cancelButtonClass: "取消"
     }).then(async() => {
       await addTradeService(row.userID, row.bookID)
       ElMessage.success("交易发起成功")
@@ -128,11 +127,17 @@ const showPreview = (picture) => {
       <el-table-column label="类型" prop="type"> </el-table-column>
       <el-table-column label="更新时间" prop="datetime"> </el-table-column>
       <el-table-column label="备注" prop="notes"></el-table-column>
-      <el-table-column label="" width="80">
+      <el-table-column label="卖家信息" width="80">
         <template #default="{ row }">
           <div class="button-container">
             <el-button :icon="Avatar" circle plain type="primary" @click="showSeller(row)"></el-button>
-            <el-button :icon="Avatar" circle plain type="primary" @click="trade(row)"></el-button>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="发起交易" width="80">
+        <template #default="{ row }">
+          <div class="button-container">
+            <el-button :icon="Promotion" circle plain type="success" @click="trade(row)"></el-button>
           </div>
         </template>
       </el-table-column>
@@ -143,6 +148,12 @@ const showPreview = (picture) => {
     <!-- 卖家信息弹窗 -->
     <el-dialog v-model="visibleSeller" title="卖家信息" width="30%">
       <el-form :model="sellerData" label-width="100px" style="padding-right: 30px">
+        <el-form-item label="用户ID">
+          <el-text size="large">{{ sellerData.userID }}</el-text>
+        </el-form-item>
+        <el-form-item label="用户名">
+          <el-text size="large">{{ sellerData.userName }}</el-text>
+        </el-form-item>
         <el-form-item label="昵称">
           <el-text size="large">{{ sellerData.nickName }}</el-text>
         </el-form-item>

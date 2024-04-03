@@ -14,5 +14,6 @@ public class Trade {
     private Integer buyerID;    // 买家ID
     private Integer sellerID;   // 卖家ID
     private Integer bookID;     // 书籍ID
-    private String state;       // 交易状态
+    private Integer state;       // 交易状态
+    private String notes;       // 交易备注（交易失败时使用）
 }

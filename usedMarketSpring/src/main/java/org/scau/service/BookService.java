@@ -16,6 +16,9 @@ public interface BookService {
     // 根据书籍ID更新书籍
     void updateBookByID(Book b);
 
+    // 根据ID查找书籍
+    Book getBookByID(Integer bookID);
+
     // 获取所有的书籍
     List<Book> getAllBook();
 

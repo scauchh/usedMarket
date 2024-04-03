@@ -111,6 +111,18 @@ public class BookController {
         }
     }
 
+    // 根据ID查找书籍
+    @RequestMapping("/getBookByID")
+    public Result getBookByID(Integer bookID) {
+        try {
+            Book book = bookService.getBookByID(bookID);
+            return Result.success(book);
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return Result.error("获取失败");
+        }
+    }
+
     // 分页获得所有的书籍
     @RequestMapping("/getPageBook")
     public Result getPageBook(String pageNum, String pageSize, String title, String type) {

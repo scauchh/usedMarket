@@ -36,6 +36,12 @@ public class BookServiceImpl implements BookService {
         bookMapper.updateBookByID(b);
     }
 
+    // 根据ID查找书籍
+    @Override
+    public Book getBookByID(Integer bookID) {
+        return bookMapper.getBookByID(bookID);
+    }
+
     // 获取所有的书籍
     @Override
     public List<Book> getAllBook() {

@@ -25,6 +25,13 @@ export const updateBookService = (bookModel) => {
     return instance.post('/book/updateBook', params)
 }
 
+// 根据ID获取书籍服务
+export const getBookByIDService = (bookID) => {
+    const params = new URLSearchParams()
+    params.append("bookID", bookID)
+    return instance.post('/book/getBookByID', params)
+}
+
 // 分页获取所有书籍服务
 export const getAllPageBookService = (pageNum, pageSize, searchData) => {
     const params = new URLSearchParams()

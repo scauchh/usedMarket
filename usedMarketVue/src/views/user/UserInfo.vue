@@ -87,6 +87,9 @@ const updateUserInfo = async () => {
     <el-row>
       <el-col :span="12">
         <el-form :model="userData" :rules="userDataRules" label-width="100px" size="large">
+          <el-form-item label="用户ID" prop="userName">
+            <el-input v-model="userData.userID" disabled></el-input>
+          </el-form-item>
           <el-form-item label="用户名" prop="userName">
             <el-input v-model="userData.userName" disabled></el-input>
           </el-form-item>
