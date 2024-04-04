@@ -13,9 +13,30 @@
         </set>
         where trade_id = #{tradeID}
     </update>
+    <select id="getAllTradeNum" resultType="int">
+        select count(*) from trade
+        <where>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+        </where>
+        order by trade_id desc
+        limit #{offset}, #{pageSize}
+    </select>
     <select id="getAllTrade" resultType="org.scau.pojo.Trade">
         select * from trade
         <where>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+        </where>
+        order by trade_id desc
+        limit #{offset}, #{pageSize}
+    </select>
+    <select id="getTradeFromMeNum" resultType="int">
+        select count(*) from trade
+        <where>
+            buyer_id = #{userID}
             <if test="state != null and state != ''">
                 and state = #{state}
             </if>
@@ -27,6 +48,17 @@
         select * from trade
         <where>
                 buyer_id = #{userID}
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+        </where>
+        order by trade_id desc
+        limit #{offset}, #{pageSize}
+    </select>
+    <select id="getTradeToMeNum" resultType="int">
+        select count(*) from trade
+        <where>
+            seller_id = #{userID}
             <if test="state != null and state != ''">
                 and state = #{state}
             </if>

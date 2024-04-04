@@ -23,11 +23,20 @@ public interface TradeMapper {
             "AND seller_id = #{sellerID} AND book_id = #{bookID} AND (state = 0 OR state = 1)")
     Integer searchTradeByAll(Integer buyerID, Integer sellerID, Integer bookID);
 
+    // 获取所有交易的数量
+    Integer getAllTradeNum(Integer offset, Integer pageSize, Integer state);
+
     // 分页获取所有交易
     List<Trade> getAllTrade(Integer offset, Integer pageSize, Integer state);
 
+    // 获取发起的交易的数量
+    Integer getTradeFromMeNum(Integer offset, Integer pageSize, Integer userID, Integer state);
+
     // 分页获取发起的交易
     List<Trade> getTradeFromMe(Integer offset, Integer pageSize, Integer userID, Integer state);
+
+    // 获取收到的交易的数量
+    Integer getTradeToMeNum(Integer offset, Integer pageSize, Integer userID, Integer state);
 
     // 分页获取收到的交易
     List<Trade> getTradeToMe(Integer offset, Integer pageSize, Integer userID, Integer state);

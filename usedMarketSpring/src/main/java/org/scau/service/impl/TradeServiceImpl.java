@@ -41,8 +41,8 @@ public class TradeServiceImpl implements TradeService {
         PageBean<Trade> pb = new PageBean<>();
 
         // 查询分页结果
+        Integer total = tradeMapper.getAllTradeNum(pageSize*(pageNum-1), pageSize, state);
         List<Trade> trades = tradeMapper.getAllTrade(pageSize*(pageNum-1), pageSize, state);
-        Integer total = trades.size();
 
         // 返回分页查询结果
         pb.setTotal(total);
@@ -60,8 +60,8 @@ public class TradeServiceImpl implements TradeService {
         Integer userID = (Integer) map.get("id");
 
         // 查询分页结果
+        Integer total = tradeMapper.getTradeFromMeNum(pageSize*(pageNum-1), pageSize, userID, state);
         List<Trade> trades = tradeMapper.getTradeFromMe(pageSize*(pageNum-1), pageSize, userID, state);
-        Integer total = trades.size();
 
         // 返回分页查询结果
         pb.setTotal(total);
@@ -79,8 +79,8 @@ public class TradeServiceImpl implements TradeService {
         Integer userID = (Integer) map.get("id");
 
         // 查询分页结果
+        Integer total = tradeMapper.getTradeToMeNum(pageSize*(pageNum-1), pageSize, userID, state);
         List<Trade> trades = tradeMapper.getTradeToMe(pageSize*(pageNum-1), pageSize, userID, state);
-        Integer total = trades.size();
 
         // 返回分页查询结果
         pb.setTotal(total);
