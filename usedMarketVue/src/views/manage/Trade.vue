@@ -166,9 +166,6 @@ const showPreview = (picture) => {
     <!-- 买家/卖家信息弹窗 -->
     <el-dialog v-model="visibleUser" :title="title" width="30%">
       <el-form :model="userData" label-width="100px" style="padding-right: 30px">
-        <el-form-item label="用户ID">
-          <el-text size="large">{{ userData.userID }}</el-text>
-        </el-form-item>
         <el-form-item label="用户名">
           <el-text size="large">{{ userData.userName }}</el-text>
         </el-form-item>
