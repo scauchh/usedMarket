@@ -55,9 +55,16 @@ export const getAllUserInfoService = (pageNum, pageSize, searchData) => {
     return instance.post('/user/getAllUserInfo', params)
 }
 
-// 根据用户名获取用户信息服务
+// 根据用户ID获取用户信息服务
 export const getUserInfoByIDService = (userID) => {
     const params = new URLSearchParams()
     params.append("userID", userID)
     return instance.post('/user/getUserInfoByID', params)
+}
+
+// 根据用户名获取用户信息服务
+export const getUserInfoByNameService = (userName) => {
+    const params = new URLSearchParams()
+    params.append("userName", userName)
+    return instance.post('/user/getUserInfoByName', params)
 }

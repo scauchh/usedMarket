@@ -1,9 +1,9 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Avatar, Reading } from '@element-plus/icons-vue'
-import { Edit, Delete, Search, Refresh } from '@element-plus/icons-vue'
+import { Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
-import { getUserInfoByIDService } from '@/api/user.js'
+import { getUserInfoByNameService } from '@/api/user.js'
 import { getBookByIDService } from '@/api/book.js'
 import { updateTrade, getTradeFromMeService } from '@/api/trade.js'
 import { useUserInfoStore } from '@/store/userinfo.js'
@@ -50,7 +50,7 @@ onMounted(async () => {
 // 展示用户信息
 const showUserInfo = async (row) => {
   visibleUser.value = true
-  let result = await getUserInfoByIDService(row.sellerID)
+  let result = await getUserInfoByNameService(row.sellerName)
   userData.value = result.data
   if (userData.value.gender === '0') userData.value.gender = '未知'
   else if (userData.value.gender === '1') userData.value.gender = '男'
@@ -136,7 +136,7 @@ const showPreview = (picture) => {
     </template>
     <el-table :data="tradeInfo" style="width: 100%">
       <el-table-column label="交易ID" prop="tradeID"></el-table-column>
-      <el-table-column label="卖家ID" prop="sellerID"></el-table-column>
+      <el-table-column label="卖家用户名" prop="sellerName"></el-table-column>
       <el-table-column label="卖家信息">
         <template #default="{ row }">
           <div class="button-container">
@@ -162,10 +162,15 @@ const showPreview = (picture) => {
       </el-table-column>
       <el-table-column label="" width="300">
         <template #default="{ row }">
-          <el-text v-if="row.state==1">请等待卖家确认</el-text>
+          <el-text v-if="row.state==1">
+            <el-text>请等待卖家确认</el-text>
+            <el-divider direction="vertical" />
+            <el-button type="danger" text bg @click="cancel(row)">取消交易</el-button>
+          </el-text>
           <el-text v-else-if="row.state==2" inline>
-            <el-button type="success" plain @click="confirm(row)">确认收货</el-button>
-            <el-button type="danger" plain @click="cancel(row)">取消交易</el-button>
+            <el-button type="success" text bg @click="confirm(row)">确认收货</el-button>
+            <el-divider direction="vertical" />
+            <el-button type="danger" text bg @click="cancel(row)">取消交易</el-button>
           </el-text>
           <el-text v-if="row.state==3">交易成功，您无需操作</el-text>
           <el-text v-if="row.state==4">{{ row.notes }}</el-text>

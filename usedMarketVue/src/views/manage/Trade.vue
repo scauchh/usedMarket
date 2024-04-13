@@ -3,7 +3,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Avatar, Reading } from '@element-plus/icons-vue'
 import { Edit, Delete, Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
-import { getUserInfoByIDService } from '@/api/user.js'
+import { getUserInfoByNameService } from '@/api/user.js'
 import { getBookByIDService } from '@/api/book.js'
 import { getAllTradeService } from '@/api/trade.js'
 import { useUserInfoStore } from '@/store/userinfo.js'
@@ -22,7 +22,7 @@ const visibleImg = ref(false)
 // 控制预览图的图片
 const prePicture = ref("")
 
-// 用户信息数据模型
+// 交易信息数据模型
 const tradeInfo = ref([])
 // 用户信息数据模型
 const userData = ref({})
@@ -52,16 +52,16 @@ onMounted(async () => {
 // 展示用户信息
 const showUserInfo = async (row, type) => {
   visibleUser.value = true
-  let userID;
+  let userName;
   if(type == '买家') {
     title.value = '买家信息'
-    userID = row.buyerID
+    userName = row.buyerName
   }
   else if(type == '卖家') {
     title.value = '卖家信息'
-    userID = row.sellerID
+    userName = row.sellerName
   }
-  let result = await getUserInfoByIDService(userID)
+  let result = await getUserInfoByNameService(userName)
   userData.value = result.data
   if (userData.value.gender === '0') userData.value.gender = '未知'
   else if (userData.value.gender === '1') userData.value.gender = '男'
@@ -122,7 +122,7 @@ const showPreview = (picture) => {
       </el-form>
     </template>
     <el-table :data="tradeInfo" style="width: 100%">
-      <el-table-column label="买家ID" prop="buyerID" width="150"></el-table-column>
+      <el-table-column label="买家用户名" prop="buyerName" width="150"></el-table-column>
       <el-table-column label="买家信息" width="150">
         <template #default="{ row }">
           <div class="button-container">
@@ -130,7 +130,7 @@ const showPreview = (picture) => {
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="卖家ID" prop="sellerID" width="150"></el-table-column>
+      <el-table-column label="卖家用户名" prop="sellerName" width="150"></el-table-column>
       <el-table-column label="卖家信息" width="150">
         <template #default="{ row }">
           <div class="button-container">

@@ -18,8 +18,8 @@ public class TradeServiceImpl implements TradeService {
 
     // 添加交易
     @Override
-    public void addTrade(Integer buyerID, Integer sellerID, Integer bookID) {
-        tradeMapper.addTrade(buyerID, sellerID, bookID);
+    public void addTrade(String buyerName, String sellerName, Integer bookID) {
+        tradeMapper.addTrade(buyerName, sellerName, bookID);
     }
 
     // 更新交易状态
@@ -31,8 +31,8 @@ public class TradeServiceImpl implements TradeService {
 
     // 查找进行中的重复交易
     @Override
-    public Integer searchTradeByAll(Integer buyerID, Integer sellerID, Integer bookID) {
-        return tradeMapper.searchTradeByAll(buyerID, sellerID, bookID);
+    public Integer searchTradeByAll(String buyerName, String sellerName, Integer bookID) {
+        return tradeMapper.searchTradeByAll(buyerName, sellerName, bookID);
     }
 
     // 分页获取所有交易
@@ -55,14 +55,15 @@ public class TradeServiceImpl implements TradeService {
     public PageBean<Trade> getTradeFromMe(Integer pageNum, Integer pageSize, Integer state) {
         PageBean<Trade> pb = new PageBean<>();
 
-        // 获取userID
+        // 获取用户名
         Map<String, Object> map = ThreadLocalUtil.get();
-        Integer userID = (Integer) map.get("id");
+        String userName = map.get("userName").toString();
 
         // 查询分页结果
-        Integer total = tradeMapper.getTradeFromMeNum(pageSize*(pageNum-1), pageSize, userID, state);
-        List<Trade> trades = tradeMapper.getTradeFromMe(pageSize*(pageNum-1), pageSize, userID, state);
+        Integer total = tradeMapper.getTradeFromMeNum(pageSize*(pageNum-1), pageSize, userName, state);
+        List<Trade> trades = tradeMapper.getTradeFromMe(pageSize*(pageNum-1), pageSize, userName, state);
 
+        System.out.println("a: "+total);
         // 返回分页查询结果
         pb.setTotal(total);
         pb.setItems(trades);
@@ -74,13 +75,13 @@ public class TradeServiceImpl implements TradeService {
     public PageBean<Trade> getTradeToMe(Integer pageNum, Integer pageSize, Integer state) {
         PageBean<Trade> pb = new PageBean<>();
 
-        // 获取userID
+        // 获取用户名
         Map<String, Object> map = ThreadLocalUtil.get();
-        Integer userID = (Integer) map.get("id");
+        String userName = map.get("userName").toString();
 
         // 查询分页结果
-        Integer total = tradeMapper.getTradeToMeNum(pageSize*(pageNum-1), pageSize, userID, state);
-        List<Trade> trades = tradeMapper.getTradeToMe(pageSize*(pageNum-1), pageSize, userID, state);
+        Integer total = tradeMapper.getTradeToMeNum(pageSize*(pageNum-1), pageSize, userName, state);
+        List<Trade> trades = tradeMapper.getTradeToMe(pageSize*(pageNum-1), pageSize, userName, state);
 
         // 返回分页查询结果
         pb.setTotal(total);

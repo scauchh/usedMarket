@@ -4,6 +4,7 @@ import org.scau.pojo.PageBean;
 import org.scau.pojo.Result;
 import org.scau.pojo.Trade;
 import org.scau.service.TradeService;
+import org.scau.service.UserService;
 import org.scau.utils.ThreadLocalUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,26 +22,31 @@ public class TradeController {
 
     @Autowired
     TradeService tradeService;
+    @Autowired
+    UserService userService;
 
     // 添加交易
     @RequestMapping("/addTrade")
     public Result addTrade(Integer sellerID, Integer bookID) {
-        // 获取当前用户ID
+        // 获取当前用户的用户名
         Map<String, Object> map = ThreadLocalUtil.get();
-        Integer buyerID = Integer.parseInt(map.get("id").toString());
+        String buyerName = map.get("userName").toString();
+
+        // 获取卖家的用户名
+        String sellerName = userService.searchUserByID(sellerID).getUserName();
 
         // 检查交易双方的身份
-        if(buyerID.equals(sellerID)){
+        if(buyerName.equals(sellerName)){
             return Result.error("你不能购买自己的书籍");
         }
 
         // 检查是否有重复的进行中的交易
-        if(tradeService.searchTradeByAll(buyerID, sellerID, bookID)!=0) {
+        if(tradeService.searchTradeByAll(buyerName, sellerName, bookID)!=0) {
             return Result.error("请勿重复发起交易");
         }
 
         try{
-            tradeService.addTrade(buyerID, sellerID, bookID);
+            tradeService.addTrade(buyerName, sellerName, bookID);
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());

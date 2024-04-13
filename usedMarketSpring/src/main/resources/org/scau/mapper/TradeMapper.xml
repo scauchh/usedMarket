@@ -36,7 +36,7 @@
     <select id="getTradeFromMeNum" resultType="int">
         select count(*) from trade
         <where>
-            buyer_id = #{userID}
+            buyer_name = #{userName}
             <if test="state != null and state != ''">
                 and state = #{state}
             </if>
@@ -47,7 +47,7 @@
     <select id="getTradeFromMe" resultType="org.scau.pojo.Trade">
         select * from trade
         <where>
-                buyer_id = #{userID}
+                buyer_name = #{userName}
             <if test="state != null and state != ''">
                 and state = #{state}
             </if>
@@ -58,7 +58,7 @@
     <select id="getTradeToMeNum" resultType="int">
         select count(*) from trade
         <where>
-            seller_id = #{userID}
+            seller_name = #{userName}
             <if test="state != null and state != ''">
                 and state = #{state}
             </if>
@@ -69,7 +69,7 @@
     <select id="getTradeToMe" resultType="org.scau.pojo.Trade">
         select * from trade
         <where>
-            seller_id = #{userID}
+            seller_name = #{userName}
             <if test="state != null and state != ''">
                 and state = #{state}
             </if>

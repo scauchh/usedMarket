@@ -106,6 +106,18 @@ public class UserController {
         }
     }
 
+    // 根据用户名获取当前用户信息
+    @RequestMapping("/getUserInfoByName")
+    public Result getUserInfoByName(String userName) {
+        try {
+            User u = userService.searchUserByName(userName);
+            return Result.success(u);
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return Result.error("获取用户信息失败");
+        }
+    }
+
     // 获取所有用户信息
     @RequestMapping("/getAllUserInfo")
     public Result getAllUserInfo(Integer pageNum, Integer pageSize, String userName, String userRole) {
