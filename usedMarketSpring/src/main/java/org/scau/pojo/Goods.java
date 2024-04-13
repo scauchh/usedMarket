@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
-    private Integer bookID;                           // 书籍ID
+public class Goods {
+    private Integer goodsID;                          // 物品ID
     private Integer userID;                           // 用户ID
-    private String title;                             // 书籍标题
-    private String picture;                           // 书籍图片
-    private Double price;                             // 书籍价格
-    private String type;                              // 书籍类型
+    private String goodsName;                         // 物品名称
+    private String picture;                           // 物品图片
+    private Double price;                             // 物品价格
+    private String type;                              // 物品类型
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime datetime;                   // 数据更新时间
     private String notes;                             // 备注

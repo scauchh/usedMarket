@@ -20,7 +20,7 @@ import java.util.Objects;
 @RestController
 public class UserController {
 
-    final Logger logger = LoggerFactory.getLogger(BookController.class);
+    final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
     @Autowired
     UserService userService;

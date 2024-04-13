@@ -16,10 +16,10 @@ const isManager = ref(true)
 // 控制类别弹窗是否显示
 const dialogVisible = ref(false)
 // 控制弹窗标题
-const title = ref("添加书籍类别")
+const title = ref("添加物品类别")
 
-// 书籍类别数据模型
-const bookType = ref([])
+// 物品类别数据模型
+const goodsType = ref([])
 // 添加类别数据模型
 const typeModel = ref({
   typeID: '',
@@ -45,7 +45,7 @@ const typeModelRules = ref({
 // 刷新数据
 const refresh = async () => {
   let result = await getAllTypeService()
-  bookType.value = result.data
+  goodsType.value = result.data
   if(userInfoStore.info.roleID === 0) isManager.value = false;
 }
 
@@ -56,7 +56,7 @@ onMounted(async () => {
 
 // 弹出添加类别弹窗
 const preAddType = () => {
-  title.value = "添加书籍类别"
+  title.value = "添加物品类别"
   typeModel.value = {
     typeID: '',
     typeName: ''
@@ -66,10 +66,10 @@ const preAddType = () => {
 
 // 添加/修改类别
 const addType = async () => {
-  if(title.value==="添加书籍类别"){
+  if(title.value==="添加物品类别"){
     await addTypeService(typeModel.value)
     ElMessage.success("添加成功")
-  }else if(title.value==="修改书籍类别") {
+  }else if(title.value==="修改物品类别") {
     await changeTypeService(oldTypeModel.value, typeModel.value)
     ElMessage.success("修改成功")
   }
@@ -92,7 +92,7 @@ const deleteType = async (row) => {
 
 // 修改类别
 const changeType = async (row) => {
-  title.value = "修改书籍类别"
+  title.value = "修改物品类别"
 
   oldTypeModel.value.oldTypeID = row.typeID
   oldTypeModel.value.oldTypeName = row.typeName
@@ -107,11 +107,11 @@ const changeType = async (row) => {
   <el-card v-if="isManager" class="page-container">
     <template #header>
       <div class="header">
-        <span>书籍类别</span>
+        <span>物品类别</span>
         <el-button type="primary" @click="preAddType">添加类别</el-button>
       </div>
     </template>
-    <el-table :data="bookType" style="width: 100%">
+    <el-table :data="goodsType" style="width: 100%">
       <el-table-column label="类别编号" prop="typeID"> </el-table-column>
       <el-table-column label="类别名称" prop="typeName"></el-table-column>
       
@@ -126,7 +126,7 @@ const changeType = async (row) => {
       </template>
     </el-table>
   </el-card>
-  <!-- 添加/修改书籍类别弹窗 -->
+  <!-- 添加/修改物品类别弹窗 -->
   <el-dialog v-model="dialogVisible" :title="title" width="30%">
     <el-form :model="typeModel" :rules="typeModelRules" label-width="100px" style="padding-right: 30px">
       <br/>

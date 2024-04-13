@@ -2,7 +2,7 @@ package org.scau.controller;
 
 import org.scau.pojo.Result;
 import org.scau.pojo.Type;
-import org.scau.service.BookService;
+import org.scau.service.GoodsService;
 import org.scau.service.TypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class TypeController {
     @Autowired
     TypeService typeService;
     @Autowired
-    BookService bookService;
+    GoodsService bookService;
 
     // 检验数据
     private String verifyData(Integer typeID, String typeName){

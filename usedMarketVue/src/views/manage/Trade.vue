@@ -4,7 +4,7 @@ import { Avatar, Reading } from '@element-plus/icons-vue'
 import { Edit, Delete, Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import { getUserInfoByNameService } from '@/api/user.js'
-import { getBookByIDService } from '@/api/book.js'
+import { getGoodsByIDService } from '@/api/goods.js'
 import { getAllTradeService } from '@/api/trade.js'
 import { useUserInfoStore } from '@/store/userinfo.js'
 import avatar from '@/assets/default.png'
@@ -15,8 +15,8 @@ const userInfoStore = useUserInfoStore()
 const visibleUser = ref(false)
 // 控制用户弹窗标题
 const title = ref()
-// 控制书籍信息弹窗是否显示
-const visibleBook = ref(false)
+// 控制物品信息弹窗是否显示
+const visibleGoods = ref(false)
 // 控制预览图是否显示
 const visibleImg = ref(false)
 // 控制预览图的图片
@@ -27,7 +27,7 @@ const tradeInfo = ref([])
 // 用户信息数据模型
 const userData = ref({})
 // 信息数据模型
-const bookData = ref({})
+const goodsData = ref({})
 // 搜索交易数据模型
 const searchData = ref({
   state: '',
@@ -68,11 +68,11 @@ const showUserInfo = async (row, type) => {
   else if (userData.value.gender === '2') userData.value.gender = '女';
 }
 
-// 展示书籍信息
-const showBookInfo = async (row) => {
-  let result = await getBookByIDService(row.bookID)
-  bookData.value = result.data
-  visibleBook.value = true
+// 展示物品信息
+const showGoodsInfo = async (row) => {
+  let result = await getGoodsByIDService(row.goodsID)
+  goodsData.value = result.data
+  visibleGoods.value = true
 }
 
 // 重置搜索条件
@@ -121,6 +121,7 @@ const showPreview = (picture) => {
         </el-form-item>
       </el-form>
     </template>
+    <!-- 交易信息 -->
     <el-table :data="tradeInfo" style="width: 100%">
       <el-table-column label="买家用户名" prop="buyerName" width="150"></el-table-column>
       <el-table-column label="买家信息" width="150">
@@ -138,11 +139,11 @@ const showPreview = (picture) => {
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="书籍ID" prop="bookID" width="150"></el-table-column>
-      <el-table-column label="书籍信息" width="150">
+      <el-table-column label="物品ID" prop="goodsID" width="150"></el-table-column>
+      <el-table-column label="物品信息" width="150">
         <template #default="{ row }">
           <div class="button-container">
-            <el-button :icon="Reading" circle plain type="primary" @click="showBookInfo(row)"></el-button>
+            <el-button :icon="Reading" circle plain type="primary" @click="showGoodsInfo(row)"></el-button>
           </div>
         </template>
       </el-table-column>
@@ -187,26 +188,26 @@ const showPreview = (picture) => {
         </el-form-item>
       </el-form>
     </el-dialog>
-    <!-- 书籍信息弹窗 -->
-    <el-dialog v-model="visibleBook" title="书籍信息" width="30%">
-      <el-form :model="bookData" label-width="100px" style="padding-right: 30px">
-        <el-form-item label="书籍标题">
-          <el-text size="large">{{ bookData.title }}</el-text>
+    <!-- 物品信息弹窗 -->
+    <el-dialog v-model="visibleGoods" title="物品信息" width="30%">
+      <el-form :model="goodsData" label-width="100px" style="padding-right: 30px">
+        <el-form-item label="物品名称">
+          <el-text size="large">{{ goodsData.goodsName }}</el-text>
         </el-form-item>
-        <el-form-item label="书籍图片">
-          <img :src="bookData.picture" class="avatar" @click="showPreview(bookData.picture)" />
+        <el-form-item label="物品图片">
+          <img :src="goodsData.picture" class="avatar" @click="showPreview(goodsData.picture)" />
         </el-form-item>
         <el-form-item label="价格">
-          <el-text size="large">{{ bookData.price }}</el-text>
+          <el-text size="large">{{ goodsData.price }}</el-text>
         </el-form-item>
         <el-form-item label="类型">
-          <el-text size="large">{{ bookData.type }}</el-text>
+          <el-text size="large">{{ goodsData.type }}</el-text>
         </el-form-item>
         <el-form-item label="更新时间">
-          <el-text size="large">{{ bookData.datetime }}</el-text>
+          <el-text size="large">{{ goodsData.datetime }}</el-text>
         </el-form-item>
         <el-form-item label="备注">
-          <el-text size="large">{{ bookData.notes }}</el-text>
+          <el-text size="large">{{ goodsData.notes }}</el-text>
         </el-form-item>
       </el-form>
     </el-dialog>

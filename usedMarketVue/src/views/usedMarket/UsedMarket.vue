@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import { Avatar, Promotion } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Search, Refresh } from '@element-plus/icons-vue'
-import { getAllPageBookService } from '@/api/book.js'
+import { getAllPageGoodsService } from '@/api/goods.js'
 import { getUserInfoByIDService } from '@/api/user.js'
 import { getAllTypeService } from '@/api/type.js'
 import { addTradeService } from '@/api/trade.js'
@@ -17,14 +17,14 @@ const visibleSeller = ref(false)
 const prePicture = ref("")
 
 // 数据信息数据模型
-const bookData = ref([])
+const goodsData = ref([])
 // 卖家信息数据模型
 const sellerData = ref({})
-// 书籍类型数据模型
-const bookType = ref([])
-// 搜索书籍数据模型
+// 物品类型数据模型
+const goodsType = ref([])
+// 搜索物品数据模型
 const searchData = ref({
-  title: '',
+  goodsName: '',
   type: ''
 })
 
@@ -35,11 +35,11 @@ const pageSize = ref(3)
 
 // 刷新数据
 const refresh = async () => {
-  let result = await getAllPageBookService(pageNum.value, pageSize.value, searchData.value)
+  let result = await getAllPageGoodsService(pageNum.value, pageSize.value, searchData.value)
   total.value = result.data.total
-  bookData.value = result.data.items
+  goodsData.value = result.data.items
   result = await getAllTypeService()
-  bookType.value = result.data
+  goodsType.value = result.data
 }
 
 // 初始化页面
@@ -63,7 +63,7 @@ const trade = async (row) => {
       confirmButtonClass: "确定",
       cancelButtonClass: "取消"
     }).then(async() => {
-      await addTradeService(row.userID, row.bookID)
+      await addTradeService(row.userID, row.goodsID)
       ElMessage.success("交易发起成功")
     }) 
 }
@@ -71,7 +71,7 @@ const trade = async (row) => {
 // 重置搜索条件
 const reset = () => {
   searchData.value = {
-    title: '',
+    goodsName: '',
     type: ''
   }
 }
@@ -100,12 +100,12 @@ const showPreview = (picture) => {
     <template #header>
       <!-- 搜索表单 -->
       <el-form inline>
-        <el-form-item label="书籍名称：">
-          <el-input v-model="searchData.title" placeholder="请输入书籍名称" />
+        <el-form-item label="物品名称：">
+          <el-input v-model="searchData.goodsName" placeholder="请输入物品名称" />
         </el-form-item>
-        <el-form-item label="书籍类型：">
-          <el-select placeholder="请选择书籍类型" v-model="searchData.type" style="width: 200px">
-            <el-option v-for="item in bookType" :key="item.typeID" :label="item.typeName" :value="item.typeName" />
+        <el-form-item label="物品类型：">
+          <el-select placeholder="请选择物品类型" v-model="searchData.type" style="width: 200px">
+            <el-option v-for="item in goodsType" :key="item.typeID" :label="item.typeName" :value="item.typeName" />
             <el-option label="所有类型" value="" />
           </el-select>
         </el-form-item>
@@ -115,10 +115,10 @@ const showPreview = (picture) => {
         </el-form-item>
       </el-form>
     </template>
-    <!-- 书籍列表 -->
-    <el-table :data="bookData" style="width: 100%">
-      <el-table-column label="书籍名称" prop="title"></el-table-column>
-      <el-table-column label="书籍图片" prop="picture">
+    <!-- 物品列表 -->
+    <el-table :data="goodsData" style="width: 100%">
+      <el-table-column label="物品名称" prop="goodsName"></el-table-column>
+      <el-table-column label="物品图片" prop="picture">
         <template #default="{ row }">
           <el-image style="width: 100px; height: 100px" :src="row.picture" @click="showPreview(row.picture)" />
         </template>

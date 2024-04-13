@@ -13,7 +13,7 @@ public class Trade {
     private Integer tradeID;      // 交易ID
     private String buyerName;     // 买家用户名
     private String sellerName;    // 卖家用户名
-    private Integer bookID;       // 书籍ID
+    private Integer goodsID;      // 物品ID
     private Integer state;        // 交易状态
     private String notes;         // 交易备注（交易失败时使用）
 }

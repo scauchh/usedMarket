@@ -1,10 +1,10 @@
 package org.scau.utils;
 
 import org.scau.config.WebConfig;
-import org.scau.pojo.Book;
+import org.scau.pojo.Goods;
 import org.scau.pojo.Result;
 import org.scau.pojo.User;
-import org.scau.service.BookService;
+import org.scau.service.GoodsService;
 import org.scau.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class ImageUtil {
     final Logger logger = LoggerFactory.getLogger(ImageUtil.class);
 
     @Autowired
-    BookService bookService;
+    GoodsService bookService;
 
     @Autowired
     UserService userService;
@@ -90,7 +90,7 @@ public class ImageUtil {
         if (files != null) {
             for (File file : files) {
                 User u = userService.getUserByImage(url + file.getName());
-                Book b = bookService.getBookByImage(url + file.getName());
+                Goods b = bookService.getGoodsByImage(url + file.getName());
                 if (u == null && b == null && !file.delete()) {
                     logger.error("文件删除失败: " + file.getAbsolutePath());
                 }

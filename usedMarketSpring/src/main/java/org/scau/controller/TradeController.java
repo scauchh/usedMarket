@@ -18,7 +18,7 @@ import java.util.Map;
 @RequestMapping("/trade")
 public class TradeController {
 
-    final Logger logger = LoggerFactory.getLogger(BookController.class);
+    final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
     @Autowired
     TradeService tradeService;

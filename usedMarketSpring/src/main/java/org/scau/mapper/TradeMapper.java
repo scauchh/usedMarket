@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper
 public interface TradeMapper {
     // 添加交易
-    @Insert("INSERT INTO trade (buyer_name, seller_name, book_id, state) " +
-            "VALUES (#{buyerName}, #{sellerName}, #{bookID}, 1)")
+    @Insert("INSERT INTO trade (buyer_name, seller_name, book_id, state, notes) " +
+            "VALUES (#{buyerName}, #{sellerName}, #{bookID}, 1, '')")
     void addTrade(String buyerName, String sellerName, Integer bookID);
 
     // 更新交易状态

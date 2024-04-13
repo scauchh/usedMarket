@@ -1,7 +1,6 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.UserMapper;
-import org.scau.pojo.Book;
 import org.scau.pojo.PageBean;
 import org.scau.pojo.User;
 import org.scau.service.UserService;
@@ -72,7 +71,7 @@ public class UserServiceImpl implements UserService {
     public PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize, String userName, String userRole) {
         PageBean<User> pb = new PageBean<>();
 
-        Map<String, Object> claim = ThreadLocalUtil.get();
+        Map<String, java.lang.Object> claim = ThreadLocalUtil.get();
         Integer userID = Integer.valueOf(claim.get("id").toString());
 
         // 查询分页结果
