@@ -12,7 +12,9 @@ import {
   HomeFilled,
   CoffeeCup,
   HotWater,
-  Memo
+  Memo,
+  RefreshRight,
+  Files
 } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -140,19 +142,19 @@ const showPreview = (picture) => {
           </el-menu-item>
           <el-menu-item index="/manage/Question">
             <el-icon>
-              <Tickets />
+              <Memo />
             </el-icon>
             <span>密保问题</span>
           </el-menu-item>
           <el-menu-item index="/manage/Trade">
             <el-icon>
-              <Memo />
+              <Files />
             </el-icon>
             <span>历史交易</span>
           </el-menu-item>
           <el-menu-item @click="removeImg">
             <el-icon>
-              <Memo />
+              <RefreshRight />
             </el-icon>
             <span>清除图片缓存</span>
           </el-menu-item>

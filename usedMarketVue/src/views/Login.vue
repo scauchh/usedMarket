@@ -1,11 +1,16 @@
 <script setup>
 import { User, Lock } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ref, onMounted } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/store/token.js'
 import { useUserInfoStore } from '@/store/userinfo.js'
-import { userLoginService, userRegisterService, getUserInfoService } from '@/api/user.js'
+import { 
+  userLoginService, 
+  userRegisterService, 
+  getUserInfoService, 
+  resetPasswordService } from '@/api/user.js'
+import { getAllQuestionService } from '@/api/question.js'
 
 // 控制登录/注册界面
 const isRegister = ref(false)
@@ -17,6 +22,8 @@ const router = useRouter()
 const tokenStore = useTokenStore()
 // 使用用户信息存储服务
 const userInfoStore = useUserInfoStore()
+// 密保问题数据模型
+const questionData = ref([])
 
 // 用户登录/注册数据模型
 const userData = ref({
@@ -28,7 +35,8 @@ const userData = ref({
 // 重置密码数据模型
 const rePasswordData = ref({
   userName: '',
-  newPassword: ''
+  questionID: '',
+  answer: ''
 })
 
 // 确认密码验证
@@ -42,7 +50,7 @@ const rePasswordValid = (rule, value, callback) => {
 }
 
 // 登录/注册数据验证
-const userDataRules = ref({
+const userDataRules = {
   userName: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
     { min: 5, max: 16, message: '用户名的长度必须为5~16位', trigger: 'blur' }
@@ -54,6 +62,32 @@ const userDataRules = ref({
   rePassword: [
     { validator: rePasswordValid, trigger: 'blur' }
   ]
+}
+
+// 重置密码数据验证
+const rePasswordRules = {
+  userName: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 5, max: 16, message: '用户名的长度应该为5~16位', trigger: 'blur' }
+  ],
+  question: [
+    { required: true, message: '请输入密保问题', trigger: 'blur' }
+  ],
+  answer: [
+    { required: true, message: '回答不能为空', trigger: 'blur' },
+    { min: 1, max: 15, message: '回答的长度应该不超过15位', trigger: 'blur' }
+  ]
+}
+
+// 刷新数据
+const refresh = async () => {
+  let result = await getAllQuestionService()
+  questionData.value = result.data
+}
+
+// 初始化页面
+onMounted(async () => {
+  refresh()
 })
 
 // 清除数据缓存
@@ -82,6 +116,20 @@ const login = async () => {
 const getUserInfo = async () => {
   let result = await getUserInfoService()
   userInfoStore.setInfo(result.data)
+}
+
+// 重置用户密码
+const resetPassword = async() => {
+  ElMessageBox.confirm("您确定要重置密码吗?<br>( 注:密码将会被重置为123456! )", "温馨提示", {
+      confirmButtonClass: "确定",
+      cancelButtonClass: "取消",
+      type: "warning",
+      dangerouslyUseHTMLString: true
+    }).then(async() => {
+      await resetPasswordService(rePasswordData.value)
+      ElMessage.success("密码重置成功")
+      dialogVisible.value = false
+    })
 }
 </script>
 
@@ -120,7 +168,7 @@ const getUserInfo = async () => {
         </el-form-item>
         <el-form-item prop="password">
           <el-input name="password" :prefix-icon="Lock" type="password" placeholder="请输入密码"
-            v-model="userData.password"></el-input>
+            v-model="userData.password" show-password></el-input>
         </el-form-item>
         <!-- 登录按钮 -->
         <el-form-item>
@@ -135,18 +183,23 @@ const getUserInfo = async () => {
   </el-row>
   <!-- 重置密码弹窗 -->
   <el-dialog v-model="dialogVisible" title="重置密码" width="30%">
-    <el-form :model="rePasswordData" :rules="rules" label-width="100px" style="padding-right: 30px">
-      <el-form-item label="用户名" prop="userName">
-        <el-input v-model="rePasswordData.userName" minlength="1" maxlength="10"></el-input>
+    <el-form :model="rePasswordData" :rules="rePasswordRules" label-width="100px" style="padding-right: 30px">
+      <el-form-item label="用户名：" prop="userName">
+        <el-input v-model="rePasswordData.userName" placeholder="请输入用户名"></el-input>
       </el-form-item>
-      <el-form-item label="新密码" prop="newPassword">
-        <el-input v-model="rePasswordData.newPassword" minlength="1" maxlength="15"></el-input>
+      <el-form-item label="密保问题：" prop="question">
+        <el-select placeholder="请选择密保问题" v-model="rePasswordData.questionID">
+          <el-option v-for="item in questionData" :label="item.item" :value="item.questionID" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="回答：" prop="answer">
+        <el-input v-model="rePasswordData.answer" placeholder="请输入密保问题的答案"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary"> 确认 </el-button>
+        <el-button type="primary" @click="resetPassword"> 确认 </el-button>
       </span>
     </template>
   </el-dialog>

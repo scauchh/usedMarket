@@ -16,7 +16,13 @@ public class WebConfig implements WebMvcConfigurer {
     // 添加全局拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(interceptor).excludePathPatterns("/user/login", "/user/register", "/pics/**", "/removeImg");
+        registry.addInterceptor(interceptor).excludePathPatterns(
+                "/user/login",
+                "/user/register",
+                "/user/resetPassword",
+                "/pics/**",
+                "/removeImg",
+                "/question/getAllQuestion");
     }
 
     // 图片保存路径

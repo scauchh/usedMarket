@@ -16,6 +16,9 @@ public interface UserService {
     // 更新用户数据
     void updateUser(User u);
 
+    // 更新用户密码
+    void updatePassword(Integer userID, String password);
+
     // 更新用户登录时间
     void updateLoginTime(Integer userID, LocalDateTime loginTime);
 

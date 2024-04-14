@@ -36,6 +36,12 @@ public class UserServiceImpl implements UserService {
         userMapper.updateUser(u);
     }
 
+    // 更新用户密码
+    @Override
+    public void updatePassword(Integer userID, String password) {
+        userMapper.updatePassword(userID, password);
+    }
+
     // 更新用户登录时间
     @Override
     public void updateLoginTime(Integer userID, LocalDateTime loginTime) {

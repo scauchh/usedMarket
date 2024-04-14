@@ -21,6 +21,10 @@ public interface UserMapper {
     // 更新用户信息
     void updateUser(User u);
 
+    // 更新用户密码
+    @Update("UPDATE user SET password = #{password} WHERE user_id = #{userID}")
+    void updatePassword(Integer userID, String password);
+
     // 更新用户登录时间
     @Update("UPDATE user SET login_time = #{loginTime} WHERE user_id = #{userID}")
     void updateLoginTime(Integer userID, LocalDateTime loginTime);

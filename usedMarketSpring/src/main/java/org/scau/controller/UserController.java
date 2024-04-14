@@ -1,8 +1,10 @@
 package org.scau.controller;
 
+import org.scau.pojo.Relation;
 import org.scau.pojo.model.PageBean;
 import org.scau.pojo.model.Result;
 import org.scau.pojo.User;
+import org.scau.service.RelationService;
 import org.scau.service.UserService;
 import org.scau.utils.JWTUtil;
 import org.scau.utils.ThreadLocalUtil;
@@ -24,6 +26,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    RelationService relationService;
 
     // 用户登录
     @RequestMapping("/login")
@@ -50,22 +54,20 @@ public class UserController {
     @RequestMapping("/register")
     public Result register(String userName, String password, String rePassword) {
         User u = userService.searchUserByName(userName);
-        if (u == null) {
-            if (userName == null || userName.length() < 5 || userName.length() > 16)
-                return Result.error("请输入合法的用户名");
-            if (password == null || password.length() < 5 || password.length() > 16)
-                return Result.error("请输入合法的密码");
-            if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
-            try {
-                LocalDateTime registerTime = LocalDateTime.now();
-                userService.addUser(userName, password, registerTime);
-                return Result.success();
-            } catch (Exception e) {
-                logger.error(e.toString());
-                return Result.error("注册失败");
-            }
-        } else {
-            return Result.error("用户名已存在");
+        if (u != null) return Result.error("用户名已存在");
+
+        if (userName == null || userName.length() < 5 || userName.length() > 16)
+            return Result.error("请输入合法的用户名");
+        if (password == null || password.length() < 5 || password.length() > 16)
+            return Result.error("请输入合法的密码");
+        if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
+        try {
+            LocalDateTime registerTime = LocalDateTime.now();
+            userService.addUser(userName, password, registerTime);
+            return Result.success();
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return Result.error("注册失败");
         }
     }
 
@@ -78,6 +80,69 @@ public class UserController {
         }catch (Exception e){
             logger.error(e.toString());
             return Result.error("删除用户失败");
+        }
+    }
+
+    // 修改用户密码
+    @RequestMapping("/updatePassward")
+    public Result updatePassword(String password, String rePassword) {
+        if (password == null || password.length() < 5 || password.length() > 16)
+            return Result.error("请输入合法的密码");
+        if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
+
+        try{
+            Map<String, Object> map = ThreadLocalUtil.get();
+            Integer userID = (Integer) map.get("id");
+
+            userService.updatePassword(userID, password);
+
+            return Result.success();
+        }catch (Exception e){
+            logger.error(e.toString());
+            return Result.error("修改密码失败");
+        }
+    }
+
+    // 管理员重置用户密码
+    @RequestMapping("/resetPasswordByManage")
+    public Result resetPasswordByManage(String userName){
+        try{
+            User user = userService.searchUserByName(userName);
+            if(user==null) return Result.error("该用户不存在");
+
+            userService.updatePassword(user.getUserID(), "123456");
+            return Result.success();
+        }catch (Exception e){
+            logger.error(e.toString());
+            return Result.error("重置密码失败");
+        }
+    }
+
+    // 重置用户密码
+    @RequestMapping("/resetPassword")
+    public Result resetPassword(String userName, Integer questionID, String answer){
+        if (userName == null || userName.length() < 5 || userName.length() > 16)
+            return Result.error("请输入合法的用户名");
+        if(questionID==null) return Result.error("请选择密保问题");
+        if(answer==null||answer.isEmpty()) return Result.error("答案不能为空");
+
+        try{
+            User user = userService.searchUserByName(userName);
+            if(user==null) return Result.error("该用户不存在");
+
+            Integer userID = user.getUserID();
+            Relation relation = relationService.searchRelationByID(userID);
+
+            if(relation==null) return Result.error("您并没有设置密保问题");
+            if(!Objects.equals(relation.getQuestionID(), questionID)) return Result.error("你的密保问题选择错误");
+            if(!Objects.equals(relation.getAnswer(), answer)) return Result.error("答案错误");
+
+            userService.updatePassword(userID, "123456");
+
+            return Result.success();
+        }catch (Exception e){
+            logger.error(e.toString());
+            return Result.error("重置密码失败");
         }
     }
 

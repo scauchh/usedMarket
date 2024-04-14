@@ -30,6 +30,15 @@ export const updateUserInfoService = (userData) => {
     return instance.post('/user/updateUser', userData)
 }
 
+// 更新用户密码服务
+export const updatePasswordService = (newPassword) => {
+    const params = new URLSearchParams()
+    for(let key in newPassword) {
+        params.append(key, newPassword[key])
+    }
+    return instance.post('/user/updatePassward', params)
+}
+
 // 更新用户角色服务
 export const updateUserRoleService = (changeModel) => {
     const params = new URLSearchParams()
@@ -67,4 +76,20 @@ export const getUserInfoByNameService = (userName) => {
     const params = new URLSearchParams()
     params.append("userName", userName)
     return instance.post('/user/getUserInfoByName', params)
+}
+
+// 重置用户密码服务
+export const resetPasswordService = (rePasswordData) => {
+    const params = new URLSearchParams()
+    for(let key in rePasswordData) {
+        params.append(key, rePasswordData[key])
+    }
+    return instance.post('/user/resetPassword', params)
+}
+
+// 重置用户密码服务(管理员)
+export const resetPasswordByManageService = (userName) => {
+    const params = new URLSearchParams()
+    params.append("userName", userName)
+    return instance.post('/user/resetPasswordByManage', params)
 }
