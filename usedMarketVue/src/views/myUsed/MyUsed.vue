@@ -32,7 +32,7 @@ const goodsType = ref([])
 //分页条数据模型
 const pageNum = ref(1)
 const total = ref(10)
-const pageSize = ref(3)
+const pageSize = ref(5)
 
 // 物品数据验证
 const goodsDataRules = ref({

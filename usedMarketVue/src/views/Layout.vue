@@ -7,7 +7,6 @@ import {
   User,
   Notebook,
   SwitchButton,
-  CaretBottom,
   Document,
   Tickets,
   HomeFilled,
@@ -16,7 +15,6 @@ import {
   Memo
 } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
-import avatar from '@/assets/default.png'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useUserInfoStore } from '@/store/userinfo.js'
 import { useTokenStore } from '@/store/token.js'
@@ -48,23 +46,31 @@ onMounted(() => {
   refresh()
 })
 
+// 清除图片缓存
+const removeImg = () => {
+  ElMessageBox.confirm("您确定要清除图片缓存吗?<br>( 注:该操作将会删除所有未被使用的图片 )", "温馨提示", {
+      confirmButtonClass: "确定",
+      cancelButtonClass: "取消",
+      type: "warning",
+      dangerouslyUseHTMLString: true
+    }).then(() => {
+      removeImgService()
+      ElMessage.success("清除缓存成功")
+    })
+}
+
 // 退出登录
-const dropdownEvent = (command) => {
-  if (command === "logout") {
-    ElMessageBox.confirm("您确定要退出登录吗?", "温馨提示", {
+const logout = () => {
+  ElMessageBox.confirm("您确定要退出登录吗?", "温馨提示", {
       confirmButtonClass: "确定",
       cancelButtonClass: "取消",
       type: "warning"
     }).then(() => {
       userInfoStore.removeInfo()
       tokenStore.removeToken()
-      ElMessage.success("退出登录成功")
-      removeImgService();
       router.push('/login')
+      ElMessage.success("退出登录成功")
     })
-  } else {
-    router.push('/user/' + command)
-  }
 }
 
 // 打开预览图
@@ -144,6 +150,12 @@ const showPreview = (picture) => {
             </el-icon>
             <span>历史交易</span>
           </el-menu-item>
+          <el-menu-item @click="removeImg">
+            <el-icon>
+              <Memo />
+            </el-icon>
+            <span>清除图片缓存</span>
+          </el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="/user">
           <template #title>
@@ -164,31 +176,17 @@ const showPreview = (picture) => {
             </el-icon>
             <span>密码中心</span>
           </el-menu-item>
+          <el-menu-item @click="logout">
+            <el-icon>
+              <SwitchButton />
+            </el-icon>
+            <span>退出登录</span>
+          </el-menu-item>
         </el-sub-menu>
       </el-menu>
     </el-aside>
     <!-- 右侧主区域 -->
     <el-container>
-      <!-- 头部区域 -->
-      <el-header>
-        <div>当前用户：<strong>{{ userData.nickName }}</strong></div>
-        <el-dropdown placement="bottom-end" @command="dropdownEvent">
-          <span class="el-dropdown__box">
-            <el-avatar :src="userData.avatar ? userData.avatar : avatar" @click="showPreview(userData.avatar ? userData.avatar : avatar)"/>
-            <el-icon>
-              <CaretBottom />
-            </el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="info" :icon="User">基本资料</el-dropdown-item>
-              <el-dropdown-item command="password" :icon="Notebook">密码中心</el-dropdown-item>
-              <el-dropdown-item command="logout" :icon="SwitchButton">退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-      </el-header>
-      <!-- 中间区域 -->
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -214,28 +212,6 @@ const showPreview = (picture) => {
 
     .el-menu {
       border-right: none;
-    }
-  }
-
-  .el-header {
-    background-color: rgb(236, 245, 255);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .el-dropdown__box {
-      display: flex;
-      align-items: center;
-
-      .el-icon {
-        color: #999;
-        margin-left: 10px;
-      }
-
-      &:active,
-      &:focus {
-        outline: none;
-      }
     }
   }
 

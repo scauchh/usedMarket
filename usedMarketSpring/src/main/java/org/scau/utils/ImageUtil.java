@@ -82,7 +82,7 @@ public class ImageUtil {
 
     // 清除无用图片
     @PostMapping("/removeImg")
-    public Result removeImg() {
+    public void removeImg() {
         File directory = new File(WebConfig.path);
         String url = "http://localhost:8080/pics/";
 
@@ -98,6 +98,5 @@ public class ImageUtil {
         }
         // 在用户退出登录时清除存储的信息
         ThreadLocalUtil.remove();
-        return Result.success();
     }
 }

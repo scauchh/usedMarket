@@ -31,7 +31,7 @@ const searchData = ref({
 // 分页条数据模型
 const pageNum = ref(1)
 const total = ref(10)
-const pageSize = ref(3)
+const pageSize = ref(5)
 
 // 刷新数据
 const refresh = async () => {
