@@ -9,6 +9,7 @@ import UserPasswordVue from '@/views/user/UserPassword.vue'
 import CategoryVue from '@/views/manage/Category.vue'
 import UserManageVue from '@/views/manage/UserManage.vue'
 import TradeVue from '@/views/manage/Trade.vue'
+import QuestionVue from '@/views/manage/Question.vue'
 import TradeFromMeVue from '@/views/trade/TradeFromMe.vue'
 import TradeToMeVue from '@/views/trade/TradeToMe.vue'
 
@@ -27,6 +28,7 @@ const routes = [
             { path: '/manage/category', component: CategoryVue },
             { path: '/manage/UserManage', component: UserManageVue },
             { path: '/manage/Trade', component: TradeVue },
+            { path: '/manage/Question', component: QuestionVue },
             { path: '/trade/TradeFromMe', component: TradeFromMeVue },
             { path: '/trade/TradeToMe', component: TradeToMeVue },
         ]

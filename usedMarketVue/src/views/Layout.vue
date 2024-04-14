@@ -132,6 +132,12 @@ const showPreview = (picture) => {
             </el-icon>
             <span>用户管理</span>
           </el-menu-item>
+          <el-menu-item index="/manage/Question">
+            <el-icon>
+              <Tickets />
+            </el-icon>
+            <span>密保问题</span>
+          </el-menu-item>
           <el-menu-item index="/manage/Trade">
             <el-icon>
               <Memo />
@@ -176,7 +182,7 @@ const showPreview = (picture) => {
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="info" :icon="User">基本资料</el-dropdown-item>
-              <el-dropdown-item command="resetPassword" :icon="Notebook">密码中心</el-dropdown-item>
+              <el-dropdown-item command="password" :icon="Notebook">密码中心</el-dropdown-item>
               <el-dropdown-item command="logout" :icon="SwitchButton">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>

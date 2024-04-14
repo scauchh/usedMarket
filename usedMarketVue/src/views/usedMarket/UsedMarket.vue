@@ -105,7 +105,7 @@ const showPreview = (picture) => {
         </el-form-item>
         <el-form-item label="物品类型：">
           <el-select placeholder="请选择物品类型" v-model="searchData.type" style="width: 200px">
-            <el-option v-for="item in goodsType" :key="item.typeID" :label="item.typeName" :value="item.typeName" />
+            <el-option v-for="item in goodsType" :label="item.typeName" :value="item.typeName" />
             <el-option label="所有类型" value="" />
           </el-select>
         </el-form-item>

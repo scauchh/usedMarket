@@ -1,7 +1,7 @@
 package org.scau.service;
 
 import org.scau.pojo.Goods;
-import org.scau.pojo.PageBean;
+import org.scau.pojo.model.PageBean;
 
 import java.util.List;
 

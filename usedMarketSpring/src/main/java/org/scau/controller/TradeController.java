@@ -1,7 +1,7 @@
 package org.scau.controller;
 
-import org.scau.pojo.PageBean;
-import org.scau.pojo.Result;
+import org.scau.pojo.model.PageBean;
+import org.scau.pojo.model.Result;
 import org.scau.pojo.Trade;
 import org.scau.service.TradeService;
 import org.scau.service.UserService;

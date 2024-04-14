@@ -79,10 +79,11 @@ const addType = async () => {
 
 // 删除类别
 const deleteType = async (row) => {
-  ElMessageBox.confirm("您确定要删除该类别吗?", "温馨提示", {
+  ElMessageBox.confirm("您确定要删除该类别吗?<br>( 注:该类别的物品将会失去分类! )", "温馨提示", {
       confirmButtonClass: "确定",
       cancelButtonClass: "取消",
-      type: "warning"
+      type: "warning",
+      dangerouslyUseHTMLString: true
     }).then(async() => {
       await deleteTypeService(row.typeName)
       ElMessage.success("删除成功")
@@ -136,7 +137,7 @@ const changeType = async (row) => {
       </el-form-item>
       <br/>
       <el-form-item label="类别名称" prop="typeName">
-        <el-input v-model="typeModel.typeName" minlength="1" maxlength="15"></el-input>
+        <el-input v-model="typeModel.typeName" minlength="1" maxlength="10"></el-input>
       </el-form-item>
     </el-form>
     <br/>

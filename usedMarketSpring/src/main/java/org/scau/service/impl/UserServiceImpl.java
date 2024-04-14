@@ -1,7 +1,7 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.UserMapper;
-import org.scau.pojo.PageBean;
+import org.scau.pojo.model.PageBean;
 import org.scau.pojo.User;
 import org.scau.service.UserService;
 import org.scau.utils.ThreadLocalUtil;

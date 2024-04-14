@@ -1,6 +1,6 @@
 package org.scau.service;
 
-import org.scau.pojo.PageBean;
+import org.scau.pojo.model.PageBean;
 import org.scau.pojo.Trade;
 
 public interface TradeService {

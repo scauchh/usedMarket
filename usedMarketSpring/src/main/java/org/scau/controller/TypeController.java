@@ -1,6 +1,6 @@
 package org.scau.controller;
 
-import org.scau.pojo.Result;
+import org.scau.pojo.model.Result;
 import org.scau.pojo.Type;
 import org.scau.service.GoodsService;
 import org.scau.service.TypeService;

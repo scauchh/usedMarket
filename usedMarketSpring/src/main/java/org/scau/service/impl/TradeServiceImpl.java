@@ -1,7 +1,7 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.TradeMapper;
-import org.scau.pojo.PageBean;
+import org.scau.pojo.model.PageBean;
 import org.scau.pojo.Trade;
 import org.scau.service.TradeService;
 import org.scau.utils.ThreadLocalUtil;
