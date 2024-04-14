@@ -7,7 +7,23 @@ import { saveRelationService, getCurrentRelationService } from '@/api/relation.j
 // 密保问题数据模型
 const questionData = ref([])
 // 用户的密保问题及答案
-const userQuestion = ref({})
+const userQuestion = ref({
+  relationID:'',
+  questionID:'',
+  userID: '',
+  answer: ''
+})
+
+// 密保问题验证
+const questionRules = {
+  question: [
+    { required: true, message: '请输入密保问题', trigger: 'blur' }
+  ],
+  answer: [
+    { min: 1, max: 15, message: '回答不能为空', trigger: 'blur' },
+    { required: true, message: '回答的长度不能超过15位', trigger: 'blur' }
+  ]
+}
 
 // 刷新数据
 const refresh = async () => {
@@ -38,13 +54,13 @@ const saveQuestion = async()=>{
     </template>
     <el-row>
       <el-col :span="12">
-        <el-form label-width="100px" size="large">
-          <el-form-item label="密保问题：">
+        <el-form label-width="100px" size="large" :rules="questionRules">
+          <el-form-item label="密保问题：" prop="question">
             <el-select placeholder="请选择密保问题" v-model="userQuestion.questionID">
               <el-option v-for="item in questionData" :label="item.item" :value="item.questionID" />
             </el-select>
           </el-form-item>
-          <el-form-item label="您的答案：" >
+          <el-form-item label="您的答案：" prop="answer">
             <el-input v-model="userQuestion.answer"></el-input>
           </el-form-item>
           <el-form-item>

@@ -46,6 +46,9 @@ public class RelationController {
     // 保存关系
     @RequestMapping("/saveRelation")
     public Result saveRelation(Integer questionID, String answer) {
+        if(answer==null|| answer.isEmpty()) return Result.error("回答不能为空");
+        if(answer.length()>15) return Result.error("回答的长度不能超过15位");
+
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userID = Integer.parseInt(map.get("id").toString());
 

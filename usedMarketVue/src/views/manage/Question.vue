@@ -31,14 +31,14 @@ const oldQuestionModel = ref({
   oldItem: ''
 })
 
-// 类别数据验证
+// 密保问题验证
 const questionModelRules = ref({
   questionID: [
     { required: true, message: '请输入密保问题编号', trigger: 'blur' }
   ],
   item: [
     { required: true, message: '请输入密保问题', trigger: 'blur' },
-    { min: 1, max: 10, message: '密保问题的长度不能超过15位', trigger: 'blur' }
+    { min: 1, max: 15, message: '密保问题的长度不能超过15位', trigger: 'blur' }
   ]
 })
 
