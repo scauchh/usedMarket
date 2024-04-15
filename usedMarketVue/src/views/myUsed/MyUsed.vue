@@ -172,8 +172,12 @@ const showPreview = (picture) => {
       <el-table-column label="备注" prop="notes"></el-table-column>
       <el-table-column label="操作" width="100">
         <template #default="{ row }">
-          <el-button :icon="Edit" circle plain type="primary" @click="editGoods(row)"></el-button>
-          <el-button :icon="Delete" circle plain type="danger" @click="deleteGoods(row)"></el-button>
+          <el-tooltip effect="light" placement="top" content="编辑">
+            <el-button :icon="Edit" circle plain type="primary" @click="editGoods(row)"></el-button>
+          </el-tooltip>
+          <el-tooltip effect="light" placement="top" content="删除">
+            <el-button :icon="Delete" circle plain type="danger" @click="deleteGoods(row)"></el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
       <template #empty>

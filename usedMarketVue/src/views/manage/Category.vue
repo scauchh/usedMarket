@@ -116,10 +116,14 @@ const changeType = async (row) => {
       <el-table-column label="类别编号" prop="typeID"> </el-table-column>
       <el-table-column label="类别名称" prop="typeName"></el-table-column>
       
-      <el-table-column label="操作" width="100">
+      <el-table-column label="操作" width="150">
         <template #default="{ row }">
-          <el-button :icon="Edit" circle plain type="primary" @click="changeType(row)"></el-button>
-          <el-button :icon="Delete" circle plain type="danger" @click="deleteType(row)"></el-button>
+          <el-tooltip effect="light" placement="left" content="编辑">
+            <el-button :icon="Edit" circle plain type="primary" @click="changeType(row)"></el-button>
+          </el-tooltip>
+          <el-tooltip effect="light" placement="right" content="删除">
+            <el-button :icon="Delete" circle plain type="danger" @click="deleteType(row)"></el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
       <template #empty>

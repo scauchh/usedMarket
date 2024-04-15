@@ -145,10 +145,12 @@ const resetPassword = async() => {
           <el-input :prefix-icon="User" placeholder="请输入用户名" v-model="userData.userName"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input :prefix-icon="Lock" type="password" placeholder="请输入密码" v-model="userData.password"></el-input>
+          <el-input :prefix-icon="Lock" type="password" placeholder="请输入密码" 
+          v-model="userData.password" show-password></el-input>
         </el-form-item>
         <el-form-item prop="rePassword">
-          <el-input :prefix-icon="Lock" type="password" placeholder="请输入再次密码" v-model="userData.rePassword"></el-input>
+          <el-input :prefix-icon="Lock" type="password" placeholder="请输入再次密码" 
+          v-model="userData.rePassword" show-password></el-input>
         </el-form-item>
         <!-- 注册按钮 -->
         <el-form-item>

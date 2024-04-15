@@ -116,10 +116,14 @@ const changeQuestion = async (row) => {
       <el-table-column label="问题编号" prop="questionID"> </el-table-column>
       <el-table-column label="密保问题" prop="item"></el-table-column>
       
-      <el-table-column label="操作" width="100">
+      <el-table-column label="操作" width="150">
         <template #default="{ row }">
-          <el-button :icon="Edit" circle plain type="primary" @click="changeQuestion(row)"></el-button>
-          <el-button :icon="Delete" circle plain type="danger" @click="deleteQuestion(row)"></el-button>
+          <el-tooltip effect="light" placement="left" content="编辑">
+            <el-button :icon="Edit" circle plain type="primary" @click="changeQuestion(row)"></el-button>
+          </el-tooltip>
+          <el-tooltip effect="light" placement="right" content="删除">
+            <el-button :icon="Delete" circle plain type="danger" @click="deleteQuestion(row)"></el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
       <template #empty>
