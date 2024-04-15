@@ -27,7 +27,7 @@ public class TradeController {
 
     // 添加交易
     @RequestMapping("/addTrade")
-    public Result addTrade(Integer sellerID, Integer bookID) {
+    public Result addTrade(Integer sellerID, Integer goodsID) {
         // 获取当前用户的用户名
         Map<String, Object> map = ThreadLocalUtil.get();
         String buyerName = map.get("userName").toString();
@@ -41,12 +41,12 @@ public class TradeController {
         }
 
         // 检查是否有重复的进行中的交易
-        if(tradeService.searchTradeByAll(buyerName, sellerName, bookID)!=0) {
+        if(tradeService.searchTradeByAll(buyerName, sellerName, goodsID)!=0) {
             return Result.error("请勿重复发起交易");
         }
 
         try{
-            tradeService.addTrade(buyerName, sellerName, bookID);
+            tradeService.addTrade(buyerName, sellerName, goodsID);
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());

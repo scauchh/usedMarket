@@ -5,13 +5,13 @@ import org.scau.pojo.Trade;
 
 public interface TradeService {
     // 添加交易
-    void addTrade(String buyerName, String sellerName, Integer bookID);
+    void addTrade(String buyerName, String sellerName, Integer goodsID);
 
     // 更新交易状态
     void updateTrade(Integer tradeID, Integer state, String notes);
 
     // 查找进行中的重复交易
-    Integer searchTradeByAll(String buyerName, String sellerName, Integer bookID);
+    Integer searchTradeByAll(String buyerName, String sellerName, Integer goodsID);
 
     // 分页获取所有交易
     PageBean<Trade> getAllTrade(Integer pageNum, Integer pageSize, Integer state);
