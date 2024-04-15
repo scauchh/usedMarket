@@ -55,8 +55,8 @@ const removeImg = () => {
       cancelButtonClass: "取消",
       type: "warning",
       dangerouslyUseHTMLString: true
-    }).then(() => {
-      removeImgService()
+    }).then(async () => {
+      await removeImgService()
       ElMessage.success("清除缓存成功")
     })
 }

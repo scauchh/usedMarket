@@ -93,6 +93,7 @@ public class UserServiceImpl implements UserService {
     // 根据图片查询用户，用于判断图片是否有效
     @Override
     public User getUserByImage(String image) {
+        System.out.println("b: "+image);
         return userMapper.getUserByImage(image);
     }
 }
