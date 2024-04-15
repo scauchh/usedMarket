@@ -10,7 +10,7 @@ public interface GoodsMapper {
 
     // 添加新物品
     @Insert("INSERT INTO goods (user_id, goods_name, picture, price, type, datetime, notes) " +
-            "VALUES (#{userID}, #{goodName}, #{picture}, #{price}, #{type}, #{datetime}, #{notes})")
+            "VALUES (#{userID}, #{goodsName}, #{picture}, #{price}, #{type}, #{datetime}, #{notes})")
     void addGoods(Goods goods);
 
     // 根据ID删除物品

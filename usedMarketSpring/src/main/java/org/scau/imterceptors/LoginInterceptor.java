@@ -2,7 +2,6 @@ package org.scau.imterceptors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.scau.controller.GoodsController;
 import org.scau.utils.JWTUtil;
 import org.scau.utils.ThreadLocalUtil;
 import org.slf4j.Logger;
@@ -16,7 +15,7 @@ import java.util.Map;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
-    final Logger logger = LoggerFactory.getLogger(GoodsController.class);
+    final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
