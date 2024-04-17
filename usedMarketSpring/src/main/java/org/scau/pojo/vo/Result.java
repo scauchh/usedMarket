@@ -1,4 +1,4 @@
-package org.scau.pojo.model;
+package org.scau.pojo.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

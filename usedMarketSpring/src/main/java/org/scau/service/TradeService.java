@@ -1,6 +1,6 @@
 package org.scau.service;
 
-import org.scau.pojo.model.PageBean;
+import org.scau.pojo.vo.PageBean;
 import org.scau.pojo.Trade;
 
 public interface TradeService {
@@ -17,8 +17,8 @@ public interface TradeService {
     PageBean<Trade> getAllTrade(Integer pageNum, Integer pageSize, Integer state);
 
     // 分页获取发起的交易
-    PageBean<Trade> getTradeFromMe(Integer pageNum, Integer pageSize, Integer state);
+    PageBean<Trade> getTradeFromMe(Integer pageNum, Integer pageSize, Integer state, String userName);
 
     // 分页获取接收的交易
-    PageBean<Trade> getTradeToMe(Integer pageNum, Integer pageSize, Integer state);
+    PageBean<Trade> getTradeToMe(Integer pageNum, Integer pageSize, Integer state, String userName);
 }

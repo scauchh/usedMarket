@@ -1,6 +1,6 @@
 import instance from '@/utils/request.js'
 
-// 添加书籍类别服务
+// 添加物品类别服务
 export const addTypeService = (typeModel) => {
     const params = new URLSearchParams()
     for (let key in typeModel) {
@@ -9,14 +9,14 @@ export const addTypeService = (typeModel) => {
     return instance.post('/type/addType', params)
 }
 
-// 删除书籍类别服务
+// 删除物品类别服务
 export const deleteTypeService = (typeName) =>{
     const params = new URLSearchParams()
     params.append("typeName", typeName)
     return instance.post('/type/deleteType', params)
 }
 
-// 修改书籍类别服务
+// 修改物品类别服务
 export const changeTypeService = (oldTypeModel, typeModel) => {
     const params = new URLSearchParams()
     for (let key in oldTypeModel) {

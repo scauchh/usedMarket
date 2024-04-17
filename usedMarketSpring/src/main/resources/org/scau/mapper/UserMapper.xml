@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.scau.mapper.UserMapper">
     <update id="updateUser">
-        update user
+        UPDATE user
         <set>
                 nick_name = #{nickName},
             <if test="avatar != null">
@@ -20,23 +20,37 @@
                 phone = #{phone}
             </if>
         </set>
-        where
-        user_id = #{userID}
+        WHERE user_id = #{userID}
     </update>
+    <select id="getUserNum" resultType="int">
+        SELECT COUNT(*) FROM user
+        <where>
+            user_id != #{userID}
+            <if test="userName != null and userName != ''">
+                AND user_name LIKE concat('%', #{userName}, '%')
+            </if>
+            <if test="userRole == '普通用户'">
+                AND role_id = 0
+            </if>
+            <if test="userRole == '管理员'">
+                AND role_id = 1
+            </if>
+        </where>
+    </select>
     <select id="getAllUserInfo" resultType="org.scau.pojo.User">
-        select * from user
+        SELECT * FROM user
         <where>
                 user_id != #{userID}
             <if test="userName != null and userName != ''">
-                and user_name like concat('%', #{userName}, '%')
+                AND user_name LIKE concat('%', #{userName}, '%')
             </if>
             <if test="userRole == '普通用户'">
-                and role_id = 0
+                AND role_id = 0
             </if>
             <if test="userRole == '管理员'">
-                and role_id = 1
+                AND role_id = 1
             </if>
         </where>
-        limit #{offset}, #{pageSize}
+        LIMIT #{offset}, #{pageSize}
     </select>
 </mapper>

@@ -1,7 +1,7 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.TradeMapper;
-import org.scau.pojo.model.PageBean;
+import org.scau.pojo.vo.PageBean;
 import org.scau.pojo.Trade;
 import org.scau.service.TradeService;
 import org.scau.utils.ThreadLocalUtil;
@@ -25,7 +25,6 @@ public class TradeServiceImpl implements TradeService {
     // 更新交易状态
     @Override
     public void updateTrade(Integer tradeID, Integer state, String notes) {
-        System.out.println("notes: "+notes);
         tradeMapper.updateTrade(tradeID, state, notes);
     }
 
@@ -52,12 +51,8 @@ public class TradeServiceImpl implements TradeService {
 
     // 分页获取发起的交易
     @Override
-    public PageBean<Trade> getTradeFromMe(Integer pageNum, Integer pageSize, Integer state) {
+    public PageBean<Trade> getTradeFromMe(Integer pageNum, Integer pageSize, Integer state, String userName) {
         PageBean<Trade> pb = new PageBean<>();
-
-        // 获取用户名
-        Map<String, Object> map = ThreadLocalUtil.get();
-        String userName = map.get("userName").toString();
 
         // 查询分页结果
         Integer total = tradeMapper.getTradeFromMeNum(pageSize*(pageNum-1), pageSize, userName, state);
@@ -72,12 +67,8 @@ public class TradeServiceImpl implements TradeService {
 
     // 分页获取接收的交易
     @Override
-    public PageBean<Trade> getTradeToMe(Integer pageNum, Integer pageSize, Integer state) {
+    public PageBean<Trade> getTradeToMe(Integer pageNum, Integer pageSize, Integer state, String userName) {
         PageBean<Trade> pb = new PageBean<>();
-
-        // 获取用户名
-        Map<String, Object> map = ThreadLocalUtil.get();
-        String userName = map.get("userName").toString();
 
         // 查询分页结果
         Integer total = tradeMapper.getTradeToMeNum(pageSize*(pageNum-1), pageSize, userName, state);

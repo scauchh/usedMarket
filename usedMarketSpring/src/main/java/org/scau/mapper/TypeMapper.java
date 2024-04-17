@@ -15,7 +15,7 @@ public interface TypeMapper {
     @Delete("DELETE FROM type WHERE type_name = #{typeName}")
     void deleteType(String typeName);
 
-    // 修改书籍类别
+    // 修改物品类别
     @Update("UPDATE type SET type_id = #{typeID}, type_name = #{typeName} WHERE type_id = #{oldTypeID}")
     void updateType(Integer oldTypeID, Integer typeID, String typeName);
 

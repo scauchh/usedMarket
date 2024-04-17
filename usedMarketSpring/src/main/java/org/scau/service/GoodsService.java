@@ -1,7 +1,7 @@
 package org.scau.service;
 
 import org.scau.pojo.Goods;
-import org.scau.pojo.model.PageBean;
+import org.scau.pojo.vo.PageBean;
 
 import java.util.List;
 
@@ -35,5 +35,5 @@ public interface GoodsService {
     PageBean<Goods> getPageGoods(Integer pageNum, Integer pageSize, String goodsName, String type);
 
     // 根据用户ID分页获得所有的物品
-    PageBean<Goods> getPageGoodsByID(Integer pageNum, Integer pageSize);
+    PageBean<Goods> getPageGoodsByID(Integer pageNum, Integer pageSize, Integer userID);
 }

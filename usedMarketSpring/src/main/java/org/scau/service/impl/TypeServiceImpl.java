@@ -14,25 +14,25 @@ public class TypeServiceImpl implements TypeService {
     @Autowired
     TypeMapper typeMapper;
 
-    // 添加书籍类型
+    // 添加物品类型
     @Override
     public void addType(Integer typeID, String typeName) {
         typeMapper.addType(typeID, typeName);
     }
 
-    // 删除书籍类型
+    // 删除物品类型
     @Override
     public void deleteType(String typeName) {
         typeMapper.deleteType(typeName);
     }
 
-    // 修改书籍类别
+    // 修改物品类别
     @Override
     public void updateType(Integer oldTypeID, Integer typeID, String typeName){
         typeMapper.updateType(oldTypeID, typeID, typeName);
     }
 
-    // 获取所有书籍类型
+    // 获取所有物品类型
     @Override
     public List<Type> getAllType() {
         return typeMapper.getAllType();

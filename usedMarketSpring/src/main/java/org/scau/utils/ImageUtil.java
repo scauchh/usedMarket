@@ -2,7 +2,7 @@ package org.scau.utils;
 
 import org.scau.config.WebConfig;
 import org.scau.pojo.Goods;
-import org.scau.pojo.model.Result;
+import org.scau.pojo.vo.Result;
 import org.scau.pojo.User;
 import org.scau.service.GoodsService;
 import org.scau.service.UserService;
@@ -86,12 +86,10 @@ public class ImageUtil {
         File directory = new File(WebConfig.path);
         String url = "http://localhost:8080/pics/";
 
-        System.out.println("a");
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
                 User u = userService.getUserByImage(url + file.getName());
-                System.out.println("c: "+u);
                 Goods b = goodsService.getGoodsByImage(url + file.getName());
                 if (u == null && b == null && !file.delete()) {
                     logger.error("文件删除失败: " + file.getAbsolutePath());

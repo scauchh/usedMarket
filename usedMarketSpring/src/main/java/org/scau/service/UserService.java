@@ -1,6 +1,6 @@
 package org.scau.service;
 
-import org.scau.pojo.model.PageBean;
+import org.scau.pojo.vo.PageBean;
 import org.scau.pojo.User;
 
 import java.time.LocalDateTime;
@@ -35,7 +35,7 @@ public interface UserService {
     User getCurrentUser(Integer userID);
 
     // 获取所有用户信息
-    PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize, String userName, String userRole);
+    PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize, Integer userID, String userName, String userRole);
 
     // 根据图片查询用户，用于判断图片是否有效
     User getUserByImage(String image);

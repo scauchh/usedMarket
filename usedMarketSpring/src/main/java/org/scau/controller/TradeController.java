@@ -1,7 +1,7 @@
 package org.scau.controller;
 
-import org.scau.pojo.model.PageBean;
-import org.scau.pojo.model.Result;
+import org.scau.pojo.vo.PageBean;
+import org.scau.pojo.vo.Result;
 import org.scau.pojo.Trade;
 import org.scau.service.TradeService;
 import org.scau.service.UserService;
@@ -37,7 +37,7 @@ public class TradeController {
 
         // 检查交易双方的身份
         if(buyerName.equals(sellerName)){
-            return Result.error("你不能购买自己的书籍");
+            return Result.error("你不能购买自己的物品");
         }
 
         // 检查是否有重复的进行中的交易
@@ -82,7 +82,11 @@ public class TradeController {
     @RequestMapping("/getTradeFromMe")
     public Result getTradeFromMe(Integer pageNum, Integer pageSize, Integer state) {
         try{
-            PageBean<Trade> trades = tradeService.getTradeFromMe(pageNum, pageSize, state);
+            // 获取用户名
+            Map<String, Object> map = ThreadLocalUtil.get();
+            String userName = map.get("userName").toString();
+
+            PageBean<Trade> trades = tradeService.getTradeFromMe(pageNum, pageSize, state, userName);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());
@@ -94,7 +98,11 @@ public class TradeController {
     @RequestMapping("/getTradeToMe")
     public Result getTradeToMe(Integer pageNum, Integer pageSize, Integer state) {
         try{
-            PageBean<Trade> trades = tradeService.getTradeToMe(pageNum, pageSize, state);
+            // 获取用户名
+            Map<String, Object> map = ThreadLocalUtil.get();
+            String userName = map.get("userName").toString();
+
+            PageBean<Trade> trades = tradeService.getTradeToMe(pageNum, pageSize, state, userName);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());

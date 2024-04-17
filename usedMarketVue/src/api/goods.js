@@ -48,5 +48,5 @@ export const getCurrentPageGoodsService = (pageNum, pageSize) => {
     const params = new URLSearchParams()
     params.append("pageNum", pageNum)
     params.append("pageSize", pageSize)
-    return instance.post('/goods/getPageGoodsByID', params)
+    return instance.post('/goods/getCurrentPageGoods', params)
 }

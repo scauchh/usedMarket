@@ -4,77 +4,77 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.scau.mapper.TradeMapper">
     <update id="updateTrade">
-        update trade
+        UPDATE trade
         <set>
                 state = #{state},
             <if test="notes != null and notes != ''">
                 notes = #{notes}
             </if>
         </set>
-        where trade_id = #{tradeID}
+        WHERE trade_id = #{tradeID}
     </update>
     <select id="getAllTradeNum" resultType="int">
-        select count(*) from trade
+        SELECT COUNT(*) FROM trade
         <where>
             <if test="state != null and state != ''">
-                and state = #{state}
+                AND state = #{state}
             </if>
         </where>
-        order by trade_id desc
-        limit #{offset}, #{pageSize}
+        ORDER BY trade_id DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getAllTrade" resultType="org.scau.pojo.Trade">
-        select * from trade
+        SELECT * FROM trade
         <where>
             <if test="state != null and state != ''">
-                and state = #{state}
+                AND state = #{state}
             </if>
         </where>
-        order by trade_id desc
-        limit #{offset}, #{pageSize}
+        ORDER BY trade_id DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeFromMeNum" resultType="int">
-        select count(*) from trade
+        SELECT COUNT(*) FROM trade
         <where>
             buyer_name = #{userName}
             <if test="state != null and state != ''">
-                and state = #{state}
+                AND state = #{state}
             </if>
         </where>
-        order by trade_id desc
-        limit #{offset}, #{pageSize}
+        ORDER BY trade_id DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeFromMe" resultType="org.scau.pojo.Trade">
-        select * from trade
+        SELECT * FROM trade
         <where>
                 buyer_name = #{userName}
             <if test="state != null and state != ''">
-                and state = #{state}
+                AND state = #{state}
             </if>
         </where>
-        order by trade_id desc
-        limit #{offset}, #{pageSize}
+        ORDER BY trade_id DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeToMeNum" resultType="int">
-        select count(*) from trade
+        SELECT COUNT(*) FROM trade
         <where>
             seller_name = #{userName}
             <if test="state != null and state != ''">
-                and state = #{state}
+                AND state = #{state}
             </if>
         </where>
-        order by trade_id desc
-        limit #{offset}, #{pageSize}
+        ORDER BY trade_id DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeToMe" resultType="org.scau.pojo.Trade">
-        select * from trade
+        SELECT * FROM trade
         <where>
             seller_name = #{userName}
             <if test="state != null and state != ''">
-                and state = #{state}
+                AND state = #{state}
             </if>
         </where>
-        order by trade_id desc
-        limit #{offset}, #{pageSize}
+        ORDER BY trade_id DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
 </mapper>

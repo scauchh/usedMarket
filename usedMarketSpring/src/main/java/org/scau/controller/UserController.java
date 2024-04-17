@@ -1,8 +1,8 @@
 package org.scau.controller;
 
 import org.scau.pojo.Relation;
-import org.scau.pojo.model.PageBean;
-import org.scau.pojo.model.Result;
+import org.scau.pojo.vo.PageBean;
+import org.scau.pojo.vo.Result;
 import org.scau.pojo.User;
 import org.scau.service.RelationService;
 import org.scau.service.UserService;
@@ -39,29 +39,36 @@ public class UserController {
             return Result.error("密码错误");
         }
 
-        // 更新用户登录时间
-        userService.updateLoginTime(u.getUserID(), LocalDateTime.now());
+        try {
+            // 更新用户登录时间
+            userService.updateLoginTime(u.getUserID(), LocalDateTime.now());
 
-        Map<String, Object> claim = new HashMap<>();
-        claim.put("id", u.getUserID());
-        claim.put("userName", u.getUserName());
+            Map<String, Object> claim = new HashMap<>();
+            claim.put("id", u.getUserID());
+            claim.put("userName", u.getUserName());
 
-        // 登录成功,返回token
-        return Result.success(JWTUtil.genToken(claim));
+            // 登录成功,返回token
+            return Result.success(JWTUtil.genToken(claim));
+        }catch (Exception e){
+            logger.error(e.toString());
+            return Result.error("登录失败");
+        }
     }
 
     // 用户注册
     @RequestMapping("/register")
     public Result register(String userName, String password, String rePassword) {
-        User u = userService.searchUserByName(userName);
-        if (u != null) return Result.error("用户名已存在");
 
         if (userName == null || userName.length() < 5 || userName.length() > 16)
             return Result.error("请输入合法的用户名");
         if (password == null || password.length() < 5 || password.length() > 16)
             return Result.error("请输入合法的密码");
         if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
+
         try {
+            User u = userService.searchUserByName(userName);
+            if (u != null) return Result.error("用户名已存在");
+
             LocalDateTime registerTime = LocalDateTime.now();
             userService.addUser(userName, password, registerTime);
             return Result.success();
@@ -83,7 +90,7 @@ public class UserController {
         }
     }
 
-    // 修改用户密码
+    // 修改密码
     @RequestMapping("/updatePassward")
     public Result updatePassword(String password, String rePassword) {
         if (password == null || password.length() < 5 || password.length() > 16)
@@ -159,7 +166,7 @@ public class UserController {
         }
     }
 
-    // 根据用户ID获取当前用户信息
+    // 根据用户ID获取用户信息
     @RequestMapping("/getUserInfoByID")
     public Result getUserInfoByID(Integer userID) {
         try {
@@ -171,7 +178,7 @@ public class UserController {
         }
     }
 
-    // 根据用户名获取当前用户信息
+    // 根据用户名获取用户信息
     @RequestMapping("/getUserInfoByName")
     public Result getUserInfoByName(String userName) {
         try {
@@ -183,11 +190,14 @@ public class UserController {
         }
     }
 
-    // 获取所有用户信息
+    // 分页获取所有用户信息
     @RequestMapping("/getAllUserInfo")
     public Result getAllUserInfo(Integer pageNum, Integer pageSize, String userName, String userRole) {
         try {
-            PageBean<User> users = userService.getAllUserInfo(pageNum, pageSize, userName, userRole);
+            Map<String, java.lang.Object> claim = ThreadLocalUtil.get();
+            Integer userID = Integer.valueOf(claim.get("id").toString());
+
+            PageBean<User> users = userService.getAllUserInfo(pageNum, pageSize, userID, userName, userRole);
             return Result.success(users);
         } catch (Exception e) {
             logger.error(e.toString());
@@ -195,7 +205,7 @@ public class UserController {
         }
     }
 
-    // 更新用户数据
+    // 更新用户信息
     @RequestMapping("/updateUser")
     public Result updateUser(@RequestBody User user) {
         String nickName = user.getNickName();

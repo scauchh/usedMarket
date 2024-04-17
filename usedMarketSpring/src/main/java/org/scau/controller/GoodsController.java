@@ -1,8 +1,8 @@
 package org.scau.controller;
 
 import org.scau.pojo.Goods;
-import org.scau.pojo.model.PageBean;
-import org.scau.pojo.model.Result;
+import org.scau.pojo.vo.PageBean;
+import org.scau.pojo.vo.Result;
 import org.scau.service.GoodsService;
 import org.scau.utils.ThreadLocalUtil;
 import org.slf4j.Logger;
@@ -111,7 +111,7 @@ public class GoodsController {
         }
     }
 
-    // 根据ID查找物品
+    // 根据物品ID查找物品
     @RequestMapping("/getGoodsByID")
     public Result getGoodsByID(Integer goodsID) {
         try {
@@ -135,11 +135,15 @@ public class GoodsController {
         }
     }
 
-    // 根据用户ID分页获得所有的物品
-    @RequestMapping("/getPageGoodsByID")
-    public Result getPageGoodsByID(String pageNum, String pageSize) {
+    // 根据用户ID分页获得该用户的所有物品
+    @RequestMapping("/getCurrentPageGoods")
+    public Result getCurrentPageGoods(String pageNum, String pageSize) {
         try {
-            PageBean<Goods> pb = goodsService.getPageGoodsByID(Integer.parseInt(pageNum), Integer.parseInt(pageSize));
+            // 获取userID
+            Map<String, java.lang.Object> map = ThreadLocalUtil.get();
+            Integer userID = (Integer) map.get("id");
+
+            PageBean<Goods> pb = goodsService.getPageGoodsByID(Integer.parseInt(pageNum), Integer.parseInt(pageSize), userID);
             return Result.success(pb);
         } catch (Exception e) {
             logger.error(e.toString());

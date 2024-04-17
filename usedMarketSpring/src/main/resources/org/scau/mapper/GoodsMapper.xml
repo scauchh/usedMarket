@@ -4,37 +4,37 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.scau.mapper.GoodsMapper">
     <select id="getAllGoodsNum" resultType="int">
-        select count(*) from goods
+        SELECT COUNT(*) FROM goods
         <where>
             <if test="goodsName != null and goodsName != ''">
-                goods_name like concat('%', #{goodsName}, '%')
+                goods_name LIKE concat('%', #{goodsName}, '%')
             </if>
             <if test="type != null and type != ''">
-                and type = #{type}
+                AND type = #{type}
             </if>
         </where>
     </select>
 
     <select id="getPageGoods" resultType="org.scau.pojo.Goods">
-        select * from goods
+        SELECT * FROM goods
         <where>
             <if test="goodsName != null and goodsName != ''">
-                goods_name like concat('%', #{goodsName}, '%')
+                goods_name LIKE concat('%', #{goodsName}, '%')
             </if>
             <if test="type != null and type != ''">
-                and type = #{type}
+                AND type = #{type}
             </if>
         </where>
-        order by datetime desc
-        limit #{offset}, #{pageSize}
+        ORDER BY datetime DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
 
     <select id="getPageGoodsByID" resultType="org.scau.pojo.Goods">
-        select * from goods
+        SELECT * FROM goods
         <where>
             user_id = #{userID}
         </where>
-        order by datetime desc
-        limit #{offset}, #{pageSize}
+        ORDER BY datetime DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
 </mapper>

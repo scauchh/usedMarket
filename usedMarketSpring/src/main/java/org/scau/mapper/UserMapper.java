@@ -46,11 +46,10 @@ public interface UserMapper {
     User getCurrentUser(Integer userID);
 
     // 获取用户总数量(除了当前用户)
-    @Select("SELECT COUNT(*) FROM user WHERE user_id != #{userID}")
-    Integer getUserNum(Integer userID);
+    Integer getUserNum(Integer userID, String userName, String userRole);
 
     // 分页获取所有用户信息（除了当前用户）
-    List<User> getAllUserInfo(Integer offset, Integer pageSize,Integer userID, String userName, String userRole);
+    List<User> getAllUserInfo(Integer offset, Integer pageSize, Integer userID, String userName, String userRole);
 
     // 根据图片查询用户，用于判断图片是否有效
     @Select("SELECT * FROM user WHERE avatar = #{image}")

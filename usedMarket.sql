@@ -1,6 +1,6 @@
 ﻿-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: usedmarket
+-- Host: localhost    Database: usedMarket
 -- ------------------------------------------------------
 -- Server version	8.0.34
 
@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `usedmarket`
+-- Current Database: `usedMarket`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `usedmarket` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `usedMarket` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `usedmarket`;
+USE `usedMarket`;
 
 --
 -- Table structure for table `goods`
@@ -46,7 +46,7 @@ CREATE TABLE `goods` (
   KEY `user_id_constrain` (`user_id`),
   CONSTRAINT `type_constrain` FOREIGN KEY (`type`) REFERENCES `type` (`type_name`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `user_id_constrain` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,7 +55,7 @@ CREATE TABLE `goods` (
 
 LOCK TABLES `goods` WRITE;
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
-INSERT INTO `goods` VALUES (37,12,'123','http://localhost:8080/pics/20240331171955407.png',12.12,'二手书','2024-03-31 21:30:38.14','测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'),(39,28,'12345','http://localhost:8080/pics/20240326213939381.png',12.00,'其他','2024-04-02 14:20:09.65','无'),(40,12,'111111','http://localhost:8080/pics/20240326214300122.png',333.00,'电子产品','2024-04-02 12:23:29.28',''),(42,28,'qwewww','http://localhost:8080/pics/20240327132436715.png',10.00,'二手衣物','2024-04-13 21:39:35.31','qweqweqwe'),(49,28,'123','http://localhost:8080/pics/20240331211634335.png',2.00,'日用品','2024-03-31 21:24:23.55',''),(50,28,'eee','http://localhost:8080/pics/20240413214253669.png',3.00,'二手书','2024-04-13 21:42:54.40','');
+INSERT INTO `goods` VALUES (37,12,'123','http://localhost:8080/pics/20240331171955407.png',12.12,'二手书','2024-03-31 21:30:38.14','测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试'),(39,28,'12345','http://localhost:8080/pics/20240326213939381.png',12.00,'其他','2024-04-02 14:20:09.65','无'),(40,12,'111111','http://localhost:8080/pics/20240326214300122.png',333.00,'电子产品','2024-04-02 12:23:29.28',''),(42,28,'qwewww','http://localhost:8080/pics/20240327132436715.png',10.00,'二手衣物','2024-04-13 21:39:35.31','qweqweqwe'),(49,28,'123','http://localhost:8080/pics/20240331211634335.png',2.00,'日用品','2024-03-31 21:24:23.55',''),(50,28,'eee','http://localhost:8080/pics/20240413214253669.png',3.00,'二手书','2024-04-13 21:42:54.40',''),(52,28,'123','http://localhost:8080/pics/20240415220714595.png',312.00,'电子产品','2024-04-15 22:09:04.73','1');
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,8 +97,8 @@ CREATE TABLE `relation` (
   `user_id` int NOT NULL,
   `answer` varchar(200) NOT NULL,
   PRIMARY KEY (`relation_id`),
-  UNIQUE KEY `question_id_UNIQUE` (`question_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
+  KEY `question_id_constrain_idx` (`question_id`),
   CONSTRAINT `question_id_constrain` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `used_id_constrain` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -110,7 +110,7 @@ CREATE TABLE `relation` (
 
 LOCK TABLES `relation` WRITE;
 /*!40000 ALTER TABLE `relation` DISABLE KEYS */;
-INSERT INTO `relation` VALUES (4,1,28,'123');
+INSERT INTO `relation` VALUES (1,1,33,'33113'),(4,1,28,'123123');
 /*!40000 ALTER TABLE `relation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,13 +129,13 @@ CREATE TABLE `trade` (
   `state` int DEFAULT NULL,
   `notes` varchar(200) NOT NULL,
   PRIMARY KEY (`trade_id`),
-  KEY `book_id_constarin_idx` (`goods_id`),
+  KEY `goods_id_constarin_idx` (`goods_id`),
   KEY `buyer_name_constrain_idx` (`buyer_name`),
   KEY `seller_name_constrain_idx` (`seller_name`),
   CONSTRAINT `buyer_name_constrain` FOREIGN KEY (`buyer_name`) REFERENCES `user` (`user_name`) ON DELETE SET NULL,
   CONSTRAINT `goods_id_constrain` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`goods_id`) ON DELETE SET NULL,
   CONSTRAINT `seller_name_constrain` FOREIGN KEY (`seller_name`) REFERENCES `user` (`user_name`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +144,7 @@ CREATE TABLE `trade` (
 
 LOCK TABLES `trade` WRITE;
 /*!40000 ALTER TABLE `trade` DISABLE KEYS */;
-INSERT INTO `trade` VALUES (9,'123123','asdasd',37,1,''),(10,'asdasd','123123',50,1,'');
+INSERT INTO `trade` VALUES (9,'123123','asdasd',37,1,''),(10,'asdasd','123123',50,1,''),(14,'123123','asdasd',40,1,'');
 /*!40000 ALTER TABLE `trade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,7 +204,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'11111','11111','11111','http://localhost:8080/pics/20240403125243290.png','2','11111@111.com','19835812343',1,'2024-04-02 17:44:24.78','2024-04-03 12:50:56.26'),(2,'22222','22222','22222','http://localhost:8080/pics/20240402174442173.png','1','11223344@1234.com','19835812343',0,'2024-04-02 17:44:24.78','2024-04-02 17:44:28.24'),(12,'asdasd','asd','123123','http://localhost:8080/pics/20240403203620609.png','1',NULL,NULL,0,'2024-04-02 14:20:18.67','2024-04-13 15:00:00.25'),(28,'123123','123','123123','http://localhost:8080/pics/20240402145014962.png','2','1182814995@qq.com','19835809866',1,'2024-04-02 14:20:18.67','2024-04-14 11:23:09.66'),(33,'121212','121212','121212',NULL,'0',NULL,NULL,0,'2024-04-02 16:38:35.28','2024-04-02 16:44:44.38'),(35,'333111','333111','333111','http://localhost:8080/pics/20240402174442173.png','1','11223344@1234.com','19835812343',0,'2024-04-02 17:44:24.78','2024-04-02 17:44:28.24');
+INSERT INTO `user` VALUES (1,'11111','11111','123456','http://localhost:8080/pics/20240403125243290.png','2','11111@111.com','19835812343',1,'2024-04-02 17:44:24.78','2024-04-03 12:50:56.26'),(12,'asdasd','asd','123123','http://localhost:8080/pics/20240403203620609.png','1',NULL,NULL,0,'2024-04-02 14:20:18.67','2024-04-13 15:00:00.25'),(28,'123123','123','123123','http://localhost:8080/pics/20240402145014962.png','2','1182814995@qq.com','19835809866',1,'2024-04-02 14:20:18.67','2024-04-16 12:31:10.69'),(33,'121212','121212','121212',NULL,'0',NULL,NULL,0,'2024-04-02 16:38:35.28','2024-04-02 16:44:44.38'),(35,'333111','333111','333111','http://localhost:8080/pics/20240402174442173.png','1','11223344@1234.com','19835812343',0,'2024-04-02 17:44:24.78','2024-04-02 17:44:28.24');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -217,4 +217,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-14 17:02:50
+-- Dump completed on 2024-04-17 17:38:53

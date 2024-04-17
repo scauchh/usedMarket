@@ -1,7 +1,7 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.UserMapper;
-import org.scau.pojo.model.PageBean;
+import org.scau.pojo.vo.PageBean;
 import org.scau.pojo.User;
 import org.scau.service.UserService;
 import org.scau.utils.ThreadLocalUtil;
@@ -74,14 +74,11 @@ public class UserServiceImpl implements UserService {
 
     // 获取所有用户信息
     @Override
-    public PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize, String userName, String userRole) {
+    public PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize, Integer userID, String userName, String userRole) {
         PageBean<User> pb = new PageBean<>();
 
-        Map<String, java.lang.Object> claim = ThreadLocalUtil.get();
-        Integer userID = Integer.valueOf(claim.get("id").toString());
-
         // 查询分页结果
-        int total = userMapper.getUserNum(userID);
+        int total = userMapper.getUserNum(userID, userName, userRole);
         List<User> users = userMapper.getAllUserInfo(pageSize*(pageNum-1), pageSize, userID, userName, userRole);
 
         // 返回分页查询结果
@@ -93,7 +90,6 @@ public class UserServiceImpl implements UserService {
     // 根据图片查询用户，用于判断图片是否有效
     @Override
     public User getUserByImage(String image) {
-        System.out.println("b: "+image);
         return userMapper.getUserByImage(image);
     }
 }

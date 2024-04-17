@@ -2,7 +2,7 @@ package org.scau.service.impl;
 
 import org.scau.mapper.GoodsMapper;
 import org.scau.pojo.Goods;
-import org.scau.pojo.model.PageBean;
+import org.scau.pojo.vo.PageBean;
 import org.scau.service.GoodsService;
 import org.scau.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,12 +83,8 @@ public class GoodsServiceImpl implements GoodsService {
 
     // 根据用户ID分页获得所有的物品
     @Override
-    public PageBean<Goods> getPageGoodsByID(Integer pageNum, Integer pageSize) {
+    public PageBean<Goods> getPageGoodsByID(Integer pageNum, Integer pageSize, Integer userID) {
         PageBean<Goods> pb = new PageBean<>();
-
-        // 获取userID
-        Map<String, java.lang.Object> map = ThreadLocalUtil.get();
-        Integer userID = (Integer) map.get("id");
 
         // 通过userID查询分页结果
         int total = goodsMapper.getGoodsNumByID(userID);
