@@ -200,7 +200,7 @@ const showPreview = (picture) => {
           </el-upload>
         </el-form-item>
         <el-form-item label="价格" prop="price">
-          <el-input-number v-model="goodsModel.price" :precision="2" :step="1" :max="10000" :min="0"/>
+          <el-input-number v-model="goodsModel.price" :precision="2" :step="1" :max="10000" :min="1"/>
         </el-form-item>
         <el-form-item label="类型" prop="type">
           <el-select placeholder="请选择物品类型" v-model="goodsModel.type" style="width: 200px">

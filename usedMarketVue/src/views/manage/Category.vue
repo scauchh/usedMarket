@@ -137,7 +137,7 @@ const changeType = async (row) => {
     </el-form>
     <el-form :model="typeModel" :rules="typeModelRules" label-width="100px" style="padding: 20px 80px 40px 0">
       <el-form-item label="类别编号" prop="typeID">
-        <el-input-number v-model="typeModel.typeID" :precision="0" :step="1" :max="10000" :min="0"/>
+        <el-input-number v-model="typeModel.typeID" :precision="0" :step="1" :max="1000" :min="0"/>
       </el-form-item>
       <br>
       <el-form-item label="类别名称" prop="typeName">
