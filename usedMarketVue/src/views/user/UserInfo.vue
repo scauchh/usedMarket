@@ -12,6 +12,10 @@ const tokenStore = useTokenStore()
 const userInfoStore = useUserInfoStore()
 // 控制是否处于编辑状态
 const isEdit = ref(false)
+// 控制预览图是否显示
+const visibleDialog = ref(false)
+// 控制预览图的图片
+const prePicture = ref("")
 
 // 用户数据模型
 const userData = ref({
@@ -84,6 +88,12 @@ const updateUserInfo = async () => {
   refresh()
   ElMessage.success("修改成功")
 }
+
+// 打开预览图
+const showPreview = (picture) => {
+  visibleDialog.value = true
+  prePicture.value = picture
+}
 </script>
 
 <template>
@@ -133,8 +143,8 @@ const updateUserInfo = async () => {
           <el-form-item label="用户名" prop="userName">{{userData.userName}}</el-form-item>
           <el-form-item label="昵称" prop="nickName">{{ userData.nickName }}</el-form-item>
           <el-form-item label="头像" prop="avatar">
-            <img v-if="userData.avatar" :src="userData.avatar" class="avatar" />
-            <img v-else :src="avatar" width="200" />
+            <img v-if="userData.avatar" :src="userData.avatar" class="avatar" @click="showPreview(userData.avatar)"/>
+            <img v-else :src="avatar" width="200" @click="showPreview(avatar)"/>
           </el-form-item>
           <el-form-item label="性别" prop="gender">
             <el-text v-if="userData.gender==1">男</el-text>
@@ -150,6 +160,10 @@ const updateUserInfo = async () => {
       </el-col>
     </el-row>
   </el-card>
+  <!-- 预览图 -->
+  <el-dialog v-model="visibleDialog" width="35%">
+    <img :src="prePicture" style="width: 100%; height: auto;" />
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>

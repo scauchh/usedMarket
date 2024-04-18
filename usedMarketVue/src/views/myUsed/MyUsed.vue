@@ -146,7 +146,6 @@ const uploadError = (result) => {
 const showPreview = (picture) => {
   visibleDialog.value = true
   prePicture.value = picture
-  console.log(picture)
 }
 </script>
 
@@ -201,7 +200,7 @@ const showPreview = (picture) => {
           </el-upload>
         </el-form-item>
         <el-form-item label="价格" prop="price">
-          <el-input-number v-model="goodsModel.price" :precision="2" :step="1" :max="1000" :min="0"/>
+          <el-input-number v-model="goodsModel.price" :precision="2" :step="1" :max="10000" :min="0"/>
         </el-form-item>
         <el-form-item label="类型" prop="type">
           <el-select placeholder="请选择物品类型" v-model="goodsModel.type" style="width: 200px">
@@ -218,7 +217,7 @@ const showPreview = (picture) => {
       </el-form>
     </el-drawer>
     <!-- 预览图 -->
-    <el-dialog v-model="visibleDialog">
+    <el-dialog v-model="visibleDialog" width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" />
     </el-dialog>
     <!-- 分页条 -->

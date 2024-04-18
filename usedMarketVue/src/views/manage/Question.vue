@@ -137,7 +137,7 @@ const changeQuestion = async (row) => {
     </el-form>
     <el-form :model="questionModel" :rules="questionModelRules" label-width="90px" style="padding: 20px 40px 30px 0">
       <el-form-item label="问题编号" prop="questionID">
-        <el-input-number v-model="questionModel.questionID" :precision="0" :step="1" :max="1000" :min="0"/>
+        <el-input-number v-model="questionModel.questionID" :precision="0" :step="1" :max="10000" :min="0"/>
       </el-form-item>
       <br>
       <el-form-item label="密保问题" prop="item">
