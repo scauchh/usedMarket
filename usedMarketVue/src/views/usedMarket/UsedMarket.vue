@@ -52,7 +52,7 @@ const showSeller = async (row) => {
   visibleSeller.value = true
   let result = await getUserInfoByIDService(row.userID)
   sellerData.value = result.data
-  if (sellerData.value.gender === '0') sellerData.value.gender = '未知'
+  if (sellerData.value.gender === '0') sellerData.value.gender = '不愿透露'
   else if (sellerData.value.gender === '1') sellerData.value.gender = '男'
   else if (sellerData.value.gender === '2') sellerData.value.gender = '女';
 }
@@ -171,7 +171,7 @@ const showPreview = (picture) => {
       </el-form>
     </el-dialog>
     <!-- 预览图 -->
-    <el-dialog v-model="visibleImg" width="50%">
+    <el-dialog v-model="visibleImg" width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" class="prePicture" />
     </el-dialog>
     <!-- 分页条 -->

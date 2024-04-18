@@ -63,7 +63,7 @@ const showUserInfo = async (row, type) => {
   }
   let result = await getUserInfoByNameService(userName)
   userData.value = result.data
-  if (userData.value.gender === '0') userData.value.gender = '未知'
+  if (userData.value.gender === '0') userData.value.gender = '不愿透露'
   else if (userData.value.gender === '1') userData.value.gender = '男'
   else if (userData.value.gender === '2') userData.value.gender = '女';
 }
@@ -216,7 +216,7 @@ const showPreview = (picture) => {
       layout="jumper, total, sizes, prev, pager, next" background :total="total" @size-change="onSizeChange"
       @current-change="onCurrentChange" style="margin-top: 20px; justify-content: flex-end" />
     <!-- 预览图 -->
-    <el-dialog v-model="visibleImg" width="50%">
+    <el-dialog v-model="visibleImg" width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" class="prePicture" />
     </el-dialog>
   </el-card>
@@ -245,5 +245,6 @@ const showPreview = (picture) => {
 
 .button-container {
   display: flex;
+  margin: 30px auto;
 }
 </style>

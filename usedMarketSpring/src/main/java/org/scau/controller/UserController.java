@@ -4,6 +4,7 @@ import org.scau.pojo.Relation;
 import org.scau.pojo.vo.PageBean;
 import org.scau.pojo.vo.Result;
 import org.scau.pojo.User;
+import org.scau.service.GoodsService;
 import org.scau.service.RelationService;
 import org.scau.service.UserService;
 import org.scau.utils.JWTUtil;
@@ -26,6 +27,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    GoodsService goodsService;
     @Autowired
     RelationService relationService;
 
@@ -115,6 +118,7 @@ public class UserController {
     public Result deleteUser(Integer userID){
         try {
             userService.deleteUser(userID);
+            goodsService.deleteGoodsByUserID(userID);
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());

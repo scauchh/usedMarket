@@ -25,7 +25,8 @@
     <select id="getUserNum" resultType="int">
         SELECT COUNT(*) FROM user
         <where>
-            user_id != #{userID}
+                active = '1'
+                AND user_id != #{userID}
             <if test="userName != null and userName != ''">
                 AND user_name LIKE concat('%', #{userName}, '%')
             </if>
@@ -40,7 +41,8 @@
     <select id="getAllUserInfo" resultType="org.scau.pojo.User">
         SELECT * FROM user
         <where>
-                user_id != #{userID}
+                active = '1'
+                AND user_id != #{userID}
             <if test="userName != null and userName != ''">
                 AND user_name LIKE concat('%', #{userName}, '%')
             </if>

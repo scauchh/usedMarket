@@ -10,8 +10,11 @@ public interface GoodsService {
     // 添加新物品
     void addGoods(Goods goods);
 
-    // 根据ID删除物品
+    // 根据goodsID删除物品
     void deleteGoodsByID(Integer goodsID);
+
+    // 根据userID删除物品
+    void deleteGoodsByUserID(Integer userID);
 
     // 根据物品ID更新物品
     void updateGoodsByID(Goods goods);

@@ -6,8 +6,9 @@
     <select id="getAllGoodsNum" resultType="int">
         SELECT COUNT(*) FROM goods
         <where>
+            active = '1'
             <if test="goodsName != null and goodsName != ''">
-                goods_name LIKE concat('%', #{goodsName}, '%')
+                AND goods_name LIKE concat('%', #{goodsName}, '%')
             </if>
             <if test="type != null and type != ''">
                 AND type = #{type}
@@ -18,8 +19,9 @@
     <select id="getPageGoods" resultType="org.scau.pojo.Goods">
         SELECT * FROM goods
         <where>
+            active = '1'
             <if test="goodsName != null and goodsName != ''">
-                goods_name LIKE concat('%', #{goodsName}, '%')
+                AND goods_name LIKE concat('%', #{goodsName}, '%')
             </if>
             <if test="type != null and type != ''">
                 AND type = #{type}
@@ -31,9 +33,7 @@
 
     <select id="getPageGoodsByID" resultType="org.scau.pojo.Goods">
         SELECT * FROM goods
-        <where>
-            user_id = #{userID}
-        </where>
+        WHERE active = '1' AND user_id = #{userID}
         ORDER BY datetime DESC
         LIMIT #{offset}, #{pageSize}
     </select>

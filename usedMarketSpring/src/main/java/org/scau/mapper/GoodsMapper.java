@@ -13,9 +13,13 @@ public interface GoodsMapper {
             "VALUES (#{userID}, #{goodsName}, #{picture}, #{price}, #{type}, #{datetime}, #{notes})")
     void addGoods(Goods goods);
 
-    // 根据ID删除物品
-    @Delete("DELETE FROM goods WHERE goods_id = #{goodsID}")
+    // 根据goodsID删除物品
+    @Update("UPDATE goods SET active = '0' WHERE goods_id = #{goodsID}")
     void deleteGoodsByID(Integer goodsID);
+
+    // 根据userID删除物品
+    @Update("UPDATE goods SET active = '0' WHERE user_id = #{userID}")
+    void deleteGoodsByUserID(Integer userID);
 
     // 根据物品ID更新物品
     @Update("UPDATE goods SET goods_name = #{goodsName}, picture = #{picture}, price = #{price}, " +
@@ -27,14 +31,14 @@ public interface GoodsMapper {
     Goods getGoodsByID(Integer goodsID);
 
     // 获取所有的物品
-    @Select("SELECT * FROM goods;")
+    @Select("SELECT * FROM goods WHERE active = '1';")
     List<Goods> getAllGoods();
 
     // 获取所有物品的总数
     Integer getAllGoodsNum(String goodsName, String type);
 
     // 获取当前用户所有物品的数量
-    @Select("SELECT COUNT(*) FROM goods WHERE user_id = #{userID}")
+    @Select("SELECT COUNT(*) FROM goods WHERE user_id = #{userID} AND active = '1'")
     Integer getGoodsNumByID(Integer userID);
 
     // 根据物品名称获得物品
@@ -46,7 +50,7 @@ public interface GoodsMapper {
     Goods getGoodsByImage(String image);
 
     // 根据类型查询物品，用于判断类型是否可以删除
-    @Select("SELECT COUNT(*) FROM goods WHERE type = #{typeName}")
+    @Select("SELECT COUNT(*) FROM goods WHERE type = #{typeName} AND active = '1'")
     Integer getGoodsNumByType(String typeName);
 
     // 分页获得所有的物品

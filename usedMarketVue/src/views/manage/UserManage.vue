@@ -70,10 +70,11 @@ const change = async () => {
 
 // 重置用户密码
 const resetPassword = (row) => {
-  ElMessageBox.confirm("您确定要重置该用户的密码吗?密码将被重置为123456！", "温馨提示", {
+  ElMessageBox.confirm("您确定要重置该用户的密码吗?<br>密码将被重置为“123456”！", "温馨提示", {
       confirmButtonClass: "确定",
       cancelButtonClass: "取消",
-      type: "warning"
+      type: "warning",
+      dangerouslyUseHTMLString: true
     }).then(async() => {
       await resetPasswordByManageService(row.userName)
       ElMessage.success("重置成功")
@@ -83,10 +84,11 @@ const resetPassword = (row) => {
 
 // 删除用户
 const deleteUser = (row) => {
-  ElMessageBox.confirm("您确定要删除该用户吗?用户的所有信息会被一并删除！", "温馨提示", {
+  ElMessageBox.confirm("您确定要删除该用户吗?<br>用户的所有信息会被一并删除！", "温馨提示", {
       confirmButtonClass: "确定",
       cancelButtonClass: "取消",
-      type: "warning"
+      type: "warning",
+      dangerouslyUseHTMLString: true
     }).then(async() => {
       await deleteUserService(row.userID)
       ElMessage.success("删除成功")
@@ -153,7 +155,7 @@ const showPreview = (picture) => {
       </el-table-column>
       <el-table-column label="性别" prop="gender">
         <template #default="{ row }">
-          <el-text v-if="row.gender==0">未知</el-text>
+          <el-text v-if="row.gender==0">不愿透露</el-text>
           <el-text v-else-if="row.gender==1">男</el-text>
           <el-text v-else-if="row.gender==2">女</el-text>
         </template>
@@ -209,7 +211,7 @@ const showPreview = (picture) => {
       layout="jumper, total, sizes, prev, pager, next" background :total="total" @size-change="onSizeChange"
       @current-change="onCurrentChange" style="margin-top: 20px; justify-content: flex-end" />
     <!-- 预览图 -->
-    <el-dialog v-model="visibleImg" width="50%">
+    <el-dialog v-model="visibleImg" width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" class="prePicture" />
     </el-dialog>
   </el-card>

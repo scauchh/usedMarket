@@ -154,7 +154,7 @@ const showPreview = (picture) => {
   <el-card class="page-container">
     <template #header>
       <div class="header">
-        <span>我的发布</span>
+        <h1 class="title">我的发布</h1>
         <el-button type="primary" @click="openDrawer">添加物品</el-button>
       </div>
     </template>
@@ -237,6 +237,10 @@ const showPreview = (picture) => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .title {
+      margin: auto 10px;
+    }
   }
 }
 

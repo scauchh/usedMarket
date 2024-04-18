@@ -108,18 +108,17 @@ const changeType = async (row) => {
   <el-card v-if="isManager" class="page-container">
     <template #header>
       <div class="header">
-        <span>物品类别</span>
+        <h1 class="title">物品类别</h1>
         <el-button type="primary" @click="preAddType">添加类别</el-button>
       </div>
     </template>
     <el-table :data="goodsType" style="width: 100%">
-      <el-table-column label="类别编号" prop="typeID"> </el-table-column>
+      <el-table-column label="类别编号" prop="typeID"></el-table-column>
       <el-table-column label="类别名称" prop="typeName"></el-table-column>
-      
       <el-table-column label="操作" width="150">
         <template #default="{ row }">
           <el-tooltip effect="light" placement="left" content="编辑">
-            <el-button :icon="Edit" circle plain type="primary" @click="changeType(row)"></el-button>
+            <el-button :icon="Edit" circle plain type="primary" @click="changeType(row)" style="margin: 20px auto"></el-button>
           </el-tooltip>
           <el-tooltip effect="light" placement="right" content="删除">
             <el-button :icon="Delete" circle plain type="danger" @click="deleteType(row)"></el-button>
@@ -127,7 +126,7 @@ const changeType = async (row) => {
         </template>
       </el-table-column>
       <template #empty>
-          <el-empty description="没有数据" />
+        <el-empty description="没有数据" />
       </template>
     </el-table>
   </el-card>
@@ -161,6 +160,10 @@ const changeType = async (row) => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .title {
+      margin: auto 10px;
+    }
   }
 }
 </style>

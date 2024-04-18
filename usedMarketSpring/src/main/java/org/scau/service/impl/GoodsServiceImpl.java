@@ -24,10 +24,16 @@ public class GoodsServiceImpl implements GoodsService {
         goodsMapper.addGoods(goods);
     }
 
-    // 根据ID删除物品
+    // 根据goodsID删除物品
     @Override
     public void deleteGoodsByID(Integer goodsID) {
         goodsMapper.deleteGoodsByID(goodsID);
+    }
+
+    // 根据userID删除物品
+    @Override
+    public void deleteGoodsByUserID(Integer userID) {
+        goodsMapper.deleteGoodsByUserID(userID);
     }
 
     // 根据物品ID更新物品

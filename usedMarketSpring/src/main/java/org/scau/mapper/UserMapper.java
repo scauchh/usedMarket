@@ -15,7 +15,7 @@ public interface UserMapper {
     void addUser(String userName, String password, LocalDateTime registerTime);
 
     // 删除用户
-    @Delete("DELETE FROM user WHERE user_id = #{userID}")
+    @Delete("UPDATE user SET active = '0' WHERE user_id = #{userID}")
     void deleteUser(Integer userID);
 
     // 更新用户信息
