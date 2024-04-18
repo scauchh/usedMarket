@@ -10,6 +10,8 @@ import avatar from '@/assets/default.png'
 const tokenStore = useTokenStore()
 // 使用用户信息存储服务
 const userInfoStore = useUserInfoStore()
+// 控制是否处于编辑状态
+const isEdit = ref(false)
 
 // 用户数据模型
 const userData = ref({
@@ -26,6 +28,7 @@ const userData = ref({
 const refresh = async () => {
   let result = await getUserInfoService()
   userData.value = result.data
+  isEdit.value = false
 }
 
 // 初始化界面
@@ -67,11 +70,17 @@ const uploadError = (result) => {
   ElMessage.error("图片大小不能超过5MB")
 }
 
+// 编辑信息
+const editInfo = () => {
+  isEdit.value = true
+}
+
 // 更新用户数据
 const updateUserInfo = async () => {
   await updateUserInfoService(userData.value)
   let result = await getUserInfoService()
   userInfoStore.setInfo(result.data)
+  isEdit.value = false
   refresh()
   ElMessage.success("修改成功")
 }
@@ -86,12 +95,13 @@ const updateUserInfo = async () => {
     </template>
     <el-row>
       <el-col :span="12">
-        <el-form :model="userData" :rules="userDataRules" label-width="100px" size="large">
+        <!-- 编辑信息 -->
+        <el-form v-if="isEdit" :model="userData" :rules="userDataRules" label-width="100px" size="large">
           <el-form-item label="用户名" prop="userName">
-            <el-input v-model="userData.userName" disabled></el-input>
+            <el-input v-model="userData.userName" disabled style="width: 300px"></el-input>
           </el-form-item>
           <el-form-item label="昵称" prop="nickName">
-            <el-input v-model="userData.nickName"></el-input>
+            <el-input v-model="userData.nickName" style="width: 300px"></el-input>
           </el-form-item>
           <el-form-item label="头像" prop="avatar">
             <el-upload class="avatar-uploader" action="/api/uploadImg" :auto-upload="true" :show-file-list="false"
@@ -108,13 +118,33 @@ const updateUserInfo = async () => {
             </el-radio-group>
           </el-form-item>
           <el-form-item label="邮箱" prop="email">
-            <el-input v-model="userData.email"></el-input>
+            <el-input v-model="userData.email" style="width: 300px"></el-input>
           </el-form-item>
           <el-form-item label="手机" prop="phone">
-            <el-input v-model="userData.phone"></el-input>
+            <el-input v-model="userData.phone" style="width: 300px"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="updateUserInfo">确认修改</el-button>
+            <el-button type="info" @click="refresh">取消编辑</el-button>
+          </el-form-item>
+        </el-form>
+        <!-- 展示信息 -->
+        <el-form v-else label-width="100px" size="large">
+          <el-form-item label="用户名" prop="userName">{{userData.userName}}</el-form-item>
+          <el-form-item label="昵称" prop="nickName">{{ userData.nickName }}</el-form-item>
+          <el-form-item label="头像" prop="avatar">
+            <img v-if="userData.avatar" :src="userData.avatar" class="avatar" />
+            <img v-else :src="avatar" width="200" />
+          </el-form-item>
+          <el-form-item label="性别" prop="gender">
+            <el-text v-if="userData.gender==1">男</el-text>
+            <el-text v-else-if="userData.gender==2">女</el-text>
+            <el-text v-else>不愿透露</el-text>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">{{ userData.email }}</el-form-item>
+          <el-form-item label="手机" prop="phone">{{ userData.phone }}</el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="editInfo">编辑信息</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -152,5 +182,11 @@ const updateUserInfo = async () => {
       text-align: center;
     }
   }
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  display: block;
 }
 </style>
