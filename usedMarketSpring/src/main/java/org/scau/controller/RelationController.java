@@ -58,7 +58,7 @@ public class RelationController {
         else return updateRelation(relation.getRelationID(), questionID, answer);
     }
 
-    // 获取当前用户密保问题
+    // 获取当前用户密保
     @RequestMapping("/getCurrentRelation")
     public Result getCurrentQuestion() {
         try {
@@ -70,7 +70,7 @@ public class RelationController {
             return Result.success(relation);
         }catch (Exception e){
             logger.error(e.toString());
-            return Result.error("获取当前用户密保问题失败");
+            return Result.error("获取当前用户密保失败");
         }
     }
 }

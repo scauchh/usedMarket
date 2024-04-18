@@ -136,7 +136,7 @@ const resetPassword = async() => {
 <template>
   <el-row class="login-page">
     <el-col :span="7" class="form">
-      <!-- 注册表单 -->
+      <!-- 注册表单 --> 
       <el-form ref="form" size="large" autocomplete="off" v-if="isRegister" :model="userData" :rules="userDataRules">
         <el-form-item>
           <h1>注册</h1>
@@ -157,7 +157,7 @@ const resetPassword = async() => {
           <el-button class="button" type="primary" auto-insert-space @click="register">注册</el-button>
         </el-form-item>
         <el-form-item class="flex">
-          <el-link type="info" :underline="false" @click="isRegister = false; clearData()">← 返回</el-link>
+          <el-link type="primary" :underline="false" @click="isRegister = false; clearData()">← 返回</el-link>
         </el-form-item>
       </el-form>
       <!-- 登录表单 -->
@@ -177,34 +177,37 @@ const resetPassword = async() => {
           <el-button class="button" type="primary" auto-insert-space @click="login">登录</el-button>
         </el-form-item>
         <div class="flex">
-          <el-link type="info" :underline="false" @click="isRegister = true; clearData()">注册 →</el-link>
+          <el-link type="primary" :underline="false" @click="isRegister = true; clearData()">注册 →</el-link>
           <el-link type="primary" :underline="false" @click="dialogVisible = true">忘记密码？</el-link>
         </div>
       </el-form>
     </el-col>
+    <!-- 重置密码弹窗 -->
+    <el-dialog v-model="dialogVisible" style="width: 30%; border-radius: 10px; padding: 1% 3% 3% 3%;">
+      <el-form style="color: black;">
+        <h1>重置密码</h1>
+      </el-form>
+      <el-form :model="rePasswordData" :rules="rePasswordRules" label-width="100px" style="padding-right: 30px; padding-top: 20px;">
+        <el-form-item label="用户名：" prop="userName" style="">
+          <el-input v-model="rePasswordData.userName" placeholder="请输入用户名"></el-input>
+        </el-form-item>
+        <el-form-item label="密保问题：" prop="question" style="">
+          <el-select placeholder="请选择密保问题" v-model="rePasswordData.questionID">
+            <el-option v-for="item in questionData" :label="item.item" :value="item.questionID" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="回答：" prop="answer" style="">
+          <el-input v-model="rePasswordData.answer" placeholder="请输入密保问题的答案"></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer" style="">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="resetPassword"> 确认 </el-button>
+        </span>
+      </template>
+    </el-dialog>
   </el-row>
-  <!-- 重置密码弹窗 -->
-  <el-dialog v-model="dialogVisible" title="重置密码" width="30%">
-    <el-form :model="rePasswordData" :rules="rePasswordRules" label-width="100px" style="padding-right: 30px">
-      <el-form-item label="用户名：" prop="userName">
-        <el-input v-model="rePasswordData.userName" placeholder="请输入用户名"></el-input>
-      </el-form-item>
-      <el-form-item label="密保问题：" prop="question">
-        <el-select placeholder="请选择密保问题" v-model="rePasswordData.questionID">
-          <el-option v-for="item in questionData" :label="item.item" :value="item.questionID" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="回答：" prop="answer">
-        <el-input v-model="rePasswordData.answer" placeholder="请输入密保问题的答案"></el-input>
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="resetPassword"> 确认 </el-button>
-      </span>
-    </template>
-  </el-dialog>
 </template>
 
 <style lang="scss" scoped>
@@ -216,8 +219,8 @@ const resetPassword = async() => {
   align-items: center;
 
   .form {
-    padding: 20px 30px;
-    height: 65vh;
+    padding: 10px 50px 0px 50px;
+    height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -231,6 +234,7 @@ const resetPassword = async() => {
 
     .button {
       width: 100%;
+      border-radius: 5px;
     }
 
     .flex {

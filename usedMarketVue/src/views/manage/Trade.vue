@@ -106,8 +106,8 @@ const showPreview = (picture) => {
     <template #header>
       <!-- 搜索表单 -->
       <el-form inline class="header">
-        <el-form-item label="交易状态：">
-          <el-select placeholder="请选择交易状态" v-model="searchData.state" style="width: 200px">
+        <el-form-item label="交易状态：" class="form-row">
+          <el-select placeholder="请选择交易状态" v-model="searchData.state" @change="refresh" style="width: 200px">
             <el-option label="发起中" value="1" />
             <el-option label="进行中" value="2" />
             <el-option label="成功" value="3" />
@@ -115,7 +115,7 @@ const showPreview = (picture) => {
             <el-option label="所有交易" value="" />
           </el-select>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="form-row">
           <el-button type="primary" :icon="Search" @click="refresh">搜索</el-button>
           <el-button type="default" :icon="Refresh" @click="reset">重置</el-button>
         </el-form-item>
@@ -230,6 +230,10 @@ const showPreview = (picture) => {
   .header {
     display: flex;
     align-items: center;
+  }
+
+  .form-row {
+    margin: auto 10px;
   }
 }
 

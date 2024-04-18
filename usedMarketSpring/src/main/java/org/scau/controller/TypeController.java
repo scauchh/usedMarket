@@ -38,7 +38,7 @@ public class TypeController {
         return "success";
     }
 
-    // 添加物品类型
+    // 添加物品类别
     @RequestMapping("/addType")
     public Result addType(Integer typeID, String typeName){
         String result = verifyData(typeID, typeName);
@@ -55,11 +55,11 @@ public class TypeController {
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());
-            return Result.error("添加物品类型失败");
+            return Result.error("添加物品类别失败");
         }
     }
 
-    // 删除物品类型
+    // 删除物品类别
     @RequestMapping("/deleteType")
     public Result deleteType(String typeName){
         try{
@@ -67,11 +67,11 @@ public class TypeController {
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());
-            return Result.error("删除物品类型失败");
+            return Result.error("删除物品类别失败");
         }
     }
 
-    // 修改物品类型
+    // 修改物品类别
     @RequestMapping("/changeType")
     public Result changeType(Integer oldTypeID, String oldTypeName, Integer typeID, String typeName){
         String result = verifyData(typeID, typeName);
@@ -88,11 +88,11 @@ public class TypeController {
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());
-            return Result.error("修改物品类型失败");
+            return Result.error("修改物品类别失败");
         }
     }
 
-    // 获取所有物品类型
+    // 获取所有物品类别
     @RequestMapping("/getAllType")
     public Result getAllType(){
         try {
@@ -100,7 +100,7 @@ public class TypeController {
             return Result.success(types);
         }catch (Exception e){
             logger.error(e.toString());
-            return Result.error("获取物品类型失败");
+            return Result.error("获取物品类别失败");
         }
     }
 }

@@ -100,16 +100,16 @@ const showPreview = (picture) => {
     <template #header>
       <!-- 搜索表单 -->
       <el-form inline>
-        <el-form-item label="物品名称：">
+        <el-form-item label="物品名称：" class="form-row">
           <el-input v-model="searchData.goodsName" placeholder="请输入物品名称" />
         </el-form-item>
-        <el-form-item label="物品类型：">
-          <el-select placeholder="请选择物品类型" v-model="searchData.type" style="width: 200px">
+        <el-form-item label="物品类型：" class="form-row">
+          <el-select placeholder="请选择物品类型" v-model="searchData.type" style="width: 200px" @change="refresh">
             <el-option v-for="item in goodsType" :label="item.typeName" :value="item.typeName" />
             <el-option label="所有类型" value="" />
           </el-select>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="form-row">
           <el-button type="primary" :icon="Search" @click="refresh">搜索</el-button>
           <el-button type="default" :icon="Refresh" @click="reset">重置</el-button>
         </el-form-item>
@@ -185,10 +185,15 @@ const showPreview = (picture) => {
 .page-container {
   min-height: 100%;
   box-sizing: border-box;
+
+  .form-row {
+    margin: auto 10px;
+  }
 }
 
 .button-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
 }
 

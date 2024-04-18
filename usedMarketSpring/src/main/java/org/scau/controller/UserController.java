@@ -29,9 +29,38 @@ public class UserController {
     @Autowired
     RelationService relationService;
 
+    // 验证用户名的格式
+    private String verifyUserName(String userName){
+        if (userName == null || userName.isEmpty())
+            return "用户名不能为空";
+        if (userName.length() < 5 || userName.length() > 16)
+            return "请输入正确的用户名";
+        return "success";
+    }
+
+    // 验证密码的格式
+    private String verifyPassword(String password){
+        if (password == null || password.isEmpty()){
+            return "密码不能为空";
+        }
+        if (password.length() < 5 || password.length() > 16) {
+            return "请输入正确的密码";
+        }
+        return "success";
+    }
+
     // 用户登录
     @RequestMapping("/login")
     public Result login(String userName, String password) {
+        String result = verifyUserName(userName);
+        if(!result.equals("success")) {
+            return Result.error(result);
+        }
+        result = verifyPassword(password);
+        if(!result.equals("success")) {
+            return Result.error(result);
+        }
+
         User u = userService.searchUserByName(userName);
         if (u == null) {
             return Result.error("用户名不存在");
@@ -58,11 +87,14 @@ public class UserController {
     // 用户注册
     @RequestMapping("/register")
     public Result register(String userName, String password, String rePassword) {
-
-        if (userName == null || userName.length() < 5 || userName.length() > 16)
-            return Result.error("请输入合法的用户名");
-        if (password == null || password.length() < 5 || password.length() > 16)
-            return Result.error("请输入合法的密码");
+        String result = verifyUserName(userName);
+        if(!result.equals("success")) {
+            return Result.error(result);
+        }
+        result = verifyPassword(password);
+        if(!result.equals("success")) {
+            return Result.error(result);
+        }
         if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
 
         try {
@@ -93,8 +125,10 @@ public class UserController {
     // 修改密码
     @RequestMapping("/updatePassward")
     public Result updatePassword(String password, String rePassword) {
-        if (password == null || password.length() < 5 || password.length() > 16)
-            return Result.error("请输入合法的密码");
+        String result = verifyPassword(password);
+        if(!result.equals("success")) {
+            return Result.error(result);
+        }
         if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
 
         try{
@@ -128,8 +162,10 @@ public class UserController {
     // 重置用户密码
     @RequestMapping("/resetPassword")
     public Result resetPassword(String userName, Integer questionID, String answer){
-        if (userName == null || userName.length() < 5 || userName.length() > 16)
-            return Result.error("请输入合法的用户名");
+        String result = verifyUserName(userName);
+        if(!result.equals("success")) {
+            return Result.error(result);
+        }
         if(questionID==null) return Result.error("请选择密保问题");
         if(answer==null||answer.isEmpty()) return Result.error("答案不能为空");
 

@@ -126,17 +126,17 @@ const showPreview = (picture) => {
     <template #header>
       <!-- 搜索表单 -->
       <el-form inline class="header">
-        <el-form-item label="用户名：">
+        <el-form-item label="用户名：" class="form-row">
           <el-input v-model="searchData.userName" placeholder="请输入用户名" />
         </el-form-item>
-        <el-form-item label="用户角色：">
-          <el-select placeholder="请选择用户角色" v-model="searchData.userRole" style="width: 200px">
+        <el-form-item label="用户角色：" class="form-row">
+          <el-select placeholder="请选择用户角色" v-model="searchData.userRole" @change="refresh" style="width: 200px">
             <el-option label="普通用户" value="普通用户" />
             <el-option label="管理员" value="管理员" />
             <el-option label="所有用户" value="" />
           </el-select>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="form-row">
           <el-button type="primary" :icon="Search" @click="refresh">搜索</el-button>
           <el-button type="default" :icon="Refresh" @click="reset">重置</el-button>
         </el-form-item>
@@ -223,6 +223,10 @@ const showPreview = (picture) => {
   .header {
     display: flex;
     align-items: center;
+  }
+
+  .form-row {
+    margin: auto 10px;
   }
 }
 </style>
