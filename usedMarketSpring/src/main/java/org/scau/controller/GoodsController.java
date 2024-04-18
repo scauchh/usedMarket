@@ -35,8 +35,8 @@ public class GoodsController {
         if (goodsName == null || goodsName.isEmpty()) {
             return "物品名称不能为空";
         }
-        if (goodsName.length() < 3 || goodsName.length() > 25) {
-            return "物品名称的长度必须为3~25位";
+        if (goodsName.length() < 2 || goodsName.length() > 25) {
+            return "物品名称的长度必须为2~25位";
         }
 
         // 检验图片

@@ -53,7 +53,7 @@ const rePasswordValid = (rule, value, callback) => {
 const userDataRules = {
   userName: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 5, max: 16, message: '用户名的长度必须为5~16位', trigger: 'blur' }
+    { min: 2, max: 16, message: '用户名的长度必须为2~16位', trigger: 'blur' }
   ],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
@@ -68,7 +68,7 @@ const userDataRules = {
 const rePasswordRules = {
   userName: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 5, max: 16, message: '用户名的长度应该为5~16位', trigger: 'blur' }
+    { min: 2, max: 16, message: '用户名的长度应该为2~16位', trigger: 'blur' }
   ],
   question: [
     { required: true, message: '请输入密保问题', trigger: 'blur' }

@@ -36,7 +36,7 @@ public class UserController {
     private String verifyUserName(String userName){
         if (userName == null || userName.isEmpty())
             return "用户名不能为空";
-        if (userName.length() < 5 || userName.length() > 16)
+        if (userName.length() < 2 || userName.length() > 16)
             return "请输入正确的用户名";
         return "success";
     }
@@ -255,7 +255,7 @@ public class UserController {
         if (nickName == null || nickName.isEmpty()) {
             return Result.error("昵称不能为空");
         }
-        if (nickName.length() < 3 || nickName.length() > 16) {
+        if (nickName.length() < 2 || nickName.length() > 16) {
             return Result.error("昵称的长度必须为2~16位");
         }
 

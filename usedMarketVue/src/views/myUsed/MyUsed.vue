@@ -38,7 +38,7 @@ const pageSize = ref(5)
 const goodsDataRules = ref({
   goodsName: [
     { required: true, message: '请输入物品名称', trigger: 'blur' },
-    { min: 3, max: 25, message: '物品名称的长度必须为3~25位', trigger: 'blur' }
+    { min: 2, max: 25, message: '物品名称的长度必须为2~25位', trigger: 'blur' }
   ],
   picture: [
     { required: true, message: '图片必须上传', trigger: 'blur' },
