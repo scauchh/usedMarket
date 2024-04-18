@@ -131,19 +131,19 @@ const changeQuestion = async (row) => {
     </el-table>
   </el-card>
   <!-- 添加/修改密保问题弹窗 -->
-  <el-dialog v-model="dialogVisible" :title="title" width="30%">
-    <el-form :model="questionModel" :rules="questionModelRules" label-width="100px" style="padding-right: 30px">
-      <br/>
-      <br/>
+  <el-dialog v-model="dialogVisible" style="width: 30%; border-radius: 10px; padding: 1% 3% 3% 3%;">
+    <el-form style="color: black; font-size: 18px;">
+      <h1>{{ title }}</h1>
+    </el-form>
+    <el-form :model="questionModel" :rules="questionModelRules" label-width="90px" style="padding: 20px 40px 30px 0">
       <el-form-item label="问题编号" prop="questionID">
         <el-input-number v-model="questionModel.questionID" :precision="0" :step="1" :max="1000" :min="0"/>
       </el-form-item>
-      <br/>
+      <br>
       <el-form-item label="密保问题" prop="item">
         <el-input v-model="questionModel.item" minlength="1" maxlength="15"></el-input>
       </el-form-item>
     </el-form>
-    <br/>
     <template #footer>
       <el-button @click="dialogVisible = false">取消</el-button>
       <el-button type="primary" @click="addQuestion"> 确认 </el-button>

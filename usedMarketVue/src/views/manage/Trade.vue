@@ -165,8 +165,9 @@ const showPreview = (picture) => {
       </template>
     </el-table>
     <!-- 买家/卖家信息弹窗 -->
-    <el-dialog v-model="visibleUser" :title="title" width="30%">
+    <el-dialog v-model="visibleUser" style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
       <el-form :model="userData" label-width="100px" style="padding-right: 30px">
+        <h1 class="title">{{ title }}</h1>
         <el-form-item label="用户名">
           <el-text size="large">{{ userData.userName }}</el-text>
         </el-form-item>
@@ -189,8 +190,9 @@ const showPreview = (picture) => {
       </el-form>
     </el-dialog>
     <!-- 物品信息弹窗 -->
-    <el-dialog v-model="visibleGoods" title="物品信息" width="30%">
+    <el-dialog v-model="visibleGoods" style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
       <el-form :model="goodsData" label-width="100px" style="padding-right: 30px">
+        <h1 class="title">物品信息</h1>
         <el-form-item label="物品名称">
           <el-text size="large">{{ goodsData.goodsName }}</el-text>
         </el-form-item>
@@ -234,6 +236,12 @@ const showPreview = (picture) => {
 
   .form-row {
     margin: auto 10px;
+  }
+
+  .title {
+    display: flex; 
+    justify-content: center; 
+    font-size: 20px;
   }
 }
 

@@ -146,8 +146,9 @@ const showPreview = (picture) => {
       </template>
     </el-table>
     <!-- 卖家信息弹窗 -->
-    <el-dialog v-model="visibleSeller" title="卖家信息" width="30%">
+    <el-dialog v-model="visibleSeller" style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
       <el-form :model="sellerData" label-width="100px" style="padding-right: 30px">
+        <h1 class="title">卖家信息</h1>
         <el-form-item label="用户名">
           <el-text size="large">{{ sellerData.userName }}</el-text>
         </el-form-item>
@@ -156,7 +157,7 @@ const showPreview = (picture) => {
         </el-form-item>
         <el-form-item label="头像">
           <img v-if="sellerData.avatar" :src="sellerData.avatar" class="avatar"
-            @click="showPreview(sellerData.avatar)" />
+            @click="showPreview(sellerData.avatar)"/>
           <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)" />
         </el-form-item>
         <el-form-item label="性别">
@@ -188,6 +189,12 @@ const showPreview = (picture) => {
 
   .form-row {
     margin: auto 10px;
+  }
+
+  .title {
+    display: flex; 
+    justify-content: center; 
+    font-size: 20px;
   }
 }
 

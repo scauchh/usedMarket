@@ -188,15 +188,15 @@ const resetPassword = async() => {
         <h1>重置密码</h1>
       </el-form>
       <el-form :model="rePasswordData" :rules="rePasswordRules" label-width="100px" style="padding-right: 30px; padding-top: 20px;">
-        <el-form-item label="用户名：" prop="userName" style="">
+        <el-form-item label="用户名：" prop="userName" >
           <el-input v-model="rePasswordData.userName" placeholder="请输入用户名"></el-input>
         </el-form-item>
-        <el-form-item label="密保问题：" prop="question" style="">
+        <el-form-item label="密保问题：" prop="question" >
           <el-select placeholder="请选择密保问题" v-model="rePasswordData.questionID">
             <el-option v-for="item in questionData" :label="item.item" :value="item.questionID" />
           </el-select>
         </el-form-item>
-        <el-form-item label="回答：" prop="answer" style="">
+        <el-form-item label="回答：" prop="answer" >
           <el-input v-model="rePasswordData.answer" placeholder="请输入密保问题的答案"></el-input>
         </el-form-item>
       </el-form>

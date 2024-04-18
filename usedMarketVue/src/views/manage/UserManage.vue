@@ -188,9 +188,11 @@ const showPreview = (picture) => {
       </template>
     </el-table>
     <!-- 修改用户权限弹窗 -->
-    <el-dialog v-model="dialogVisible" title="修改用户权限" width="30%">
-      <el-form label-width="100px" style="padding-right: 30px">
-        <br/>
+    <el-dialog v-model="dialogVisible" style="width: 25%; border-radius: 10px; padding: 1% 3% 3% 3%;">
+      <el-form style="color: black; font-size: 18px;">
+        <h1>修改用户权限</h1>
+      </el-form>
+      <el-form label-width="65px" style="padding: 20px 50px 40px 0">
         <el-form-item label="用户名" >{{ changeModel.userName }}</el-form-item>
         <el-form-item label="昵称" >{{ changeModel.nickName }}</el-form-item>
         <el-form-item label="角色" >
@@ -200,7 +202,6 @@ const showPreview = (picture) => {
           </el-select>
         </el-form-item>
       </el-form>
-      <br/>
       <template #footer>
         <el-button @click="dialogVisible = false" >取消</el-button>
         <el-button type="primary" @click="change"> 确认 </el-button>

@@ -131,19 +131,19 @@ const changeType = async (row) => {
     </el-table>
   </el-card>
   <!-- 添加/修改物品类别弹窗 -->
-  <el-dialog v-model="dialogVisible" :title="title" width="30%">
-    <el-form :model="typeModel" :rules="typeModelRules" label-width="100px" style="padding-right: 30px">
-      <br/>
-      <br/>
+  <el-dialog v-model="dialogVisible" style="width: 30%; border-radius: 10px; padding: 1% 3% 3% 3%;">
+    <el-form style="color: black; font-size: 18px;">
+      <h1>{{ title }}</h1>
+    </el-form>
+    <el-form :model="typeModel" :rules="typeModelRules" label-width="100px" style="padding: 20px 80px 40px 0">
       <el-form-item label="类别编号" prop="typeID">
         <el-input-number v-model="typeModel.typeID" :precision="0" :step="1" :max="1000" :min="0"/>
       </el-form-item>
-      <br/>
+      <br>
       <el-form-item label="类别名称" prop="typeName">
         <el-input v-model="typeModel.typeName" minlength="1" maxlength="10"></el-input>
       </el-form-item>
     </el-form>
-    <br/>
     <template #footer>
       <el-button @click="dialogVisible = false">取消</el-button>
       <el-button type="primary" @click="addType"> 确认 </el-button>
@@ -165,5 +165,12 @@ const changeType = async (row) => {
       margin: auto 10px;
     }
   }
+}
+
+.dialog-title{
+  display: flex; 
+  justify-content: center; 
+  padding-left: 40px; 
+  font-size: 20px;
 }
 </style>

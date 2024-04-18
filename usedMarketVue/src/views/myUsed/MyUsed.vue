@@ -185,7 +185,7 @@ const showPreview = (picture) => {
       </template>
     </el-table>
     <!-- 抽屉组件 -->
-    <el-drawer v-model="visibleDrawer" :title="drawerTitle" direction="rtl" size="50%">
+    <el-drawer v-model="visibleDrawer" :title="drawerTitle" direction="rtl" size="50%" class="title">
       <!-- 添加/编辑物品表单 -->
       <el-form :model="goodsModel" label-width="100px" :rules="goodsDataRules">
         <el-form-item label="物品名称" prop="goodsName">
