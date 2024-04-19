@@ -1,16 +1,17 @@
 <script setup>
-import { User, Lock } from '@element-plus/icons-vue'
-import { ref, onMounted } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { useRouter } from 'vue-router'
-import { useTokenStore } from '@/store/token.js'
-import { useUserInfoStore } from '@/store/userinfo.js'
-import { 
-  userLoginService, 
-  userRegisterService, 
-  getUserInfoService, 
-  resetPasswordService } from '@/api/user.js'
-import { getAllQuestionService } from '@/api/question.js'
+import {User, Lock} from '@element-plus/icons-vue'
+import {ref, onMounted} from 'vue'
+import {ElMessage, ElMessageBox} from 'element-plus'
+import {useRouter} from 'vue-router'
+import {useTokenStore} from '@/store/token.js'
+import {useUserInfoStore} from '@/store/userinfo.js'
+import {
+  userLoginService,
+  userRegisterService,
+  getUserInfoService,
+  resetPasswordService
+} from '@/api/user.js'
+import {getAllQuestionService} from '@/api/question.js'
 
 // 控制登录/注册界面
 const isRegister = ref(false)
@@ -52,30 +53,30 @@ const rePasswordValid = (rule, value, callback) => {
 // 登录/注册数据验证
 const userDataRules = {
   userName: [
-    { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 2, max: 16, message: '用户名的长度必须为2~16位', trigger: 'blur' }
+    {required: true, message: '请输入用户名', trigger: 'blur'},
+    {min: 2, max: 16, message: '用户名的长度必须为2~16位', trigger: 'blur'}
   ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 5, max: 16, message: '密码长度必须为5~16位', trigger: 'blur' }
+    {required: true, message: '请输入密码', trigger: 'blur'},
+    {min: 5, max: 16, message: '密码长度必须为5~16位', trigger: 'blur'}
   ],
   rePassword: [
-    { validator: rePasswordValid, trigger: 'blur' }
+    {validator: rePasswordValid, trigger: 'blur'}
   ]
 }
 
 // 重置密码数据验证
 const rePasswordRules = {
   userName: [
-    { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 2, max: 16, message: '用户名的长度应该为2~16位', trigger: 'blur' }
+    {required: true, message: '请输入用户名', trigger: 'blur'},
+    {min: 2, max: 16, message: '用户名的长度应该为2~16位', trigger: 'blur'}
   ],
   question: [
-    { required: true, message: '请输入密保问题', trigger: 'blur' }
+    {required: true, message: '请输入密保问题', trigger: 'blur'}
   ],
   answer: [
-    { required: true, message: '回答不能为空', trigger: 'blur' },
-    { min: 1, max: 15, message: '回答的长度应该不超过15位', trigger: 'blur' }
+    {required: true, message: '回答不能为空', trigger: 'blur'},
+    {min: 1, max: 15, message: '回答的长度应该不超过15位', trigger: 'blur'}
   ]
 }
 
@@ -98,6 +99,18 @@ const clearData = () => {
 
 // 用户注册
 const register = async () => {
+  if (userData.value.userName === '' || userData.value.password === '' || userData.value.rePassword === '') {
+    ElMessage.error("用户名或密码不能为空")
+    return
+  }
+  if (userData.value.password.length < 5 || userData.value.password.length > 16) {
+    ElMessage.error("密码长度必须为5~16位")
+    return
+  }
+  if (userData.value.password !== userData.value.rePassword) {
+    ElMessage.error("两次输入密码不一致")
+    return
+  }
   await userRegisterService(userData.value)
   ElMessage.success("注册成功")
   isRegister.value = false
@@ -119,24 +132,24 @@ const getUserInfo = async () => {
 }
 
 // 重置用户密码
-const resetPassword = async() => {
+const resetPassword = async () => {
   ElMessageBox.confirm("您确定要重置密码吗?<br>( 注:密码将会被重置为123456! )", "温馨提示", {
-      confirmButtonClass: "确定",
-      cancelButtonClass: "取消",
-      type: "warning",
-      dangerouslyUseHTMLString: true
-    }).then(async() => {
-      await resetPasswordService(rePasswordData.value)
-      ElMessage.success("密码重置成功")
-      dialogVisible.value = false
-    })
+    confirmButtonClass: "确定",
+    cancelButtonClass: "取消",
+    type: "warning",
+    dangerouslyUseHTMLString: true
+  }).then(async () => {
+    await resetPasswordService(rePasswordData.value)
+    ElMessage.success("密码重置成功")
+    dialogVisible.value = false
+  })
 }
 </script>
 
 <template>
   <el-row class="login-page">
     <el-col :span="7" class="form">
-      <!-- 注册表单 --> 
+      <!-- 注册表单 -->
       <el-form ref="form" size="large" autocomplete="off" v-if="isRegister" :model="userData" :rules="userDataRules">
         <el-form-item>
           <h1>注册</h1>
@@ -145,12 +158,12 @@ const resetPassword = async() => {
           <el-input :prefix-icon="User" placeholder="请输入用户名" v-model="userData.userName"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input :prefix-icon="Lock" type="password" placeholder="请输入密码" 
-          v-model="userData.password" show-password></el-input>
+          <el-input :prefix-icon="Lock" type="password" placeholder="请输入密码"
+                    v-model="userData.password" show-password></el-input>
         </el-form-item>
         <el-form-item prop="rePassword">
-          <el-input :prefix-icon="Lock" type="password" placeholder="请输入再次密码" 
-          v-model="userData.rePassword" show-password></el-input>
+          <el-input :prefix-icon="Lock" type="password" placeholder="请输入再次密码"
+                    v-model="userData.rePassword" show-password></el-input>
         </el-form-item>
         <!-- 注册按钮 -->
         <el-form-item>
@@ -170,7 +183,7 @@ const resetPassword = async() => {
         </el-form-item>
         <el-form-item prop="password">
           <el-input name="password" :prefix-icon="Lock" type="password" placeholder="请输入密码"
-            v-model="userData.password" show-password></el-input>
+                    v-model="userData.password" show-password></el-input>
         </el-form-item>
         <!-- 登录按钮 -->
         <el-form-item>
@@ -187,16 +200,17 @@ const resetPassword = async() => {
       <el-form style="color: black;">
         <h1>重置密码</h1>
       </el-form>
-      <el-form :model="rePasswordData" :rules="rePasswordRules" label-width="100px" style="padding-right: 30px; padding-top: 20px;">
-        <el-form-item label="用户名：" prop="userName" >
+      <el-form :model="rePasswordData" :rules="rePasswordRules" label-width="100px"
+               style="padding-right: 30px; padding-top: 20px;">
+        <el-form-item label="用户名：" prop="userName">
           <el-input v-model="rePasswordData.userName" placeholder="请输入用户名"></el-input>
         </el-form-item>
-        <el-form-item label="密保问题：" prop="question" >
+        <el-form-item label="密保问题：" prop="question">
           <el-select placeholder="请选择密保问题" v-model="rePasswordData.questionID">
-            <el-option v-for="item in questionData" :label="item.item" :value="item.questionID" />
+            <el-option v-for="item in questionData" :label="item.item" :value="item.questionID"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="回答：" prop="answer" >
+        <el-form-item label="回答：" prop="answer">
           <el-input v-model="rePasswordData.answer" placeholder="请输入密保问题的答案"></el-input>
         </el-form-item>
       </el-form>

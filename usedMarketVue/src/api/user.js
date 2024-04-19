@@ -1,10 +1,15 @@
 import instance from '@/utils/request.js'
+import md5 from 'js-md5'
 
 // 用户注册服务
 export const userRegisterService = (userData) => {
     const params = new URLSearchParams()
     for (let key in userData) {
-        params.append(key, userData[key])
+        if (key === 'password' || key === 'rePassword') {
+            params.append(key, md5(userData[key]))
+        } else {
+            params.append(key, userData[key]);
+        }
     }
     return instance.post('/user/register', params)
 }
@@ -13,7 +18,11 @@ export const userRegisterService = (userData) => {
 export const userLoginService = (userData) => {
     const params = new URLSearchParams()
     for (let key in userData) {
-        params.append(key, userData[key])
+        if (key === 'password') {
+            params.append(key, md5(userData[key]))
+        } else {
+            params.append(key, userData[key]);
+        }
     }
     return instance.post('/user/login', params)
 }
@@ -33,8 +42,12 @@ export const updateUserInfoService = (userData) => {
 // 更新用户密码服务
 export const updatePasswordService = (newPassword) => {
     const params = new URLSearchParams()
-    for(let key in newPassword) {
-        params.append(key, newPassword[key])
+    for (let key in newPassword) {
+        if (key === 'password' || key === 'rePassword') {
+            params.append(key, md5(newPassword[key]))
+        } else {
+            params.append(key, newPassword[key])
+        }
     }
     return instance.post('/user/updatePassward', params)
 }
@@ -42,7 +55,7 @@ export const updatePasswordService = (newPassword) => {
 // 更新用户角色服务
 export const updateUserRoleService = (changeModel) => {
     const params = new URLSearchParams()
-    for(let key in changeModel) {
+    for (let key in changeModel) {
         params.append(key, changeModel[key])
     }
     return instance.post('/user/updateUserRole', params)
@@ -58,7 +71,7 @@ export const getAllUserInfoService = (pageNum, pageSize, searchData) => {
     const params = new URLSearchParams()
     params.append("pageNum", pageNum)
     params.append("pageSize", pageSize)
-    for(let key in searchData) {
+    for (let key in searchData) {
         params.append(key, searchData[key])
     }
     return instance.post('/user/getAllUserInfo', params)
@@ -81,7 +94,7 @@ export const getUserInfoByNameService = (userName) => {
 // 重置用户密码服务
 export const resetPasswordService = (rePasswordData) => {
     const params = new URLSearchParams()
-    for(let key in rePasswordData) {
+    for (let key in rePasswordData) {
         params.append(key, rePasswordData[key])
     }
     return instance.post('/user/resetPassword', params)
