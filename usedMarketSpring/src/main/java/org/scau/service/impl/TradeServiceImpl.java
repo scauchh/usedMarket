@@ -1,15 +1,14 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.TradeMapper;
-import org.scau.pojo.vo.PageBean;
-import org.scau.pojo.Trade;
+import org.scau.model.PageBean;
+import org.scau.model.pojo.Trade;
+import org.scau.model.vo.TradeGoodsView;
 import org.scau.service.TradeService;
-import org.scau.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class TradeServiceImpl implements TradeService {
@@ -36,12 +35,12 @@ public class TradeServiceImpl implements TradeService {
 
     // 分页获取所有交易
     @Override
-    public PageBean<Trade> getAllTrade(Integer pageNum, Integer pageSize, Integer state) {
-        PageBean<Trade> pb = new PageBean<>();
+    public PageBean<TradeGoodsView> getAllTrade(Integer pageNum, Integer pageSize, Integer state) {
+        PageBean<TradeGoodsView> pb = new PageBean<>();
 
         // 查询分页结果
         Integer total = tradeMapper.getAllTradeNum(pageSize*(pageNum-1), pageSize, state);
-        List<Trade> trades = tradeMapper.getAllTrade(pageSize*(pageNum-1), pageSize, state);
+        List<TradeGoodsView> trades = tradeMapper.getAllTrade(pageSize*(pageNum-1), pageSize, state);
 
         // 返回分页查询结果
         pb.setTotal(total);
@@ -51,14 +50,13 @@ public class TradeServiceImpl implements TradeService {
 
     // 分页获取发起的交易
     @Override
-    public PageBean<Trade> getTradeFromMe(Integer pageNum, Integer pageSize, Integer state, String userName) {
-        PageBean<Trade> pb = new PageBean<>();
+    public PageBean<TradeGoodsView> getTradeFromMe(Integer pageNum, Integer pageSize, Integer state, String userName) {
+        PageBean<TradeGoodsView> pb = new PageBean<>();
 
         // 查询分页结果
         Integer total = tradeMapper.getTradeFromMeNum(pageSize*(pageNum-1), pageSize, userName, state);
-        List<Trade> trades = tradeMapper.getTradeFromMe(pageSize*(pageNum-1), pageSize, userName, state);
+        List<TradeGoodsView> trades = tradeMapper.getTradeFromMe(pageSize*(pageNum-1), pageSize, userName, state);
 
-        System.out.println("a: "+total);
         // 返回分页查询结果
         pb.setTotal(total);
         pb.setItems(trades);
@@ -67,12 +65,12 @@ public class TradeServiceImpl implements TradeService {
 
     // 分页获取接收的交易
     @Override
-    public PageBean<Trade> getTradeToMe(Integer pageNum, Integer pageSize, Integer state, String userName) {
-        PageBean<Trade> pb = new PageBean<>();
+    public PageBean<TradeGoodsView> getTradeToMe(Integer pageNum, Integer pageSize, Integer state, String userName) {
+        PageBean<TradeGoodsView> pb = new PageBean<>();
 
         // 查询分页结果
         Integer total = tradeMapper.getTradeToMeNum(pageSize*(pageNum-1), pageSize, userName, state);
-        List<Trade> trades = tradeMapper.getTradeToMe(pageSize*(pageNum-1), pageSize, userName, state);
+        List<TradeGoodsView> trades = tradeMapper.getTradeToMe(pageSize*(pageNum-1), pageSize, userName, state);
 
         // 返回分页查询结果
         pb.setTotal(total);

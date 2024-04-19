@@ -16,7 +16,7 @@
         </where>
     </select>
 
-    <select id="getPageGoods" resultType="org.scau.pojo.Goods">
+    <select id="getPageGoods" resultType="org.scau.model.pojo.Goods">
         SELECT * FROM goods
         <where>
             active = '1'
@@ -31,7 +31,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="getPageGoodsByID" resultType="org.scau.pojo.Goods">
+    <select id="getPageGoodsByID" resultType="org.scau.model.pojo.Goods">
         SELECT * FROM goods
         WHERE active = '1' AND user_id = #{userID}
         ORDER BY datetime DESC

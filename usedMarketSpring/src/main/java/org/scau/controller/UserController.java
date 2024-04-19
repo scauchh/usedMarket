@@ -1,9 +1,9 @@
 package org.scau.controller;
 
-import org.scau.pojo.Relation;
-import org.scau.pojo.vo.PageBean;
-import org.scau.pojo.vo.Result;
-import org.scau.pojo.User;
+import org.scau.model.pojo.Relation;
+import org.scau.model.PageBean;
+import org.scau.model.Result;
+import org.scau.model.pojo.User;
 import org.scau.service.GoodsService;
 import org.scau.service.RelationService;
 import org.scau.service.UserService;

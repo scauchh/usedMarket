@@ -1,7 +1,7 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.RelationMapper;
-import org.scau.pojo.Relation;
+import org.scau.model.pojo.Relation;
 import org.scau.service.RelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

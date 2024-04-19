@@ -135,21 +135,20 @@ const showPreview = (picture) => {
       </el-form>
     </template>
     <el-table :data="tradeInfo" style="width: 100%">
-      <el-table-column label="交易ID" prop="tradeID"></el-table-column>
       <el-table-column label="卖家用户名" prop="sellerName"></el-table-column>
       <el-table-column label="卖家信息">
         <template #default="{ row }">
-          <div class="button-container">
-            <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row)"></el-button>
-          </div>
+          <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row)"></el-button>
         </template>
       </el-table-column>
-      <el-table-column label="物品ID" prop="goodsID"></el-table-column>
-      <el-table-column label="物品信息">
+      <el-table-column label="物品名称" prop="goodsName">
         <template #default="{ row }">
-          <div class="button-container">
-            <el-button :icon="Reading" circle plain type="primary" @click="showGoodsInfo(row)"></el-button>
-          </div>
+          <el-button type="primary" link @click="showGoodsInfo(row)">{{ row.goodsName }}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="物品图片">
+        <template #default="{ row }">
+          <el-image style="width: 100px; height: 100px" :src="row.picture" @click="showPreview(row.picture)" />
         </template>
       </el-table-column>
       <el-table-column label="状态" prop="state">
@@ -265,10 +264,5 @@ const showPreview = (picture) => {
   width: 150px;
   height: 150px;
   display: block;
-}
-
-.button-container {
-  display: flex;
-  margin: 30px auto;
 }
 </style>

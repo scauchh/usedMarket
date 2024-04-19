@@ -1,6 +1,6 @@
 package org.scau.service;
 
-import org.scau.pojo.Type;
+import org.scau.model.pojo.Type;
 
 import java.util.List;
 

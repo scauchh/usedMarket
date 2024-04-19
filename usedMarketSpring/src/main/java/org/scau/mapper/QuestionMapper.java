@@ -1,7 +1,7 @@
 package org.scau.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.scau.pojo.Question;
+import org.scau.model.pojo.Question;
 
 import java.util.List;
 

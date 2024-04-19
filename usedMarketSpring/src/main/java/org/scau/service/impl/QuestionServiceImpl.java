@@ -1,7 +1,7 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.QuestionMapper;
-import org.scau.pojo.Question;
+import org.scau.model.pojo.Question;
 import org.scau.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

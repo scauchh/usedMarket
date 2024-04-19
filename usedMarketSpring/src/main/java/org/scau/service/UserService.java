@@ -1,7 +1,7 @@
 package org.scau.service;
 
-import org.scau.pojo.vo.PageBean;
-import org.scau.pojo.User;
+import org.scau.model.PageBean;
+import org.scau.model.pojo.User;
 
 import java.time.LocalDateTime;
 

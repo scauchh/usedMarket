@@ -1,7 +1,7 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.TypeMapper;
-import org.scau.pojo.Type;
+import org.scau.model.pojo.Type;
 import org.scau.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package org.scau.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.scau.pojo.User;
+import org.scau.model.pojo.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
