@@ -1,9 +1,9 @@
 package org.scau.utils;
 
 import org.scau.config.WebConfig;
-import org.scau.pojo.Goods;
-import org.scau.pojo.vo.Result;
-import org.scau.pojo.User;
+import org.scau.model.pojo.Goods;
+import org.scau.model.Result;
+import org.scau.model.pojo.User;
 import org.scau.service.GoodsService;
 import org.scau.service.UserService;
 import org.slf4j.Logger;

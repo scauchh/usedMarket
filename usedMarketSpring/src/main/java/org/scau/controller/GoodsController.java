@@ -1,8 +1,8 @@
 package org.scau.controller;
 
-import org.scau.pojo.Goods;
-import org.scau.pojo.vo.PageBean;
-import org.scau.pojo.vo.Result;
+import org.scau.model.pojo.Goods;
+import org.scau.model.PageBean;
+import org.scau.model.Result;
 import org.scau.service.GoodsService;
 import org.scau.utils.ThreadLocalUtil;
 import org.slf4j.Logger;

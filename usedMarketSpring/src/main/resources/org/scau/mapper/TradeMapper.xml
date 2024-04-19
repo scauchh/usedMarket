@@ -23,9 +23,11 @@
         ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
-    <select id="getAllTrade" resultType="org.scau.pojo.Trade">
-        SELECT * FROM trade
+    <select id="getAllTrade" resultType="org.scau.model.vo.TradeGoodsView">
+        SELECT trade_id, buyer_name, seller_name, trade.goods_id, state, trade.notes, goods_name, picture
+        FROM trade, goods
         <where>
+                trade.goods_id = goods.goods_id
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
@@ -44,10 +46,12 @@
         ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
-    <select id="getTradeFromMe" resultType="org.scau.pojo.Trade">
-        SELECT * FROM trade
+    <select id="getTradeFromMe" resultType="org.scau.model.vo.TradeGoodsView">
+        SELECT trade_id, buyer_name, seller_name, trade.goods_id, state, trade.notes, goods_name, picture
+        FROM trade, goods
         <where>
-                buyer_name = #{userName}
+                trade.goods_id = goods.goods_id
+                AND buyer_name = #{userName}
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
@@ -66,10 +70,12 @@
         ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
-    <select id="getTradeToMe" resultType="org.scau.pojo.Trade">
-        SELECT * FROM trade
+    <select id="getTradeToMe" resultType="org.scau.model.vo.TradeGoodsView">
+        SELECT trade_id, buyer_name, seller_name, trade.goods_id, state, trade.notes, goods_name, picture
+        FROM trade, goods
         <where>
-            seller_name = #{userName}
+                trade.goods_id = goods.goods_id
+                AND seller_name = #{userName}
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>

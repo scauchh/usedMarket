@@ -1,7 +1,7 @@
 package org.scau.controller;
 
-import org.scau.pojo.Relation;
-import org.scau.pojo.vo.Result;
+import org.scau.model.pojo.Relation;
+import org.scau.model.Result;
 import org.scau.service.RelationService;
 import org.scau.utils.ThreadLocalUtil;
 import org.slf4j.Logger;

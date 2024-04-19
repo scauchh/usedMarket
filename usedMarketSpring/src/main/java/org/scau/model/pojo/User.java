@@ -1,4 +1,4 @@
-package org.scau.pojo;
+package org.scau.model.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

@@ -1,15 +1,13 @@
 package org.scau.service.impl;
 
 import org.scau.mapper.GoodsMapper;
-import org.scau.pojo.Goods;
-import org.scau.pojo.vo.PageBean;
+import org.scau.model.pojo.Goods;
+import org.scau.model.PageBean;
 import org.scau.service.GoodsService;
-import org.scau.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 
 @Service

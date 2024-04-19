@@ -1,7 +1,7 @@
 package org.scau.controller;
 
-import org.scau.pojo.vo.Result;
-import org.scau.pojo.Type;
+import org.scau.model.Result;
+import org.scau.model.pojo.Type;
 import org.scau.service.TypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

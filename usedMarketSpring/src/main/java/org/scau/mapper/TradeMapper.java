@@ -3,8 +3,8 @@ package org.scau.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.scau.pojo.Trade;
+import org.scau.model.pojo.Trade;
+import org.scau.model.vo.TradeGoodsView;
 
 import java.util.List;
 
@@ -27,18 +27,18 @@ public interface TradeMapper {
     Integer getAllTradeNum(Integer offset, Integer pageSize, Integer state);
 
     // 分页获取所有交易
-    List<Trade> getAllTrade(Integer offset, Integer pageSize, Integer state);
+    List<TradeGoodsView> getAllTrade(Integer offset, Integer pageSize, Integer state);
 
     // 获取发起的交易的数量
     Integer getTradeFromMeNum(Integer offset, Integer pageSize, String userName, Integer state);
 
     // 分页获取发起的交易
-    List<Trade> getTradeFromMe(Integer offset, Integer pageSize, String userName, Integer state);
+    List<TradeGoodsView> getTradeFromMe(Integer offset, Integer pageSize, String userName, Integer state);
 
     // 获取收到的交易的数量
     Integer getTradeToMeNum(Integer offset, Integer pageSize, String userName, Integer state);
 
     // 分页获取收到的交易
-    List<Trade> getTradeToMe(Integer offset, Integer pageSize, String userName, Integer state);
+    List<TradeGoodsView> getTradeToMe(Integer offset, Integer pageSize, String userName, Integer state);
 
 }

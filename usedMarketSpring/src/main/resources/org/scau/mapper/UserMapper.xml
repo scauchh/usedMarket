@@ -38,7 +38,7 @@
             </if>
         </where>
     </select>
-    <select id="getAllUserInfo" resultType="org.scau.pojo.User">
+    <select id="getAllUserInfo" resultType="org.scau.model.pojo.User">
         SELECT * FROM user
         <where>
                 active = '1'

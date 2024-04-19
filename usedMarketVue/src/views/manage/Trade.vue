@@ -126,25 +126,23 @@ const showPreview = (picture) => {
       <el-table-column label="买家用户名" prop="buyerName" width="150"></el-table-column>
       <el-table-column label="买家信息" width="150">
         <template #default="{ row }">
-          <div class="button-container">
-            <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row, '买家')"></el-button>
-          </div>
+          <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row, '买家')"></el-button>
         </template>
       </el-table-column>
       <el-table-column label="卖家用户名" prop="sellerName" width="150"></el-table-column>
       <el-table-column label="卖家信息" width="150">
         <template #default="{ row }">
-          <div class="button-container">
-            <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row, '卖家')"></el-button>
-          </div>
+          <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row, '卖家')"></el-button>
         </template>
       </el-table-column>
-      <el-table-column label="物品ID" prop="goodsID" width="150"></el-table-column>
-      <el-table-column label="物品信息" width="150">
+      <el-table-column label="物品名称" prop="goodsName" width="150">
         <template #default="{ row }">
-          <div class="button-container">
-            <el-button :icon="Reading" circle plain type="primary" @click="showGoodsInfo(row)"></el-button>
-          </div>
+          <el-button type="primary" link @click="showGoodsInfo(row)">{{ row.goodsName }}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="物品图片">
+        <template #default="{ row }">
+          <el-image style="width: 100px; height: 100px" :src="row.picture" @click="showPreview(row.picture)" />
         </template>
       </el-table-column>
       <el-table-column label="状态" prop="state">
@@ -249,10 +247,5 @@ const showPreview = (picture) => {
   width: 150px;
   height: 150px;
   display: block;
-}
-
-.button-container {
-  display: flex;
-  margin: 30px auto;
 }
 </style>

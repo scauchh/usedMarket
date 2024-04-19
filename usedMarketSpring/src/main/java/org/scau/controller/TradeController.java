@@ -1,8 +1,8 @@
 package org.scau.controller;
 
-import org.scau.pojo.vo.PageBean;
-import org.scau.pojo.vo.Result;
-import org.scau.pojo.Trade;
+import org.scau.model.PageBean;
+import org.scau.model.Result;
+import org.scau.model.vo.TradeGoodsView;
 import org.scau.service.TradeService;
 import org.scau.service.UserService;
 import org.scau.utils.ThreadLocalUtil;
@@ -70,7 +70,7 @@ public class TradeController {
     @RequestMapping("/getAllTrade")
     public Result getAllTrade(Integer pageNum, Integer pageSize, Integer state) {
         try{
-            PageBean<Trade> trades = tradeService.getAllTrade(pageNum, pageSize, state);
+            PageBean<TradeGoodsView> trades = tradeService.getAllTrade(pageNum, pageSize, state);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());
@@ -86,7 +86,7 @@ public class TradeController {
             Map<String, Object> map = ThreadLocalUtil.get();
             String userName = map.get("userName").toString();
 
-            PageBean<Trade> trades = tradeService.getTradeFromMe(pageNum, pageSize, state, userName);
+            PageBean<TradeGoodsView> trades = tradeService.getTradeFromMe(pageNum, pageSize, state, userName);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());
@@ -102,7 +102,7 @@ public class TradeController {
             Map<String, Object> map = ThreadLocalUtil.get();
             String userName = map.get("userName").toString();
 
-            PageBean<Trade> trades = tradeService.getTradeToMe(pageNum, pageSize, state, userName);
+            PageBean<TradeGoodsView> trades = tradeService.getTradeToMe(pageNum, pageSize, state, userName);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());

@@ -1,6 +1,6 @@
 package org.scau.service;
 
-import org.scau.pojo.Question;
+import org.scau.model.pojo.Question;
 
 import java.util.List;
 

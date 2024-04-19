@@ -1,6 +1,6 @@
 package org.scau.service;
 
-import org.scau.pojo.Relation;
+import org.scau.model.pojo.Relation;
 
 public interface RelationService {
     // 添加新的关系
