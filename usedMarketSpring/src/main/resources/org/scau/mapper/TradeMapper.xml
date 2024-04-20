@@ -14,13 +14,25 @@
         WHERE trade_id = #{tradeID}
     </update>
     <select id="getAllTradeNum" resultType="int">
-        SELECT COUNT(*) FROM trade
+        SELECT COUNT(*)
+        FROM trade, goods, user u1, user u2
         <where>
+                trade.goods_id = goods.goods_id
+                AND trade.buyer_id = u1.user_id
+                AND trade.seller_id = u2.user_id
+            <if test="buyerNickName != null and buyerNickName != ''">
+                AND u1.nick_name LIKE concat('%', #{buyerNickName}, '%')
+            </if>
+            <if test="sellerNickName != null and sellerNickName != ''">
+                AND u2.nick_name LIKE concat('%', #{sellerNickName}, '%')
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                AND goods_name LIKE concat('%', #{goodsName}, '%')
+            </if>
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
         </where>
-        ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getAllTrade" resultType="org.scau.model.vo.TradeView">
@@ -32,6 +44,15 @@
                 trade.goods_id = goods.goods_id
                 AND trade.buyer_id = u1.user_id
                 AND trade.seller_id = u2.user_id
+            <if test="buyerNickName != null and buyerNickName != ''">
+                AND u1.nick_name LIKE concat('%', #{buyerNickName}, '%')
+            </if>
+            <if test="sellerNickName != null and sellerNickName != ''">
+                AND u2.nick_name LIKE concat('%', #{sellerNickName}, '%')
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                AND goods_name LIKE concat('%', #{goodsName}, '%')
+            </if>
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
@@ -40,14 +61,22 @@
         LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeFromMeNum" resultType="int">
-        SELECT COUNT(*) FROM trade
+        SELECT COUNT(*)
+        FROM trade, goods, user
         <where>
-            buyer_id = #{userID}
+                trade.goods_id = goods.goods_id
+                AND trade.seller_id = user.user_id
+                AND trade.buyer_id = #{userID}
+            <if test="sellerNickName != null and sellerNickName != ''">
+                AND user.nick_name LIKE concat('%', #{sellerNickName}, '%')
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                AND goods_name LIKE concat('%', #{goodsName}, '%')
+            </if>
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
         </where>
-        ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeFromMe" resultType="org.scau.model.vo.TradeView">
@@ -58,6 +87,12 @@
                 trade.goods_id = goods.goods_id
                 AND trade.seller_id = user.user_id
                 AND trade.buyer_id = #{userID}
+            <if test="sellerNickName != null and sellerNickName != ''">
+                AND user.nick_name LIKE concat('%', #{sellerNickName}, '%')
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                AND goods_name LIKE concat('%', #{goodsName}, '%')
+            </if>
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
@@ -66,14 +101,22 @@
         LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeToMeNum" resultType="int">
-        SELECT COUNT(*) FROM trade
+        SELECT COUNT(*)
+        FROM trade, goods, user
         <where>
-            seller_id = #{userID}
+                trade.goods_id = goods.goods_id
+                AND trade.buyer_id = user.user_id
+                AND trade.seller_id = #{userID}
+            <if test="buyerNickName != null and buyerNickName != ''">
+                AND user.nick_name LIKE concat('%', #{buyerNickName}, '%')
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                AND goods_name LIKE concat('%', #{goodsName}, '%')
+            </if>
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
         </where>
-        ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeToMe" resultType="org.scau.model.vo.TradeView">
@@ -84,6 +127,12 @@
                 trade.goods_id = goods.goods_id
                 AND trade.buyer_id = user.user_id
                 AND trade.seller_id = #{userID}
+            <if test="buyerNickName != null and buyerNickName != ''">
+                AND user.nick_name LIKE concat('%', #{buyerNickName}, '%')
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                AND goods_name LIKE concat('%', #{goodsName}, '%')
+            </if>
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>

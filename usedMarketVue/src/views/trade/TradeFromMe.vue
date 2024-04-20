@@ -1,6 +1,5 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Avatar } from '@element-plus/icons-vue'
 import { Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import { getUserInfoByIDService } from '@/api/user.js'
@@ -25,6 +24,8 @@ const userData = ref({})
 const goodsData = ref({})
 // 搜索交易数据模型
 const searchData = ref({
+  sellerNickName: '',
+  goodsName: '',
   state: '',
 })
 // 分页条数据模型
@@ -116,6 +117,12 @@ const showPreview = (picture) => {
     <template #header>
       <!-- 搜索表单 -->
       <el-form inline class="header">
+        <el-form-item label="卖家昵称：" class="form-row">
+          <el-input v-model="searchData.sellerNickName" placeholder="请输入卖家昵称" />
+        </el-form-item>
+        <el-form-item label="物品名称：" class="form-row">
+          <el-input v-model="searchData.goodsName" placeholder="请输入物品名称" />
+        </el-form-item>
         <el-form-item label="交易状态：" class="form-row">
           <el-select placeholder="请选择交易状态" v-model="searchData.state" @change="refresh" style="width: 200px">
             <el-option label="发起中" value="1" />

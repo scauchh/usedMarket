@@ -32,9 +32,6 @@ public class TradeController {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer buyerID = (Integer) map.get("id");
 
-//        // 获取卖家的用户名
-//        Integer sellerID = userService.searchUserByID(sellerID).getUserID();
-
         // 检查交易双方的身份
         if(buyerID.equals(sellerID)){
             return Result.error("你不能购买自己的物品");
@@ -68,9 +65,9 @@ public class TradeController {
 
     // 分页获取所有交易
     @RequestMapping("/getAllTrade")
-    public Result getAllTrade(Integer pageNum, Integer pageSize, Integer state) {
+    public Result getAllTrade(Integer pageNum, Integer pageSize, String buyerNickName, String sellerNickName, String goodsName, Integer state) {
         try{
-            PageBean<TradeView> trades = tradeService.getAllTrade(pageNum, pageSize, state);
+            PageBean<TradeView> trades = tradeService.getAllTrade(pageNum, pageSize, buyerNickName, sellerNickName, goodsName, state);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());
@@ -80,13 +77,13 @@ public class TradeController {
 
     // 分页获取发起的交易
     @RequestMapping("/getTradeFromMe")
-    public Result getTradeFromMe(Integer pageNum, Integer pageSize, Integer state) {
+    public Result getTradeFromMe(Integer pageNum, Integer pageSize, String sellerNickName, String goodsName, Integer state) {
         try{
-            // 获取userID
+            // 获取当前用户的userID
             Map<String, Object> map = ThreadLocalUtil.get();
             Integer userID = (Integer) map.get("id");
 
-            PageBean<TradeView> trades = tradeService.getTradeFromMe(pageNum, pageSize, state, userID);
+            PageBean<TradeView> trades = tradeService.getTradeFromMe(pageNum, pageSize, userID, sellerNickName, goodsName, state);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());
@@ -96,13 +93,13 @@ public class TradeController {
 
     // 分页获取接收的交易
     @RequestMapping("/getTradeToMe")
-    public Result getTradeToMe(Integer pageNum, Integer pageSize, Integer state) {
+    public Result getTradeToMe(Integer pageNum, Integer pageSize, String buyerNickName, String goodsName, Integer state) {
         try{
-            // 获取userID
+            // 获取当前用户的userID
             Map<String, Object> map = ThreadLocalUtil.get();
             Integer userID = (Integer) map.get("id");
 
-            PageBean<TradeView> trades = tradeService.getTradeToMe(pageNum, pageSize, state, userID);
+            PageBean<TradeView> trades = tradeService.getTradeToMe(pageNum, pageSize, userID, buyerNickName, goodsName, state);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());

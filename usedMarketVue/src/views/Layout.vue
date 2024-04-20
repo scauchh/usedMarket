@@ -144,13 +144,13 @@ const showPreview = (picture) => {
             <el-icon>
               <Memo />
             </el-icon>
-            <span>密保问题</span>
+            <span>密保问题管理</span>
           </el-menu-item>
           <el-menu-item index="/manage/Trade">
             <el-icon>
               <Files />
             </el-icon>
-            <span>历史交易</span>
+            <span>历史交易查看</span>
           </el-menu-item>
           <el-menu-item @click="removeImg">
             <el-icon>

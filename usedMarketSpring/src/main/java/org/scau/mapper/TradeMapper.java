@@ -23,20 +23,20 @@ public interface TradeMapper {
     Integer searchTradeByAll(Integer buyerID, Integer sellerID, Integer goodsID);
 
     // 获取所有交易的数量
-    Integer getAllTradeNum(Integer offset, Integer pageSize, Integer state);
+    Integer getAllTradeNum(Integer offset, Integer pageSize, String buyerNickName, String sellerNickName, String goodsName, Integer state);
 
     // 分页获取所有交易
-    List<TradeView> getAllTrade(Integer offset, Integer pageSize, Integer state);
+    List<TradeView> getAllTrade(Integer offset, Integer pageSize, String buyerNickName, String sellerNickName, String goodsName, Integer state);
 
     // 获取发起的交易的数量
-    Integer getTradeFromMeNum(Integer offset, Integer pageSize, Integer userID, Integer state);
+    Integer getTradeFromMeNum(Integer offset, Integer pageSize, Integer userID, String sellerNickName, String goodsName, Integer state);
 
     // 分页获取发起的交易
-    List<TradeView> getTradeFromMe(Integer offset, Integer pageSize, Integer userID, Integer state);
+    List<TradeView> getTradeFromMe(Integer offset, Integer pageSize, Integer userID, String sellerNickName, String goodsName, Integer state);
 
     // 获取收到的交易的数量
-    Integer getTradeToMeNum(Integer offset, Integer pageSize, Integer userID, Integer state);
+    Integer getTradeToMeNum(Integer offset, Integer pageSize, Integer userID, String buyerNickName, String goodsName, Integer state);
 
     // 分页获取收到的交易
-    List<TradeView> getTradeToMe(Integer offset, Integer pageSize, Integer userID, Integer state);
+    List<TradeView> getTradeToMe(Integer offset, Integer pageSize, Integer userID, String buyerNickName, String goodsName, Integer state);
 }

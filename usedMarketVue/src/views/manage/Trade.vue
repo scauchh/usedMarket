@@ -1,16 +1,11 @@
 <script setup>
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { Avatar, Reading } from '@element-plus/icons-vue'
-import { Edit, Delete, Search, Refresh } from '@element-plus/icons-vue'
+import { Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
 import { getUserInfoByIDService } from '@/api/user.js'
 import { getGoodsByIDService } from '@/api/goods.js'
 import { getAllTradeService } from '@/api/trade.js'
-import { useUserInfoStore } from '@/store/userinfo.js'
 import avatar from '@/assets/default.png'
 
-// 使用用户信息存储服务
-const userInfoStore = useUserInfoStore()
 // 控制用户信息弹窗是否显示
 const visibleUser = ref(false)
 // 控制用户弹窗标题
@@ -30,6 +25,9 @@ const userData = ref({})
 const goodsData = ref({})
 // 搜索交易数据模型
 const searchData = ref({
+  buyerNickName: '',
+  sellerNickName: '',
+  goodsName: '',
   state: '',
 })
 // 分页条数据模型
@@ -106,8 +104,17 @@ const showPreview = (picture) => {
     <template #header>
       <!-- 搜索表单 -->
       <el-form inline class="header">
+        <el-form-item label="买家昵称：" class="form-row" style="width: 220px">
+          <el-input v-model="searchData.buyerNickName" placeholder="请输入买家昵称" />
+        </el-form-item>
+        <el-form-item label="卖家昵称：" class="form-row" style="width: 220px">
+          <el-input v-model="searchData.sellerNickName" placeholder="请输入卖家昵称" />
+        </el-form-item>
+        <el-form-item label="物品名称：" class="form-row" style="width: 220px">
+          <el-input v-model="searchData.goodsName" placeholder="请输入物品名称" />
+        </el-form-item>
         <el-form-item label="交易状态：" class="form-row">
-          <el-select placeholder="请选择交易状态" v-model="searchData.state" @change="refresh" style="width: 200px">
+          <el-select placeholder="请选择交易状态" v-model="searchData.state" @change="refresh" style="width: 150px">
             <el-option label="发起中" value="1" />
             <el-option label="进行中" value="2" />
             <el-option label="成功" value="3" />
