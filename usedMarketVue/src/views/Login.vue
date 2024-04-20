@@ -99,8 +99,12 @@ const clearData = () => {
 
 // 用户注册
 const register = async () => {
-  if (userData.value.userName === '' || userData.value.password === '' || userData.value.rePassword === '') {
-    ElMessage.error("用户名或密码不能为空")
+  if (userData.value.userName === '') {
+    ElMessage.error("用户名不能为空")
+    return
+  }
+  if (userData.value.password === '') {
+    ElMessage.error("密码不能为空")
     return
   }
   if (userData.value.password.length < 5 || userData.value.password.length > 16) {
@@ -181,7 +185,7 @@ const resetPassword = async () => {
         <el-form-item prop="userName">
           <el-input :prefix-icon="User" placeholder="请输入用户名" v-model="userData.userName"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item>
           <el-input name="password" :prefix-icon="Lock" type="password" placeholder="请输入密码"
                     v-model="userData.password" show-password></el-input>
         </el-form-item>

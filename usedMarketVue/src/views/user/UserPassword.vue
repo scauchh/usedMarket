@@ -69,6 +69,18 @@ const saveQuestion = async()=>{
 
 // 更新用户密码
 const updatePassword = async() => {
+  if (newPassword.value.password === '') {
+    ElMessage.error("密码不能为空")
+    return
+  }
+  if (newPassword.value.password.length < 5 || newPassword.value.password.length > 16) {
+    ElMessage.error("密码长度必须为5~16位")
+    return
+  }
+  if (newPassword.value.password !== newPassword.value.rePassword) {
+    ElMessage.error("两次输入密码不一致")
+    return
+  }
   await updatePasswordService(newPassword.value);
   ElMessage.success("更新成功")
 }

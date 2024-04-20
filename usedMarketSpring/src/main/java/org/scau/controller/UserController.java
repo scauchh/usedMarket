@@ -42,25 +42,10 @@ public class UserController {
         return "success";
     }
 
-    // 验证密码的格式
-    private String verifyPassword(String password) {
-        if (password == null || password.isEmpty()) {
-            return "密码不能为空";
-        }
-//        if (password.length() < 5 || password.length() > 16) {
-//            return "请输入正确的密码";
-//        }
-        return "success";
-    }
-
     // 用户登录
     @RequestMapping("/login")
     public Result login(String userName, String password) {
         String result = verifyUserName(userName);
-        if (!result.equals("success")) {
-            return Result.error(result);
-        }
-        result = verifyPassword(password);
         if (!result.equals("success")) {
             return Result.error(result);
         }
@@ -95,10 +80,6 @@ public class UserController {
         if (!result.equals("success")) {
             return Result.error(result);
         }
-        result = verifyPassword(password);
-        if (!result.equals("success")) {
-            return Result.error(result);
-        }
         if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
 
         try {
@@ -130,10 +111,6 @@ public class UserController {
     // 修改密码
     @RequestMapping("/updatePassward")
     public Result updatePassword(String password, String rePassword) {
-        String result = verifyPassword(password);
-        if (!result.equals("success")) {
-            return Result.error(result);
-        }
         if (!password.equals(rePassword)) return Result.error("两次输入密码不一致");
 
         try {
