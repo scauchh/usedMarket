@@ -4,7 +4,10 @@ import instance from '@/utils/request.js'
 export const saveRelationService = (userQuestion) => {
     const params = new URLSearchParams()
     for(let key in userQuestion) {
-        params.append(key, userQuestion[key])
+        if(key === 'questionID' || key === 'answer') {
+            if(userQuestion[key] === null) params.append(key, -1)
+            else params.append(key, userQuestion[key])
+        }
     }
     return instance.post('/relation/saveRelation', params)
 }

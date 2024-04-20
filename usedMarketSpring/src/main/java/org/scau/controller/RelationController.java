@@ -46,6 +46,7 @@ public class RelationController {
     // 保存关系
     @RequestMapping("/saveRelation")
     public Result saveRelation(Integer questionID, String answer) {
+        if(questionID == -1) return Result.error("请选择一个密保问题");
         if(answer==null|| answer.isEmpty()) return Result.error("回答不能为空");
         if(answer.length()>15) return Result.error("回答的长度不能超过15位");
 
