@@ -3,6 +3,7 @@ package org.scau.service.impl;
 import org.scau.mapper.GoodsMapper;
 import org.scau.model.pojo.Goods;
 import org.scau.model.PageBean;
+import org.scau.model.vo.GoodsUserView;
 import org.scau.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,12 +47,6 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapper.getGoodsByID(goodsID);
     }
 
-    // 获取所有的物品
-    @Override
-    public List<Goods> getAllGoods() {
-        return goodsMapper.getAllGoods();
-    }
-
     // 根据物品标题获得物品
     @Override
     public Goods getGoodsByName(String goodsName) {
@@ -72,12 +67,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     // 分页获得所有的物品
     @Override
-    public PageBean<Goods> getPageGoods(Integer pageNum, Integer pageSize, String goodsName, String type) {
-        PageBean<Goods> pb = new PageBean<>();
+    public PageBean<GoodsUserView> getPageGoods(Integer pageNum, Integer pageSize, String goodsName, String type) {
+        PageBean<GoodsUserView> pb = new PageBean<>();
 
         // 查询分页结果
         int total = goodsMapper.getAllGoodsNum(goodsName, type);
-        List<Goods> goodsList = goodsMapper.getPageGoods(pageSize*(pageNum-1), pageSize, goodsName, type);
+        List<GoodsUserView> goodsList = goodsMapper.getPageGoods(pageSize*(pageNum-1), pageSize, goodsName, type);
 
         // 返回分页查询结果
         pb.setTotal(total);

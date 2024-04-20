@@ -16,10 +16,12 @@
         </where>
     </select>
 
-    <select id="getPageGoods" resultType="org.scau.model.pojo.Goods">
-        SELECT * FROM goods
+    <select id="getPageGoods" resultType="org.scau.model.vo.GoodsUserView">
+        SELECT goods.goods_id, goods.user_id, goods_name, picture, price, type, datetime, notes, nick_name, avatar
+        FROM goods, user
         <where>
-            active = '1'
+                goods.user_id = user.user_id
+                AND goods.active = '1'
             <if test="goodsName != null and goodsName != ''">
                 AND goods_name LIKE concat('%', #{goodsName}, '%')
             </if>

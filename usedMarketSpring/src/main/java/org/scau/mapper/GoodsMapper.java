@@ -2,6 +2,7 @@ package org.scau.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.scau.model.pojo.Goods;
+import org.scau.model.vo.GoodsUserView;
 
 import java.util.List;
 
@@ -30,10 +31,6 @@ public interface GoodsMapper {
     @Select("SELECT * FROM goods WHERE goods_id = #{goodsID}")
     Goods getGoodsByID(Integer goodsID);
 
-    // 获取所有的物品
-    @Select("SELECT * FROM goods WHERE active = '1';")
-    List<Goods> getAllGoods();
-
     // 获取所有物品的总数
     Integer getAllGoodsNum(String goodsName, String type);
 
@@ -54,7 +51,7 @@ public interface GoodsMapper {
     Integer getGoodsNumByType(String typeName);
 
     // 分页获得所有的物品
-    List<Goods> getPageGoods(Integer offset, Integer pageSize, String goodsName, String type);
+    List<GoodsUserView> getPageGoods(Integer offset, Integer pageSize, String goodsName, String type);
 
     // 根据用户ID分页获得所有的物品
     List<Goods> getPageGoodsByID(Integer userID, Integer offset, Integer pageSize);

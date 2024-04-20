@@ -127,18 +127,20 @@ const showPreview = (picture) => {
       <el-table-column label="类型" prop="type"> </el-table-column>
       <el-table-column label="更新时间" prop="datetime"> </el-table-column>
       <el-table-column label="备注" prop="notes"></el-table-column>
-      <el-table-column label="卖家信息" width="80">
+      <el-table-column label="卖家信息" prop="nickName">
         <template #default="{ row }">
-          <div class="button-container">
-            <el-button :icon="Avatar" circle plain type="primary" @click="showSeller(row)"></el-button>
-          </div>
+          <el-button link type="primary" @click="showSeller(row)">{{ row.nickName }}</el-button>
         </template>
       </el-table-column>
-      <el-table-column label="发起交易" width="80">
+      <el-table-column label="卖家头像" prop="avatar">
         <template #default="{ row }">
-          <div class="button-container">
-            <el-button :icon="Promotion" circle plain type="success" @click="trade(row)"></el-button>
-          </div>
+          <img v-if="row.avatar" :src="row.avatar" class="avatar" @click="showPreview(row.avatar)"/>
+          <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)" />
+        </template>
+      </el-table-column>
+      <el-table-column label="交易">
+        <template #default="{ row }">
+          <el-button link type="success" @click="trade(row)">发起交易</el-button>
         </template>
       </el-table-column>
       <template #empty>
@@ -156,8 +158,7 @@ const showPreview = (picture) => {
           <el-text size="large">{{ sellerData.nickName }}</el-text>
         </el-form-item>
         <el-form-item label="头像">
-          <img v-if="sellerData.avatar" :src="sellerData.avatar" class="avatar"
-            @click="showPreview(sellerData.avatar)"/>
+          <img v-if="sellerData.avatar" :src="sellerData.avatar" class="avatar" @click="showPreview(sellerData.avatar)"/>
           <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)" />
         </el-form-item>
         <el-form-item label="性别">
@@ -205,9 +206,8 @@ const showPreview = (picture) => {
 }
 
 .avatar {
-  width: 150px;
-  height: 150px;
-  display: block;
+  width: 100px;
+  height: 100px;
 }
 
 .prePicture {

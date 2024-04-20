@@ -2,6 +2,7 @@ package org.scau.service;
 
 import org.scau.model.pojo.Goods;
 import org.scau.model.PageBean;
+import org.scau.model.vo.GoodsUserView;
 
 import java.util.List;
 
@@ -22,9 +23,6 @@ public interface GoodsService {
     // 根据ID查找物品
     Goods getGoodsByID(Integer goodsID);
 
-    // 获取所有的物品
-    List<Goods> getAllGoods();
-
     // 根据物品标题获得物品
     Goods getGoodsByName(String goodsName);
 
@@ -35,7 +33,7 @@ public interface GoodsService {
     Integer getGoodsNumByType(String typeName);
 
     // 分页获得所有的物品
-    PageBean<Goods> getPageGoods(Integer pageNum, Integer pageSize, String goodsName, String type);
+    PageBean<GoodsUserView> getPageGoods(Integer pageNum, Integer pageSize, String goodsName, String type);
 
     // 根据用户ID分页获得所有的物品
     PageBean<Goods> getPageGoodsByID(Integer pageNum, Integer pageSize, Integer userID);

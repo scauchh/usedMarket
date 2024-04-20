@@ -3,6 +3,7 @@ package org.scau.controller;
 import org.scau.model.pojo.Goods;
 import org.scau.model.PageBean;
 import org.scau.model.Result;
+import org.scau.model.vo.GoodsUserView;
 import org.scau.service.GoodsService;
 import org.scau.utils.ThreadLocalUtil;
 import org.slf4j.Logger;
@@ -127,7 +128,7 @@ public class GoodsController {
     @RequestMapping("/getPageGoods")
     public Result getPageGoods(String pageNum, String pageSize, String goodsName, String type) {
         try {
-            PageBean<Goods> pb = goodsService.getPageGoods(Integer.parseInt(pageNum), Integer.parseInt(pageSize), goodsName, type);
+            PageBean<GoodsUserView> pb = goodsService.getPageGoods(Integer.parseInt(pageNum), Integer.parseInt(pageSize), goodsName, type);
             return Result.success(pb);
         } catch (Exception e) {
             logger.error(e.toString());
