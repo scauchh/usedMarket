@@ -21,6 +21,8 @@ public class User {
     private String gender;                            // 性别
     private String email;                             // 邮箱
     private String phone;                             // 手机
+    private String wechat;                            // 微信号
+    private String address;                           // 地址
     private Integer roleID;                           // 用户角色
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registerTime;               // 数据更新时间

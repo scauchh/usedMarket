@@ -200,7 +200,7 @@ const resetPassword = async () => {
       </el-form>
     </el-col>
     <!-- 重置密码弹窗 -->
-    <el-dialog v-model="dialogVisible" style="width: 30%; border-radius: 10px; padding: 1% 3% 3% 3%;">
+    <el-dialog v-model="dialogVisible" draggable style="width: 30%; border-radius: 10px; padding: 1% 3% 3% 3%;">
       <el-form style="color: black;">
         <h1>重置密码</h1>
       </el-form>

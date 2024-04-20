@@ -195,7 +195,7 @@ const showPreview = (picture) => {
     </el-container>
   </el-container>
   <!-- 预览图 -->
-  <el-dialog v-model="visibleDialog" width="35%">
+  <el-dialog v-model="visibleDialog" draggable width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" />
     </el-dialog>
 </template>

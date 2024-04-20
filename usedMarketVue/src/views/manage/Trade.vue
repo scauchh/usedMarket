@@ -142,7 +142,7 @@ const showPreview = (picture) => {
       </el-table-column>
       <el-table-column label="物品图片">
         <template #default="{ row }">
-          <el-image style="width: 100px; height: 100px" :src="row.picture" @click="showPreview(row.picture)" />
+          <el-image class="avatar" :src="row.picture" @click="showPreview(row.picture)" />
         </template>
       </el-table-column>
       <el-table-column label="状态" prop="state">
@@ -163,7 +163,7 @@ const showPreview = (picture) => {
       </template>
     </el-table>
     <!-- 买家/卖家信息弹窗 -->
-    <el-dialog v-model="visibleUser" style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
+    <el-dialog v-model="visibleUser" draggable style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
       <el-form :model="userData" label-width="100px" style="padding-right: 30px">
         <h1 class="title">{{ title }}</h1>
         <el-form-item label="用户名">
@@ -185,10 +185,16 @@ const showPreview = (picture) => {
         <el-form-item label="手机">
           <el-text size="large">{{ userData.phone ? userData.phone : '暂无' }}</el-text>
         </el-form-item>
+        <el-form-item label="微信号">
+          <el-text size="large">{{ userData.wechat ? userData.wechat : '暂无' }}</el-text>
+        </el-form-item>
+        <el-form-item label="地址">
+          <el-text size="large">{{ userData.address ? userData.address : '暂无' }}</el-text>
+        </el-form-item>
       </el-form>
     </el-dialog>
     <!-- 物品信息弹窗 -->
-    <el-dialog v-model="visibleGoods" style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
+    <el-dialog v-model="visibleGoods" draggable style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
       <el-form :model="goodsData" label-width="100px" style="padding-right: 30px">
         <h1 class="title">物品信息</h1>
         <el-form-item label="物品名称">
@@ -216,7 +222,7 @@ const showPreview = (picture) => {
       layout="jumper, total, sizes, prev, pager, next" background :total="total" @size-change="onSizeChange"
       @current-change="onCurrentChange" style="margin-top: 20px; justify-content: flex-end" />
     <!-- 预览图 -->
-    <el-dialog v-model="visibleImg" width="35%">
+    <el-dialog v-model="visibleImg" draggable width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" class="prePicture" />
     </el-dialog>
   </el-card>
@@ -244,8 +250,7 @@ const showPreview = (picture) => {
 }
 
 .avatar {
-  width: 150px;
-  height: 150px;
-  display: block;
+  width: 100px;
+  height: 100px;
 }
 </style>

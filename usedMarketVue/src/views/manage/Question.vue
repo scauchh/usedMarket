@@ -131,7 +131,7 @@ const changeQuestion = async (row) => {
     </el-table>
   </el-card>
   <!-- 添加/修改密保问题弹窗 -->
-  <el-dialog v-model="dialogVisible" style="width: 30%; border-radius: 10px; padding: 1% 3% 3% 3%;">
+  <el-dialog v-model="dialogVisible" draggable style="width: 30%; border-radius: 10px; padding: 1% 3% 3% 3%;">
     <el-form style="color: black; font-size: 18px;">
       <h1>{{ title }}</h1>
     </el-form>

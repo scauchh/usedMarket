@@ -120,7 +120,7 @@ const showPreview = (picture) => {
       <el-table-column label="物品名称" prop="goodsName"></el-table-column>
       <el-table-column label="物品图片" prop="picture">
         <template #default="{ row }">
-          <el-image style="width: 100px; height: 100px" :src="row.picture" @click="showPreview(row.picture)" />
+          <el-image class="avatar" :src="row.picture" @click="showPreview(row.picture)" />
         </template>
       </el-table-column>
       <el-table-column label="价格" prop="price"> </el-table-column>
@@ -148,7 +148,7 @@ const showPreview = (picture) => {
       </template>
     </el-table>
     <!-- 卖家信息弹窗 -->
-    <el-dialog v-model="visibleSeller" style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
+    <el-dialog v-model="visibleSeller" draggable style="width: 30%; border-radius: 10px; padding: 0 0 2% 2%;">
       <el-form :model="sellerData" label-width="100px" style="padding-right: 30px">
         <h1 class="title">卖家信息</h1>
         <el-form-item label="用户名">
@@ -170,10 +170,16 @@ const showPreview = (picture) => {
         <el-form-item label="手机">
           <el-text size="large">{{ sellerData.phone ? sellerData.phone : '暂无' }}</el-text>
         </el-form-item>
+        <el-form-item label="微信号">
+          <el-text size="large">{{ sellerData.wechat ? sellerData.wechat : '暂无' }}</el-text>
+        </el-form-item>
+        <el-form-item label="地址">
+          <el-text size="large">{{ sellerData.address ? sellerData.address : '暂无' }}</el-text>
+        </el-form-item>
       </el-form>
     </el-dialog>
     <!-- 预览图 -->
-    <el-dialog v-model="visibleImg" width="35%">
+    <el-dialog v-model="visibleImg" draggable width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" class="prePicture" />
     </el-dialog>
     <!-- 分页条 -->

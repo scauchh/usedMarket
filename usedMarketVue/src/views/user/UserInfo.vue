@@ -57,6 +57,12 @@ const userDataRules = {
   ],
   phone: [
     { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur' }
+  ],
+  wechat: [
+    { min: 0, max: 20, message: '微信号的长度不能超过20位', trigger: 'blur' }
+  ],
+  address: [
+    { min: 0, max: 20, message: '地址的长度不能超过20位', trigger: 'blur' }
   ]
 }
 
@@ -133,6 +139,12 @@ const showPreview = (picture) => {
           <el-form-item label="手机" prop="phone">
             <el-input v-model="userData.phone" style="width: 300px"></el-input>
           </el-form-item>
+          <el-form-item label="微信号" prop="wechat">
+            <el-input v-model="userData.wechat" style="width: 300px"></el-input>
+          </el-form-item>
+          <el-form-item label="地址" prop="address">
+            <el-input v-model="userData.address" style="width: 300px"></el-input>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="updateUserInfo">确认修改</el-button>
             <el-button type="info" @click="refresh">取消编辑</el-button>
@@ -153,6 +165,8 @@ const showPreview = (picture) => {
           </el-form-item>
           <el-form-item label="邮箱" prop="email">{{ userData.email }}</el-form-item>
           <el-form-item label="手机" prop="phone">{{ userData.phone }}</el-form-item>
+          <el-form-item label="微信号" prop="wechat">{{ userData.wechat }}</el-form-item>
+          <el-form-item label="地址" prop="address">{{ userData.address }}</el-form-item>
           <el-form-item>
             <el-button type="primary" @click="editInfo">编辑信息</el-button>
           </el-form-item>
@@ -161,7 +175,7 @@ const showPreview = (picture) => {
     </el-row>
   </el-card>
   <!-- 预览图 -->
-  <el-dialog v-model="visibleDialog" width="35%">
+  <el-dialog v-model="visibleDialog" draggable width="35%">
     <img :src="prePicture" style="width: 100%; height: auto;" />
   </el-dialog>
 </template>

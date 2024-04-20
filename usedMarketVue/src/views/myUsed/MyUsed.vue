@@ -162,7 +162,7 @@ const showPreview = (picture) => {
       <el-table-column label="物品名称" prop="goodsName"></el-table-column>
       <el-table-column label="物品图片" prop="picture">
         <template #default="{ row }">
-          <el-image style="width: 100px; height: 100px" :src="row.picture" @click="showPreview(row.picture)" />
+          <el-image class="avatar" :src="row.picture" @click="showPreview(row.picture)" />
         </template>
       </el-table-column>
       <el-table-column label="价格" prop="price"> </el-table-column>
@@ -217,7 +217,7 @@ const showPreview = (picture) => {
       </el-form>
     </el-drawer>
     <!-- 预览图 -->
-    <el-dialog v-model="visibleDialog" width="35%">
+    <el-dialog v-model="visibleDialog" draggable width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" />
     </el-dialog>
     <!-- 分页条 -->
@@ -272,5 +272,10 @@ const showPreview = (picture) => {
       text-align: center;
     }
   }
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
 }
 </style>

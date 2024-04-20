@@ -231,6 +231,8 @@ public class UserController {
         String nickName = user.getNickName();
         String email = user.getEmail();
         String phone = user.getPhone();
+        String wechat = user.getWechat();
+        String address = user.getAddress();
 
         if (nickName == null || nickName.isEmpty()) {
             return Result.error("昵称不能为空");
@@ -247,6 +249,15 @@ public class UserController {
         String phoneRegex = "^1[3-9]\\d{9}$";
         if (phone != null && !phone.isEmpty() && !phone.matches(phoneRegex)) {
             return Result.error("请输入正确的手机号码");
+        }
+
+        if(wechat != null && wechat.length() > 20){
+            return Result.error("微信号的长度不能超过20位");
+        }
+
+        System.out.println("a: "+address);
+        if(address != null && address.length() > 20){
+            return Result.error("地址的长度不能超过20位");
         }
 
         try {

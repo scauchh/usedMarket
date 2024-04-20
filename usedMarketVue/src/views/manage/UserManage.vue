@@ -149,8 +149,8 @@ const showPreview = (picture) => {
       <el-table-column label="昵称" prop="nickName"></el-table-column>
       <el-table-column label="头像" prop="avatar">
         <template #default="{ row }">
-          <el-image v-if="row.avatar" style="width: 100px; height: 100px" :src="row.avatar" @click="showPreview(row.avatar)" />
-          <el-image v-else style="width: 100px; height: 100px" :src="avatar" @click="showPreview(avatar)" />
+          <el-image v-if="row.avatar" class="avatar" :src="row.avatar" @click="showPreview(row.avatar)" />
+          <el-image v-else class="avatar" :src="avatar" @click="showPreview(avatar)" />
         </template>
       </el-table-column>
       <el-table-column label="性别" prop="gender">
@@ -188,7 +188,7 @@ const showPreview = (picture) => {
       </template>
     </el-table>
     <!-- 修改用户权限弹窗 -->
-    <el-dialog v-model="dialogVisible" style="width: 25%; border-radius: 10px; padding: 1% 3% 3% 3%;">
+    <el-dialog v-model="dialogVisible" draggable style="width: 25%; border-radius: 10px; padding: 1% 3% 3% 3%;">
       <el-form style="color: black; font-size: 18px;">
         <h1>修改用户权限</h1>
       </el-form>
@@ -212,7 +212,7 @@ const showPreview = (picture) => {
       layout="jumper, total, sizes, prev, pager, next" background :total="total" @size-change="onSizeChange"
       @current-change="onCurrentChange" style="margin-top: 20px; justify-content: flex-end" />
     <!-- 预览图 -->
-    <el-dialog v-model="visibleImg" width="35%">
+    <el-dialog v-model="visibleImg" draggable width="35%">
       <img :src="prePicture" style="width: 100%; height: auto;" class="prePicture" />
     </el-dialog>
   </el-card>
@@ -231,5 +231,10 @@ const showPreview = (picture) => {
   .form-row {
     margin: auto 10px;
   }
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
 }
 </style>
