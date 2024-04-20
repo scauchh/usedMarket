@@ -2,7 +2,7 @@ package org.scau.controller;
 
 import org.scau.model.PageBean;
 import org.scau.model.Result;
-import org.scau.model.vo.TradeGoodsView;
+import org.scau.model.vo.TradeView;
 import org.scau.service.TradeService;
 import org.scau.service.UserService;
 import org.scau.utils.ThreadLocalUtil;
@@ -28,25 +28,25 @@ public class TradeController {
     // 添加交易
     @RequestMapping("/addTrade")
     public Result addTrade(Integer sellerID, Integer goodsID) {
-        // 获取当前用户的用户名
+        // 获取当前用户的userID
         Map<String, Object> map = ThreadLocalUtil.get();
-        String buyerName = map.get("userName").toString();
+        Integer buyerID = (Integer) map.get("id");
 
-        // 获取卖家的用户名
-        String sellerName = userService.searchUserByID(sellerID).getUserName();
+//        // 获取卖家的用户名
+//        Integer sellerID = userService.searchUserByID(sellerID).getUserID();
 
         // 检查交易双方的身份
-        if(buyerName.equals(sellerName)){
+        if(buyerID.equals(sellerID)){
             return Result.error("你不能购买自己的物品");
         }
 
         // 检查是否有重复的进行中的交易
-        if(tradeService.searchTradeByAll(buyerName, sellerName, goodsID)!=0) {
+        if(tradeService.searchTradeByAll(buyerID, sellerID, goodsID)!=0) {
             return Result.error("请勿重复发起交易");
         }
 
         try{
-            tradeService.addTrade(buyerName, sellerName, goodsID);
+            tradeService.addTrade(buyerID, sellerID, goodsID);
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());
@@ -70,7 +70,7 @@ public class TradeController {
     @RequestMapping("/getAllTrade")
     public Result getAllTrade(Integer pageNum, Integer pageSize, Integer state) {
         try{
-            PageBean<TradeGoodsView> trades = tradeService.getAllTrade(pageNum, pageSize, state);
+            PageBean<TradeView> trades = tradeService.getAllTrade(pageNum, pageSize, state);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());
@@ -82,11 +82,11 @@ public class TradeController {
     @RequestMapping("/getTradeFromMe")
     public Result getTradeFromMe(Integer pageNum, Integer pageSize, Integer state) {
         try{
-            // 获取用户名
+            // 获取userID
             Map<String, Object> map = ThreadLocalUtil.get();
-            String userName = map.get("userName").toString();
+            Integer userID = (Integer) map.get("id");
 
-            PageBean<TradeGoodsView> trades = tradeService.getTradeFromMe(pageNum, pageSize, state, userName);
+            PageBean<TradeView> trades = tradeService.getTradeFromMe(pageNum, pageSize, state, userID);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());
@@ -98,11 +98,11 @@ public class TradeController {
     @RequestMapping("/getTradeToMe")
     public Result getTradeToMe(Integer pageNum, Integer pageSize, Integer state) {
         try{
-            // 获取用户名
+            // 获取userID
             Map<String, Object> map = ThreadLocalUtil.get();
-            String userName = map.get("userName").toString();
+            Integer userID = (Integer) map.get("id");
 
-            PageBean<TradeGoodsView> trades = tradeService.getTradeToMe(pageNum, pageSize, state, userName);
+            PageBean<TradeView> trades = tradeService.getTradeToMe(pageNum, pageSize, state, userID);
             return Result.success(trades);
         }catch (Exception e){
             logger.error(e.toString());

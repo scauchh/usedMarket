@@ -163,10 +163,10 @@ const showPreview = (picture) => {
             <el-text v-else-if="userData.gender==2">女</el-text>
             <el-text v-else>不愿透露</el-text>
           </el-form-item>
-          <el-form-item label="邮箱" prop="email">{{ userData.email }}</el-form-item>
-          <el-form-item label="手机" prop="phone">{{ userData.phone }}</el-form-item>
-          <el-form-item label="微信号" prop="wechat">{{ userData.wechat }}</el-form-item>
-          <el-form-item label="地址" prop="address">{{ userData.address }}</el-form-item>
+          <el-form-item label="邮箱" prop="email">{{ userData.email ? userData.email : '暂无' }}</el-form-item>
+          <el-form-item label="手机" prop="phone">{{ userData.phone ? userData.phone : '暂无' }}</el-form-item>
+          <el-form-item label="微信号" prop="wechat">{{ userData.wechat ? userData.wechat : '暂无' }}</el-form-item>
+          <el-form-item label="地址" prop="address">{{ userData.address ? userData.address : '暂无' }}</el-form-item>
           <el-form-item>
             <el-button type="primary" @click="editInfo">编辑信息</el-button>
           </el-form-item>

@@ -3,42 +3,40 @@ package org.scau.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.scau.model.pojo.Trade;
-import org.scau.model.vo.TradeGoodsView;
+import org.scau.model.vo.TradeView;
 
 import java.util.List;
 
 @Mapper
 public interface TradeMapper {
     // 添加交易
-    @Insert("INSERT INTO trade (buyer_name, seller_name, goods_id, state, notes) " +
-            "VALUES (#{buyerName}, #{sellerName}, #{goodsID}, 1, '')")
-    void addTrade(String buyerName, String sellerName, Integer goodsID);
+    @Insert("INSERT INTO trade (buyer_id, seller_id, goods_id, state, notes) " +
+            "VALUES (#{buyerID}, #{sellerID}, #{goodsID}, 1, '')")
+    void addTrade(Integer buyerID, Integer sellerID, Integer goodsID);
 
     // 更新交易状态
     void updateTrade(Integer tradeID, Integer state, String notes);
 
     // 查找进行中的重复交易
-    @Select("SELECT COUNT(*) FROM trade WHERE buyer_name = #{buyerName} " +
-            "AND seller_name = #{sellerName} AND goods_id = #{goodsID} AND (state = 0 OR state = 1)")
-    Integer searchTradeByAll(String buyerName, String sellerName, Integer goodsID);
+    @Select("SELECT COUNT(*) FROM trade WHERE buyer_id = #{buyerID} " +
+            "AND seller_id = #{sellerID} AND goods_id = #{goodsID} AND (state = 1 OR state = 2)")
+    Integer searchTradeByAll(Integer buyerID, Integer sellerID, Integer goodsID);
 
     // 获取所有交易的数量
     Integer getAllTradeNum(Integer offset, Integer pageSize, Integer state);
 
     // 分页获取所有交易
-    List<TradeGoodsView> getAllTrade(Integer offset, Integer pageSize, Integer state);
+    List<TradeView> getAllTrade(Integer offset, Integer pageSize, Integer state);
 
     // 获取发起的交易的数量
-    Integer getTradeFromMeNum(Integer offset, Integer pageSize, String userName, Integer state);
+    Integer getTradeFromMeNum(Integer offset, Integer pageSize, Integer userID, Integer state);
 
     // 分页获取发起的交易
-    List<TradeGoodsView> getTradeFromMe(Integer offset, Integer pageSize, String userName, Integer state);
+    List<TradeView> getTradeFromMe(Integer offset, Integer pageSize, Integer userID, Integer state);
 
     // 获取收到的交易的数量
-    Integer getTradeToMeNum(Integer offset, Integer pageSize, String userName, Integer state);
+    Integer getTradeToMeNum(Integer offset, Integer pageSize, Integer userID, Integer state);
 
     // 分页获取收到的交易
-    List<TradeGoodsView> getTradeToMe(Integer offset, Integer pageSize, String userName, Integer state);
-
+    List<TradeView> getTradeToMe(Integer offset, Integer pageSize, Integer userID, Integer state);
 }

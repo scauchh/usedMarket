@@ -3,7 +3,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Avatar } from '@element-plus/icons-vue'
 import { Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
-import { getUserInfoByNameService } from '@/api/user.js'
+import { getUserInfoByIDService } from '@/api/user.js'
 import { getGoodsByIDService } from '@/api/goods.js'
 import { updateTrade, getTradeFromMeService } from '@/api/trade.js'
 import avatar from '@/assets/default.png'
@@ -47,7 +47,7 @@ onMounted(async () => {
 // 展示用户信息
 const showUserInfo = async (row) => {
   visibleUser.value = true
-  let result = await getUserInfoByNameService(row.sellerName)
+  let result = await getUserInfoByIDService(row.sellerID)
   userData.value = result.data
   if (userData.value.gender === '0') userData.value.gender = '不愿透露'
   else if (userData.value.gender === '1') userData.value.gender = '男'
@@ -132,10 +132,15 @@ const showPreview = (picture) => {
       </el-form>
     </template>
     <el-table :data="tradeInfo" style="width: 100%">
-      <el-table-column label="卖家用户名" prop="sellerName"></el-table-column>
-      <el-table-column label="卖家信息">
+      <el-table-column label="卖家信息" prop="sellerName">
         <template #default="{ row }">
-          <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row)"></el-button>
+          <el-button link type="primary" @click="showUserInfo(row)">{{ row.sellerNickName }}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="卖家头像">
+        <template #default="{ row }">
+          <img v-if="row.sellerAvatar" :src="row.sellerAvatar" class="avatar" @click="showPreview(row.sellerAvatar)"/>
+          <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)" />
         </template>
       </el-table-column>
       <el-table-column label="物品名称" prop="goodsName">

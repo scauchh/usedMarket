@@ -23,11 +23,15 @@
         ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
-    <select id="getAllTrade" resultType="org.scau.model.vo.TradeGoodsView">
-        SELECT trade_id, buyer_name, seller_name, trade.goods_id, state, trade.notes, goods_name, picture
-        FROM trade, goods
+    <select id="getAllTrade" resultType="org.scau.model.vo.TradeView">
+        SELECT trade_id, buyer_id, u1.nick_name as buyerNickName, u1.avatar as buyerAvatar,
+               seller_id, u2.nick_name as sellerNickName, u2.avatar as sellerAvatar,
+               trade.goods_id, goods_name, picture, state, trade.notes
+        FROM trade, goods, user u1, user u2
         <where>
                 trade.goods_id = goods.goods_id
+                AND trade.buyer_id = u1.user_id
+                AND trade.seller_id = u2.user_id
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
@@ -38,7 +42,7 @@
     <select id="getTradeFromMeNum" resultType="int">
         SELECT COUNT(*) FROM trade
         <where>
-            buyer_name = #{userName}
+            buyer_id = #{userID}
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
@@ -46,12 +50,14 @@
         ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
-    <select id="getTradeFromMe" resultType="org.scau.model.vo.TradeGoodsView">
-        SELECT trade_id, buyer_name, seller_name, trade.goods_id, state, trade.notes, goods_name, picture
-        FROM trade, goods
+    <select id="getTradeFromMe" resultType="org.scau.model.vo.TradeView">
+        SELECT trade_id, seller_id, user.nick_name as sellerNickName, user.avatar as sellerAvatar,
+               trade.goods_id, goods_name, picture, state, trade.notes
+        FROM trade, goods, user
         <where>
                 trade.goods_id = goods.goods_id
-                AND buyer_name = #{userName}
+                AND trade.seller_id = user.user_id
+                AND trade.buyer_id = #{userID}
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
@@ -62,7 +68,7 @@
     <select id="getTradeToMeNum" resultType="int">
         SELECT COUNT(*) FROM trade
         <where>
-            seller_name = #{userName}
+            seller_id = #{userID}
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>
@@ -70,12 +76,14 @@
         ORDER BY trade_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
-    <select id="getTradeToMe" resultType="org.scau.model.vo.TradeGoodsView">
-        SELECT trade_id, buyer_name, seller_name, trade.goods_id, state, trade.notes, goods_name, picture
-        FROM trade, goods
+    <select id="getTradeToMe" resultType="org.scau.model.vo.TradeView">
+        SELECT trade_id, buyer_id, user.nick_name as buyerNickName, user.avatar as buyerAvatar,
+               trade.goods_id, goods_name, picture, state, trade.notes
+        FROM trade, goods, user
         <where>
                 trade.goods_id = goods.goods_id
-                AND seller_name = #{userName}
+                AND trade.buyer_id = user.user_id
+                AND trade.seller_id = #{userID}
             <if test="state != null and state != ''">
                 AND state = #{state}
             </if>

@@ -3,7 +3,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Avatar, Reading } from '@element-plus/icons-vue'
 import { Edit, Delete, Search, Refresh } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue'
-import { getUserInfoByNameService } from '@/api/user.js'
+import { getUserInfoByIDService } from '@/api/user.js'
 import { getGoodsByIDService } from '@/api/goods.js'
 import { getAllTradeService } from '@/api/trade.js'
 import { useUserInfoStore } from '@/store/userinfo.js'
@@ -52,16 +52,16 @@ onMounted(async () => {
 // 展示用户信息
 const showUserInfo = async (row, type) => {
   visibleUser.value = true
-  let userName;
+  let userID;
   if(type == '买家') {
     title.value = '买家信息'
-    userName = row.buyerName
+    userID = row.buyerID
   }
   else if(type == '卖家') {
     title.value = '卖家信息'
-    userName = row.sellerName
+    userID = row.sellerID
   }
-  let result = await getUserInfoByNameService(userName)
+  let result = await getUserInfoByIDService(userID)
   userData.value = result.data
   if (userData.value.gender === '0') userData.value.gender = '不愿透露'
   else if (userData.value.gender === '1') userData.value.gender = '男'
@@ -123,16 +123,26 @@ const showPreview = (picture) => {
     </template>
     <!-- 交易信息 -->
     <el-table :data="tradeInfo" style="width: 100%">
-      <el-table-column label="买家用户名" prop="buyerName" width="150"></el-table-column>
-      <el-table-column label="买家信息" width="150">
+      <el-table-column label="买家信息" prop="buyerNickName" width="150">
         <template #default="{ row }">
-          <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row, '买家')"></el-button>
+          <el-button link type="primary" @click="showUserInfo(row, '买家')">{{ row.buyerNickName }}</el-button>
         </template>
       </el-table-column>
-      <el-table-column label="卖家用户名" prop="sellerName" width="150"></el-table-column>
-      <el-table-column label="卖家信息" width="150">
+      <el-table-column label="买家头像" width="150">
         <template #default="{ row }">
-          <el-button :icon="Avatar" circle plain type="primary" @click="showUserInfo(row, '卖家')"></el-button>
+          <img v-if="row.buyerAvatar" :src="row.buyerAvatar" class="avatar" @click="showPreview(row.buyerAvatar)"/>
+          <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)" />
+        </template>
+      </el-table-column>
+      <el-table-column label="卖家信息" prop="sellerName" width="150">
+        <template #default="{ row }">
+          <el-button link type="primary" @click="showUserInfo(row, '卖家')">{{ row.sellerNickName }}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="卖家头像" width="150">
+        <template #default="{ row }">
+          <img v-if="row.sellerAvatar" :src="row.sellerAvatar" class="avatar" @click="showPreview(row.sellerAvatar)"/>
+          <img v-else :src="avatar" class="avatar" @click="showPreview(avatar)" />
         </template>
       </el-table-column>
       <el-table-column label="物品名称" prop="goodsName" width="150">
