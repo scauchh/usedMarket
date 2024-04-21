@@ -33,9 +33,9 @@ public class RelationController {
     }
 
     // 更新关系
-    private Result updateRelation(Integer relationID, Integer questionID, String answer){
+    private Result updateRelation(Integer questionID, Integer userID, String answer){
         try{
-            relationService.updateRelation(relationID, questionID, answer);
+            relationService.updateRelation(questionID, userID, answer);
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());
@@ -56,7 +56,7 @@ public class RelationController {
         Relation relation = relationService.searchRelationByID(userID);
 
         if(relation==null) return addRelation(questionID, userID, answer);
-        else return updateRelation(relation.getRelationID(), questionID, answer);
+        else return updateRelation(questionID, userID, answer);
     }
 
     // 获取当前用户密保
@@ -67,7 +67,7 @@ public class RelationController {
             Integer userID = (Integer) map.get("id");
 
             Relation relation = relationService.searchRelationByID(userID);
-            if(relation==null) relation = new Relation(null, null, null, "");
+            if(relation==null) relation = new Relation(null, null, "");
             return Result.success(relation);
         }catch (Exception e){
             logger.error(e.toString());

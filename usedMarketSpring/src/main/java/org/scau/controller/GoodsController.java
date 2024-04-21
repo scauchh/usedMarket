@@ -57,8 +57,8 @@ public class GoodsController {
 
         // 检验备注
         if (notes == null) goods.setNotes("");
-        if (notes != null && notes.length() > 200) {
-            return "备注的长度不能超过100位";
+        if (notes != null && notes.length() > 30) {
+            return "备注的长度不能超过30位";
         }
 
         // 获取当前时间

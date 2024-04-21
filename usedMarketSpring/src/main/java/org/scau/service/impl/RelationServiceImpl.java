@@ -19,8 +19,8 @@ public class RelationServiceImpl implements RelationService  {
 
     // 根据ID更新关系
     @Override
-    public void updateRelation(Integer relationID, Integer questionID, String answer) {
-        relationMapper.updateRelation(relationID, questionID, answer);
+    public void updateRelation(Integer questionID, Integer userID, String answer) {
+        relationMapper.updateRelation(questionID, userID, answer);
     }
 
     // 根据用户ID查找关系

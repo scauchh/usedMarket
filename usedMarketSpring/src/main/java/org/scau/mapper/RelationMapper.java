@@ -13,8 +13,8 @@ public interface RelationMapper {
     void addRelation(Integer questionID, Integer userID, String answer);
 
     // 根据ID更新关系
-    @Update("UPDATE relation SET question_id = #{questionID}, answer = #{answer} WHERE relation_id = #{relationID}")
-    void updateRelation(Integer relationID, Integer questionID, String answer);
+    @Update("UPDATE relation SET question_id = #{questionID}, answer = #{answer} WHERE user_id = #{userID}")
+    void updateRelation(Integer questionID, Integer userID, String answer);
 
     // 根据用户ID查找关系
     @Select("SELECT * FROM relation WHERE user_id = #{userID}")

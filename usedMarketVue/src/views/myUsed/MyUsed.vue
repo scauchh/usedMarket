@@ -32,7 +32,7 @@ const goodsType = ref([])
 //分页条数据模型
 const pageNum = ref(1)
 const total = ref(10)
-const pageSize = ref(5)
+const pageSize = ref(3)
 
 // 物品数据验证
 const goodsDataRules = ref({
@@ -50,7 +50,7 @@ const goodsDataRules = ref({
     { required: true, message: '请选择物品类型', trigger: 'blur' }
   ],
   notes: [
-    { min: 0, max: 100, message: '备注的长度不能超过100位', trigger: 'blur' }
+    { min: 0, max: 30, message: '备注的长度不能超过30位', trigger: 'blur' }
   ]
 })
 

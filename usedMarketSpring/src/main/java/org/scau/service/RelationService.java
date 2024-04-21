@@ -7,7 +7,7 @@ public interface RelationService {
     void addRelation(Integer questionID, Integer userID, String answer);
 
     // 根据ID更新关系
-    void updateRelation(Integer relationID, Integer questionID, String answer);
+    void updateRelation(Integer questionID, Integer userID, String answer);
 
     // 根据用户ID查找关系
     Relation searchRelationByID(Integer userID);
