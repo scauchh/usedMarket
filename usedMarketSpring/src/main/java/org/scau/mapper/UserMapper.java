@@ -30,8 +30,8 @@ public interface UserMapper {
     void updateLoginTime(Integer userID, LocalDateTime loginTime);
 
     // 修改用户权限
-    @Update("UPDATE user SET role_id = #{roleID} WHERE user_name = #{userName}")
-    void updateRoleID(String userName, Integer roleID);
+    @Update("UPDATE user SET role = #{role} WHERE user_name = #{userName}")
+    void updateRole(String userName, Integer role);
 
     // 根据ID查找用户
     @Select("SELECT * FROM user WHERE user_id = #{userID}")

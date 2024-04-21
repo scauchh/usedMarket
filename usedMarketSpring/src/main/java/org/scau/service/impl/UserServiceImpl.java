@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
 
     // 修改用户权限
     @Override
-    public void updateRoleID(String userName, Integer roleID) {
-        userMapper.updateRoleID(userName, roleID);
+    public void updateRole(String userName, Integer role) {
+        userMapper.updateRole(userName, role);
     }
 
     // 根据ID查找用户

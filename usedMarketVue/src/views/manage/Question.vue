@@ -46,7 +46,7 @@ const questionModelRules = ref({
 const refresh = async () => {
   let result = await getAllQuestionService()
   questions.value = result.data
-  if(userInfoStore.info.roleID === 0) isManager.value = false;
+  if(userInfoStore.info.role === 0) isManager.value = false;
 }
 
 // 初始化页面

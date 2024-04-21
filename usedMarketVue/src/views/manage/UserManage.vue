@@ -44,7 +44,7 @@ const refresh = async () => {
   let result = await getAllUserInfoService(pageNum.value, pageSize.value, searchData.value)
   userInfo.value = result.data.items
   total.value = result.data.total
-  if(userInfoStore.info.roleID === 0) isManager.value = false;
+  if(userInfoStore.info.role === 0) isManager.value = false;
 }
 
 // 初始化页面
@@ -56,7 +56,7 @@ onMounted(async () => {
 const preChange = (row) => {
   changeModel.value.userName = row.userName
   changeModel.value.nickName = row.nickName
-  changeModel.value.userRole = row.roleID==0?"普通用户":"管理员"
+  changeModel.value.userRole = row.role==0?"普通用户":"管理员"
   dialogVisible.value = true
 }
 
@@ -162,10 +162,10 @@ const showPreview = (picture) => {
       </el-table-column>
       <el-table-column label="邮箱" prop="email"></el-table-column>
       <el-table-column label="手机号" prop="phone"></el-table-column>
-      <el-table-column label="角色" prop="roleID"> 
+      <el-table-column label="角色" prop="role"> 
         <template #default="{ row }">
-          <el-text v-if="row.roleID==0">普通用户</el-text>
-          <el-text v-else-if="row.roleID==1">管理员</el-text>
+          <el-text v-if="row.role==0">普通用户</el-text>
+          <el-text v-else-if="row.role==1">管理员</el-text>
         </template>
       </el-table-column>
       <el-table-column label="注册时间" prop="registerTime"></el-table-column>

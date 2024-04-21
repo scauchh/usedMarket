@@ -40,7 +40,8 @@ const prePicture = ref()
 // 刷新数据
 const refresh = ()=>{
   userData.value = userInfoStore.info
-  if(userInfoStore.info.roleID === 0) isManager.value = false;
+  console.log(userInfoStore.info)
+  if(userInfoStore.info.role === 0) isManager.value = false;
 }
 
 // 初始化界面

@@ -23,7 +23,7 @@ public class User {
     private String phone;                             // 手机
     private String wechat;                            // 微信号
     private String address;                           // 地址
-    private Integer roleID;                           // 用户角色
+    private Integer role;                             // 用户角色
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registerTime;               // 数据更新时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

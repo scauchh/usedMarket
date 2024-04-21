@@ -273,7 +273,7 @@ public class UserController {
     @RequestMapping("/updateUserRole")
     public Result updateUserRole(String userName, String userRole) {
         try {
-            userService.updateRoleID(userName, Objects.equals(userRole, "管理员") ? 1 : 0);
+            userService.updateRole(userName, Objects.equals(userRole, "管理员") ? 1 : 0);
             return Result.success();
         } catch (Exception e) {
             logger.error(e.toString());

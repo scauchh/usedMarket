@@ -37,10 +37,10 @@
                 AND user_name LIKE concat('%', #{userName}, '%')
             </if>
             <if test="userRole == '普通用户'">
-                AND role_id = 0
+                AND role = 0
             </if>
             <if test="userRole == '管理员'">
-                AND role_id = 1
+                AND role = 1
             </if>
         </where>
     </select>
@@ -53,10 +53,10 @@
                 AND user_name LIKE concat('%', #{userName}, '%')
             </if>
             <if test="userRole == '普通用户'">
-                AND role_id = 0
+                AND role = 0
             </if>
             <if test="userRole == '管理员'">
-                AND role_id = 1
+                AND role = 1
             </if>
         </where>
         LIMIT #{offset}, #{pageSize}

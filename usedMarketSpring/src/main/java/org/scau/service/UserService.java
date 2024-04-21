@@ -23,7 +23,7 @@ public interface UserService {
     void updateLoginTime(Integer userID, LocalDateTime loginTime);
 
     // 修改用户权限
-    void updateRoleID(String userName, Integer roleID);
+    void updateRole(String userName, Integer role);
 
     // 通过ID查找用户
     User searchUserByID(Integer userID);
