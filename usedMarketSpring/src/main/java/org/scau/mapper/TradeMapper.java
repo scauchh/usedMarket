@@ -10,17 +10,15 @@ import java.util.List;
 @Mapper
 public interface TradeMapper {
     // 添加交易
-    @Insert("INSERT INTO trade (buyer_id, seller_id, goods_id, state, notes) " +
-            "VALUES (#{buyerID}, #{sellerID}, #{goodsID}, 1, '')")
-    void addTrade(Integer buyerID, Integer sellerID, Integer goodsID);
+    @Insert("INSERT INTO trade (buyer_id, goods_id, state, notes) VALUES (#{buyerID}, #{goodsID}, 1, '')")
+    void addTrade(Integer buyerID, Integer goodsID);
 
     // 更新交易状态
     void updateTrade(Integer tradeID, Integer state, String notes);
 
     // 查找进行中的重复交易
-    @Select("SELECT COUNT(*) FROM trade WHERE buyer_id = #{buyerID} " +
-            "AND seller_id = #{sellerID} AND goods_id = #{goodsID} AND (state = 1 OR state = 2)")
-    Integer searchTradeByAll(Integer buyerID, Integer sellerID, Integer goodsID);
+    @Select("SELECT COUNT(*) FROM trade WHERE buyer_id = #{buyerID} AND goods_id = #{goodsID} AND (state = 1 OR state = 2)")
+    Integer searchTradeByAll(Integer buyerID, Integer goodsID);
 
     // 获取所有交易的数量
     Integer getAllTradeNum(Integer offset, Integer pageSize, String buyerNickName, String sellerNickName, String goodsName, Integer state);

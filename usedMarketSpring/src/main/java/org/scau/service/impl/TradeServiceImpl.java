@@ -16,8 +16,8 @@ public class TradeServiceImpl implements TradeService {
 
     // 添加交易
     @Override
-    public void addTrade(Integer buyerID, Integer sellerID, Integer goodsID) {
-        tradeMapper.addTrade(buyerID, sellerID, goodsID);
+    public void addTrade(Integer buyerID, Integer goodsID) {
+        tradeMapper.addTrade(buyerID, goodsID);
     }
 
     // 更新交易状态
@@ -28,8 +28,8 @@ public class TradeServiceImpl implements TradeService {
 
     // 查找进行中的重复交易
     @Override
-    public Integer searchTradeByAll(Integer buyerID, Integer sellerID, Integer goodsID) {
-        return tradeMapper.searchTradeByAll(buyerID, sellerID, goodsID);
+    public Integer searchTradeByAll(Integer buyerID, Integer goodsID) {
+        return tradeMapper.searchTradeByAll(buyerID, goodsID);
     }
 
     // 分页获取所有交易

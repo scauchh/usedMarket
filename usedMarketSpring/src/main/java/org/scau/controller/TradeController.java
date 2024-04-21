@@ -4,7 +4,6 @@ import org.scau.model.PageBean;
 import org.scau.model.Result;
 import org.scau.model.vo.TradeView;
 import org.scau.service.TradeService;
-import org.scau.service.UserService;
 import org.scau.utils.ThreadLocalUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +21,6 @@ public class TradeController {
 
     @Autowired
     TradeService tradeService;
-    @Autowired
-    UserService userService;
 
     // 添加交易
     @RequestMapping("/addTrade")
@@ -38,12 +35,12 @@ public class TradeController {
         }
 
         // 检查是否有重复的进行中的交易
-        if(tradeService.searchTradeByAll(buyerID, sellerID, goodsID)!=0) {
+        if(tradeService.searchTradeByAll(buyerID, goodsID)!=0) {
             return Result.error("请勿重复发起交易");
         }
 
         try{
-            tradeService.addTrade(buyerID, sellerID, goodsID);
+            tradeService.addTrade(buyerID, goodsID);
             return Result.success();
         }catch (Exception e){
             logger.error(e.toString());

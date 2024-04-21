@@ -19,7 +19,7 @@
         <where>
                 trade.goods_id = goods.goods_id
                 AND trade.buyer_id = u1.user_id
-                AND trade.seller_id = u2.user_id
+                AND goods.user_id = u2.user_id
             <if test="buyerNickName != null and buyerNickName != ''">
                 AND u1.nick_name LIKE concat('%', #{buyerNickName}, '%')
             </if>
@@ -37,13 +37,13 @@
     </select>
     <select id="getAllTrade" resultType="org.scau.model.vo.TradeView">
         SELECT trade_id, buyer_id, u1.nick_name as buyerNickName, u1.avatar as buyerAvatar,
-               seller_id, u2.nick_name as sellerNickName, u2.avatar as sellerAvatar,
+               u2.user_id as sellerID, u2.nick_name as sellerNickName, u2.avatar as sellerAvatar,
                trade.goods_id, goods_name, picture, state, trade.notes
         FROM trade, goods, user u1, user u2
         <where>
                 trade.goods_id = goods.goods_id
                 AND trade.buyer_id = u1.user_id
-                AND trade.seller_id = u2.user_id
+                AND goods.user_id = u2.user_id
             <if test="buyerNickName != null and buyerNickName != ''">
                 AND u1.nick_name LIKE concat('%', #{buyerNickName}, '%')
             </if>
@@ -65,7 +65,7 @@
         FROM trade, goods, user
         <where>
                 trade.goods_id = goods.goods_id
-                AND trade.seller_id = user.user_id
+                AND goods.user_id = user.user_id
                 AND trade.buyer_id = #{userID}
             <if test="sellerNickName != null and sellerNickName != ''">
                 AND user.nick_name LIKE concat('%', #{sellerNickName}, '%')
@@ -80,12 +80,12 @@
         LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeFromMe" resultType="org.scau.model.vo.TradeView">
-        SELECT trade_id, seller_id, user.nick_name as sellerNickName, user.avatar as sellerAvatar,
+        SELECT trade_id, user.user_id as sellerID, user.nick_name as sellerNickName, user.avatar as sellerAvatar,
                trade.goods_id, goods_name, picture, state, trade.notes
         FROM trade, goods, user
         <where>
                 trade.goods_id = goods.goods_id
-                AND trade.seller_id = user.user_id
+                AND goods.user_id = user.user_id
                 AND trade.buyer_id = #{userID}
             <if test="sellerNickName != null and sellerNickName != ''">
                 AND user.nick_name LIKE concat('%', #{sellerNickName}, '%')
@@ -106,7 +106,7 @@
         <where>
                 trade.goods_id = goods.goods_id
                 AND trade.buyer_id = user.user_id
-                AND trade.seller_id = #{userID}
+                AND goods.user_id = #{userID}
             <if test="buyerNickName != null and buyerNickName != ''">
                 AND user.nick_name LIKE concat('%', #{buyerNickName}, '%')
             </if>
@@ -126,7 +126,7 @@
         <where>
                 trade.goods_id = goods.goods_id
                 AND trade.buyer_id = user.user_id
-                AND trade.seller_id = #{userID}
+                AND goods.user_id = #{userID}
             <if test="buyerNickName != null and buyerNickName != ''">
                 AND user.nick_name LIKE concat('%', #{buyerNickName}, '%')
             </if>
