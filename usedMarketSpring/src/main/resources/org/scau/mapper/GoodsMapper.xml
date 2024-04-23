@@ -6,7 +6,7 @@
     <select id="getAllGoodsNum" resultType="int">
         SELECT COUNT(*) FROM goods
         <where>
-            active = '1'
+                active = '1'
             <if test="goodsName != null and goodsName != ''">
                 AND goods_name LIKE concat('%', #{goodsName}, '%')
             </if>

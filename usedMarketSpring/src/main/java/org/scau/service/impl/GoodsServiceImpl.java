@@ -47,22 +47,10 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapper.getGoodsByID(goodsID);
     }
 
-    // 根据物品标题获得物品
-    @Override
-    public Goods getGoodsByName(String goodsName) {
-        return goodsMapper.getGoodsByName(goodsName);
-    }
-
     // 根据图片查询物品，用于判断图片是否有效
     @Override
-    public Goods getGoodsByImage(String image) {
+    public Integer getGoodsByImage(String image) {
         return goodsMapper.getGoodsByImage(image);
-    }
-
-    // 根据类型查询物品，用于判断类型是否可以删除
-    @Override
-    public Integer getGoodsNumByType(String typeName) {
-        return goodsMapper.getGoodsNumByType(typeName);
     }
 
     // 分页获得所有的物品

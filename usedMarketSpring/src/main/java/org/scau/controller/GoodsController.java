@@ -117,6 +117,7 @@ public class GoodsController {
     public Result getGoodsByID(Integer goodsID) {
         try {
             Goods goods = goodsService.getGoodsByID(goodsID);
+            if(goods==null) return Result.error("物品不存在");
             return Result.success(goods);
         } catch (Exception e) {
             logger.error(e.toString());

@@ -33,7 +33,7 @@ const searchData = ref({
 // 分页条数据模型
 const pageNum = ref(1)
 const total = ref(10)
-const pageSize = ref(10)
+const pageSize = ref(3)
 
 // 刷新数据
 const refresh = async () => {
@@ -235,7 +235,7 @@ const showPreview = (picture) => {
       </el-form>
     </el-dialog>
     <!-- 分页条 -->
-    <el-pagination v-model:current-page="pageNum" v-model:page-size="pageSize" :page-sizes="[5, 10, 15, 20]"
+    <el-pagination v-model:current-page="pageNum" v-model:page-size="pageSize" :page-sizes="[3, 5, 10, 15]"
       layout="jumper, total, sizes, prev, pager, next" background :total="total" @size-change="onSizeChange"
       @current-change="onCurrentChange" style="margin-top: 20px; justify-content: flex-end" />
     <!-- 预览图 -->

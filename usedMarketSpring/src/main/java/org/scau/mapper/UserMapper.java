@@ -21,7 +21,7 @@ public interface UserMapper {
     // 更新用户信息
     void updateUser(User u);
 
-    // 更新用户密码
+    // 根据用户ID更新用户密码
     @Update("UPDATE user SET password = #{password} WHERE user_id = #{userID}")
     void updatePassword(Integer userID, String password);
 
@@ -33,17 +33,13 @@ public interface UserMapper {
     @Update("UPDATE user SET role = #{role} WHERE user_name = #{userName}")
     void updateRole(String userName, Integer role);
 
-    // 根据ID查找用户
+    // 根据用户ID获取用户信息
     @Select("SELECT * FROM user WHERE user_id = #{userID}")
     User selectUserByID(Integer userID);
 
-    // 根据用户名查找用户
+    // 根据用户名获取用户信息
     @Select("SELECT * FROM user WHERE user_name = #{userName}")
     User selectUserByName(String userName);
-
-    // 获取当前用户信息
-    @Select("SELECT * FROM user WHERE user_id = #{userID}")
-    User getCurrentUser(Integer userID);
 
     // 获取用户总数量(除了当前用户)
     Integer getUserNum(Integer userID, String userName, String userRole);
@@ -51,7 +47,7 @@ public interface UserMapper {
     // 分页获取所有用户信息（除了当前用户）
     List<User> getAllUserInfo(Integer offset, Integer pageSize, Integer userID, String userName, String userRole);
 
-    // 根据图片查询用户，用于判断图片是否有效
-    @Select("SELECT * FROM user WHERE avatar = #{image}")
-    User getUserByImage(String image);
+    // 根据图片路径查询用户（用于判断图片是否有效）
+    @Select("SELECT COUNT(*) FROM user WHERE avatar = #{image}")
+    Integer getUserByImage(String image);
 }

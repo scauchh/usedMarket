@@ -89,9 +89,9 @@ public class ImageUtil {
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
-                User u = userService.getUserByImage(url + file.getName());
-                Goods b = goodsService.getGoodsByImage(url + file.getName());
-                if (u == null && b == null && !file.delete()) {
+                Integer userNum = userService.getUserByImage(url + file.getName());
+                Integer goodsNum = goodsService.getGoodsByImage(url + file.getName());
+                if (Objects.equals(userNum,0) && Objects.equals(goodsNum,0) && !file.delete()) {
                     logger.error("文件删除失败: " + file.getAbsolutePath());
                 }
             }

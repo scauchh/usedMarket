@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         userMapper.updateRole(userName, role);
     }
 
-    // 根据ID查找用户
+    // 根据用户ID查找用户
     @Override
     public User searchUserByID(Integer userID) {
         return userMapper.selectUserByID(userID);
@@ -62,12 +62,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User searchUserByName(String userName) {
         return userMapper.selectUserByName(userName);
-    }
-
-    // 获取当前用户信息
-    @Override
-    public User getCurrentUser(Integer userID) {
-        return userMapper.getCurrentUser(userID);
     }
 
     // 获取所有用户信息
@@ -87,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     // 根据图片查询用户，用于判断图片是否有效
     @Override
-    public User getUserByImage(String image) {
+    public Integer getUserByImage(String image) {
         return userMapper.getUserByImage(image);
     }
 }

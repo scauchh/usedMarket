@@ -33,7 +33,6 @@
                 AND state = #{state}
             </if>
         </where>
-        LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getAllTrade" resultType="org.scau.model.vo.TradeView">
         SELECT trade_id, buyer_id, u1.nick_name as buyerNickName, u1.avatar as buyerAvatar,
@@ -77,7 +76,6 @@
                 AND state = #{state}
             </if>
         </where>
-        LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeFromMe" resultType="org.scau.model.vo.TradeView">
         SELECT trade_id, user.user_id as sellerID, user.nick_name as sellerNickName, user.avatar as sellerAvatar,
@@ -117,7 +115,6 @@
                 AND state = #{state}
             </if>
         </where>
-        LIMIT #{offset}, #{pageSize}
     </select>
     <select id="getTradeToMe" resultType="org.scau.model.vo.TradeView">
         SELECT trade_id, buyer_id, user.nick_name as buyerNickName, user.avatar as buyerAvatar,

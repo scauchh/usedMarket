@@ -31,12 +31,9 @@ public interface UserService {
     // 通过用户名查找用户
     User searchUserByName(String userName);
 
-    // 获取当前用户信息
-    User getCurrentUser(Integer userID);
-
     // 获取所有用户信息
     PageBean<User> getAllUserInfo(Integer pageNum, Integer pageSize, Integer userID, String userName, String userRole);
 
     // 根据图片查询用户，用于判断图片是否有效
-    User getUserByImage(String image);
+    Integer getUserByImage(String image);
 }

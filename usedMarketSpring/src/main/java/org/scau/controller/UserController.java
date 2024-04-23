@@ -131,7 +131,7 @@ public class UserController {
     public Result resetPasswordByManage(String userName) {
         try {
             User user = userService.searchUserByName(userName);
-            if (user == null) return Result.error("该用户不存在");
+            if (Objects.equals(user,null)) return Result.error("该用户不存在");
             // MD5加密
             String s = "123456";
             String passWard = DigestUtils.md5DigestAsHex(s.getBytes());
@@ -178,7 +178,7 @@ public class UserController {
     public Result getUserInfo() {
         try {
             Map<String, Object> map = ThreadLocalUtil.get();
-            User u = userService.getCurrentUser(Integer.parseInt(map.get("id").toString()));
+            User u = userService.searchUserByID(Integer.parseInt(map.get("id").toString()));
             return Result.success(u);
         } catch (Exception e) {
             logger.error(e.toString());
@@ -273,6 +273,9 @@ public class UserController {
     @RequestMapping("/updateUserRole")
     public Result updateUserRole(String userName, String userRole) {
         try {
+            User user = userService.searchUserByName(userName);
+            if(Objects.equals(user, null)) return Result.error("用户不存在");
+
             userService.updateRole(userName, Objects.equals(userRole, "管理员") ? 1 : 0);
             return Result.success();
         } catch (Exception e) {

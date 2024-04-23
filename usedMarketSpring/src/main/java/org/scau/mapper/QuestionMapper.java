@@ -11,7 +11,7 @@ public interface QuestionMapper {
     @Insert("INSERT INTO question VALUES (#{questionID}, #{item})")
     void addQuestion(Integer questionID, String item);
 
-    // 删除密保问题
+    // 根据密保问题编号删除密保问题
     @Delete("DELETE FROM question WHERE question_id = #{questionID}")
     void deleteQuestion(Integer questionID);
 
@@ -19,11 +19,11 @@ public interface QuestionMapper {
     @Update("UPDATE question SET question_id = #{questionID}, item = #{item} WHERE question_id = #{oldQuestionID}")
     void updateQuestion(Integer oldQuestionID, Integer questionID, String item);
 
-    // 根据ID获取密保问题
+    // 根据密保问题编号获取密保问题
     @Select("SELECT * FROM question WHERE question_id = #{questionID}")
     Question getQuestionByID(Integer questionID);
 
-    // 根据内容获取密保问题
+    // 根据密保问题内容获取密保问题
     @Select("SELECT * FROM question WHERE item = #{item}")
     Question getQuestionByItem(String item);
 
