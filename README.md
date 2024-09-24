@@ -1,4 +1,4 @@
-## How to Run Vue
+## How to Run UsedMarketVue
 ```
 npm i
 npm run dev
