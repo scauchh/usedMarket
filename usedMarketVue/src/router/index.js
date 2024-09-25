@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import LoginVue from '@/views/Login.vue'
-import LayoutVue from '@/views/Layout.vue'
+// import LoginVue from '@/views/Login.vue'
+// import LayoutVue from '@/views/Layout.vue'
 // import UsedMarket from '@/views/usedMarket/UsedMarket.vue'
 // import MyUsed from '@/views/myUsed/MyUsed.vue'
 // import UserInfoVue from '@/views/user/UserInfo.vue'
@@ -17,11 +17,11 @@ import LayoutVue from '@/views/Layout.vue'
 const routes = [
     {
         path: '/login',
-        component: LoginVue
+        component: ()=>import('@/views/Login.vue')
     },
     {
         // 修改为懒加载
-        path: '/', component: LayoutVue, redirect: '/usedMarket', children: [
+        path: '/', component: ()=>import('@/views/Layout.vue'), redirect: '/usedMarket', children: [
             { path: '/usedMarket', component: () => import('@/views/usedMarket/UsedMarket.vue') },
             { path: '/myUsed', component: () => import('@/views/myUsed/MyUsed.vue') },
             { path: '/user/info', component: () =>import('@/views/user/UserInfo.vue') },
