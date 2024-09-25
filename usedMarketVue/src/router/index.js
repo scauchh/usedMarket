@@ -20,6 +20,7 @@ const routes = [
         component: LoginVue
     },
     {
+        // 修改为懒加载
         path: '/', component: LayoutVue, redirect: '/usedMarket', children: [
             { path: '/usedMarket', component: () => import('@/views/usedMarket/UsedMarket.vue') },
             { path: '/myUsed', component: () => import('@/views/myUsed/MyUsed.vue') },
