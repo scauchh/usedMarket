@@ -52,28 +52,28 @@ onMounted(() => {
 // 清除图片缓存
 const removeImg = () => {
   ElMessageBox.confirm("您确定要清除图片缓存吗?<br>( 注:该操作将会删除所有未被使用的图片 )", "温馨提示", {
-      confirmButtonClass: "确定",
-      cancelButtonClass: "取消",
-      type: "warning",
-      dangerouslyUseHTMLString: true
-    }).then(async () => {
-      await removeImgService()
-      ElMessage.success("清除缓存成功")
-    })
+    confirmButtonClass: "确定",
+    cancelButtonClass: "取消",
+    type: "warning",
+    dangerouslyUseHTMLString: true
+  }).then(async () => {
+    await removeImgService()
+    ElMessage.success("清除缓存成功")
+  })
 }
 
 // 退出登录
 const logout = () => {
   ElMessageBox.confirm("您确定要退出登录吗?", "温馨提示", {
-      confirmButtonClass: "确定",
-      cancelButtonClass: "取消",
-      type: "warning"
-    }).then(() => {
-      userInfoStore.removeInfo()
-      tokenStore.removeToken()
-      router.push('/login')
-      ElMessage.success("退出登录成功")
-    })
+    confirmButtonClass: "确定",
+    cancelButtonClass: "取消",
+    type: "warning"
+  }).then(() => {
+    userInfoStore.removeInfo()
+    tokenStore.removeToken()
+    router.push('/login')
+    ElMessage.success("退出登录成功")
+  })
 }
 
 // 打开预览图
@@ -197,8 +197,8 @@ const showPreview = (picture) => {
   </el-container>
   <!-- 预览图 -->
   <el-dialog v-model="visibleDialog" draggable width="35%">
-      <img :src="prePicture" style="width: 100%; height: auto;" />
-    </el-dialog>
+    <img :src="prePicture" style="width: 100%; height: auto;" />
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>
